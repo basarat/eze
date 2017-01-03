@@ -9,7 +9,7 @@ export class Eze {
   }
 
   /**
-   * We collect the content here
+   * We collect the rendered contents here
    */
   private contents = [];
 
