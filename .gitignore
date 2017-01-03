@@ -1,0 +1,13 @@
+.alm
+.vscode
+.idea
+
+# Content generated on build
+lib/**/*.js
+lib/**/*.d.ts
+
+# Logs
+npm-debug.log*
+
+# Dependency directories
+node_modules

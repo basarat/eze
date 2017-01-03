@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "declaration": true,
+    "moduleResolution": "node",
+    "outDir": "./lib",
+    "experimentalDecorators": true,
+    "lib": [
+      "es6"
+    ]
+  },
+  "include": [
+    "src/**/*"
+  ]
+}

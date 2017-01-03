@@ -4,8 +4,12 @@
   "description": "Ez demos / docs for Component / Styleguide authors",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc -p .",
+    "start": "concurrently -k \"npm run build -- -w\""
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "2.2.0-dev.20161130"
+  }
 }
