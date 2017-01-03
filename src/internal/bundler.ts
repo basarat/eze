@@ -10,7 +10,6 @@ export function bundle(args: {
   entryPointName: string,
   outputFileName: string,
 }) {
-  console.log('Bundling request:', args);
   return new Promise((res,rej) => {
     const config = {
       devtool: 'source-map',
@@ -61,7 +60,6 @@ export function bundle(args: {
         rej(err);
         return;
       }
-      console.log('Bundling done:', args, err);
       res();
     });
   });
