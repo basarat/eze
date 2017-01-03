@@ -7,9 +7,9 @@ run({
 
   /** Write some markdown */
   await eze.md(`
-# Demo
-This is the demo for eze
-`);
+  # Demo
+  This is the demo for eze
+  `);
 
 });
 

@@ -24,7 +24,7 @@ export class Eze {
 
   async md(markdown: string) {
     /** render the markdown */
-    this.data.contents.push({ type: 'html', html: toHtml(markdown) });
+    this.data.contents.push({ type: 'html', html: toHtml(dedent(markdown)) });
     /** TODO: Collect headings in table of contents */
   }
 

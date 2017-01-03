@@ -25,9 +25,9 @@ ReactDOM.render(<div>
     csstips.horizontallyCenterSelf,
     csstips.maxWidth(900))
   }>
-    {data.contents.map(c => {
+    {data.contents.map((c,i) => {
       if (c.type === 'html') {
-        return <div dangerouslySetInnerHTML={{__html: c.html}}/>
+        return <div key={i} dangerouslySetInnerHTML={{__html: c.html}}/>
       }
     })}
   </div>
