@@ -59,12 +59,12 @@
 	csstips.normalize();
 	csstips.setupPage('#root');
 	ReactDOM.render(React.createElement("div", null,
-	    React.createElement("div", { className: typestyle.style(csstips.horizontallyCenterSelf, csstips.maxWidth(900)) }, data.contents.map(function (c, i) {
+	    React.createElement("div", { className: typestyle.style(csstips.horizontallyCenterSelf, csstips.maxWidth(900), csstips.padding(20, 10), csstips.verticallySpaced(10)) }, data.contents.map(function (c, i) {
 	        if (c.type === 'html') {
 	            return React.createElement("div", { key: i, dangerouslySetInnerHTML: { __html: c.html } });
 	        }
 	        if (c.type === 'app') {
-	            return React.createElement("iframe", { src: "./" + c.htmlFileName });
+	            return React.createElement("iframe", { key: i, src: "./" + c.htmlFileName });
 	        }
 	    }))), document.getElementById('root'));
 
@@ -22844,8 +22844,8 @@
 	 */
 	var MarkDownStyles;
 	(function (MarkDownStyles) {
-	    MarkDownStyles.rootClass = 'typestyle-markdown';
-	    typestyle_1.cssRaw("\n." + MarkDownStyles.rootClass + " {\n  color: " + styles_1.colors.text + "\n}\n\n." + MarkDownStyles.rootClass + " p {\n  margin: 0px;\n  line-height: 24px;\n}\n\n." + MarkDownStyles.rootClass + " h2 {\n  margin: 0px;\n}\n." + MarkDownStyles.rootClass + " h3 {\n  margin: 0px;\n}\n\n/** List styling */\n." + MarkDownStyles.rootClass + " ul {\n    margin: 0px;\n    margin-bottom: 20px !important;\n    line-height: " + styles_1.spacing.lineHeight + ";\n    padding-left: 27px;\n}\n." + MarkDownStyles.rootClass + " ul>* {\n  margin-bottom: 5px !important;\n}\n." + MarkDownStyles.rootClass + " ul>*:last-child {\n  margin-bottom: 0px !important;\n}\n." + MarkDownStyles.rootClass + " li>* {\n  margin-top: 5px !important;\n  margin-bottom: 5px !important;\n}\n." + MarkDownStyles.rootClass + " li>*:last-child {\n  margin-bottom: 0px !important;\n}\n\n." + MarkDownStyles.rootClass + " ol {\n    margin: 0px;\n    margin-bottom: 20px !important;\n    line-height: " + styles_1.spacing.lineHeight + ";\n    padding-left: 27px;\n}\n." + MarkDownStyles.rootClass + " ol>* {\n  margin-bottom: 5px !important;\n}\n." + MarkDownStyles.rootClass + " ol>*:last-child {\n  margin-bottom: 0px !important;\n}\n\n." + MarkDownStyles.rootClass + " a {\n  color: grey;\n}\n\n." + MarkDownStyles.rootClass + " a:hover {\n  color: black;\n}\n\n/** Inline code */\n." + MarkDownStyles.rootClass + " code {\n  padding-left: 5px;\n  padding-right: 5px;\n  background: #eee;\n  font-family: consolas, menlo, monospace; \n}\n\n/** Block code */\n." + MarkDownStyles.rootClass + " pre>code {\n  display: block;\n  padding: 10px;\n  background: #f4f4f4;\n  overflow: auto;\n  font-family: consolas, menlo, monospace; \n  border-left: 2px solid #ddd;\n  line-height: 24px;\n}\n\n/** Blockquote */\n." + MarkDownStyles.rootClass + " blockquote {\n  margin: 0;\n  padding: 5px 20px;\n  color: #6b6b6b;\n  background-color: #f6f6f6;\n  border-top: 1px solid #e5e5e5;\n  border-bottom: 1px solid #e5e5e5;\n  border-right: 1px solid #e5e5e5;\n  border-left: 4px solid #e5e5e5;\n}\n\n/** Images */\n." + MarkDownStyles.rootClass + " img {\n  /** Ensures a nice display on mobile devices */\n  max-width: 100%;\n}\n  ");
+	    MarkDownStyles.rootClass = 'eze-markdown';
+	    typestyle_1.cssRaw("\n." + MarkDownStyles.rootClass + " {\n  color: " + styles_1.colors.text + "\n}\n\n." + MarkDownStyles.rootClass + ">* {\n  margin-bottom: 10px !important;\n}\n." + MarkDownStyles.rootClass + ">*:last-child {\n  margin-bottom: 0px !important;\n}\n\n." + MarkDownStyles.rootClass + " p {\n  margin: 0px;\n  line-height: 24px;\n}\n." + MarkDownStyles.rootClass + " h1 {\n  margin: 0px;\n}\n." + MarkDownStyles.rootClass + " h2 {\n  margin: 0px;\n}\n." + MarkDownStyles.rootClass + " h3 {\n  margin: 0px;\n}\n\n/** List styling */\n." + MarkDownStyles.rootClass + " ul {\n    margin: 0px;\n    margin-bottom: 20px !important;\n    line-height: " + styles_1.spacing.lineHeight + ";\n    padding-left: 27px;\n}\n." + MarkDownStyles.rootClass + " ul>* {\n  margin-bottom: 5px !important;\n}\n." + MarkDownStyles.rootClass + " ul>*:last-child {\n  margin-bottom: 0px !important;\n}\n." + MarkDownStyles.rootClass + " li>* {\n  margin-top: 5px !important;\n  margin-bottom: 5px !important;\n}\n." + MarkDownStyles.rootClass + " li>*:last-child {\n  margin-bottom: 0px !important;\n}\n\n." + MarkDownStyles.rootClass + " ol {\n    margin: 0px;\n    margin-bottom: 20px !important;\n    line-height: " + styles_1.spacing.lineHeight + ";\n    padding-left: 27px;\n}\n." + MarkDownStyles.rootClass + " ol>* {\n  margin-bottom: 5px !important;\n}\n." + MarkDownStyles.rootClass + " ol>*:last-child {\n  margin-bottom: 0px !important;\n}\n\n." + MarkDownStyles.rootClass + " a {\n  color: grey;\n}\n\n." + MarkDownStyles.rootClass + " a:hover {\n  color: black;\n}\n\n/** Inline code */\n." + MarkDownStyles.rootClass + " code {\n  padding-left: 5px;\n  padding-right: 5px;\n  background: #eee;\n  font-family: consolas, menlo, monospace; \n}\n\n/** Block code */\n." + MarkDownStyles.rootClass + " pre>code {\n  display: block;\n  padding: 10px;\n  background: #f4f4f4;\n  overflow: auto;\n  font-family: consolas, menlo, monospace; \n  border-left: 2px solid #ddd;\n  line-height: 24px;\n}\n\n/** Blockquote */\n." + MarkDownStyles.rootClass + " blockquote {\n  margin: 0;\n  padding: 5px 20px;\n  color: #6b6b6b;\n  background-color: #f6f6f6;\n  border-top: 1px solid #e5e5e5;\n  border-bottom: 1px solid #e5e5e5;\n  border-right: 1px solid #e5e5e5;\n  border-left: 4px solid #e5e5e5;\n}\n\n/** Images */\n." + MarkDownStyles.rootClass + " img {\n  /** Ensures a nice display on mobile devices */\n  max-width: 100%;\n}\n  ");
 	})(MarkDownStyles || (MarkDownStyles = {}));
 	/** Converts an html string to markdown */
 	function toHtml(markdown) {
@@ -22869,7 +22869,7 @@
 	        var output = out += ">" + text + "</a>";
 	        return output;
 	    };
-	    return (marked(markdown, {
+	    return ("<div class=" + MarkDownStyles.rootClass + ">" + marked(markdown, {
 	        gfm: true,
 	        renderer: renderer,
 	        highlight: function (code, lang) {
@@ -22890,7 +22890,7 @@
 	            return code;
 	        }
 	    })
-	        .trim());
+	        .trim()) + '</div>';
 	}
 	exports.toHtml = toHtml;
 	/**
