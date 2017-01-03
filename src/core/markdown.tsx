@@ -4,33 +4,13 @@ import { style, cssRaw, classes } from 'typestyle';
 import * as csstips from 'csstips';
 import { colors, spacing, fontSizes } from './styles';
 import * as escape from 'escape-html';
+import * as hljs from 'highlight.js';
 
-/** 
- * Using codemirror for syntax highlighting
- **/
-import * as CodeMirror from 'codemirror';
-cssRaw(require('codemirror/lib/codemirror.css'));
-cssRaw(require('codemirror/theme/monokai.css'));
-require('codemirror/addon/runmode/runmode');
-/** JSX */
-require('codemirror/mode/jsx/jsx');
-require('codemirror/mode/javascript/javascript');
-require('codemirror/mode/xml/xml');
-/** CSS */
-require('codemirror/mode/css/css');
-/** HTML */
-require('codemirror/mode/htmlmixed/htmlmixed');
 /** Our function */
 function highlightCodeWithMode(args: { code: string, mode: string }) {
   // console.log({ code }); // DEBUG
-  const collection = [];
-  (CodeMirror as any).runMode(args.code, args.mode,
-    (text, category) => {
-      text = escape(text);
-      collection.push(category ? `<span class="cm-${category}">${text}</span>` : text)
-    }
-  );
-  return `<div class="cm-s-default" style="display: inline-block">${collection.join('')}</div>`
+  const res = hljs.highlight(args.mode, args.code);
+  return `<div style="display: inline-block">${res.value}</div>`
 }
 
 namespace PlayButtonStyles {
