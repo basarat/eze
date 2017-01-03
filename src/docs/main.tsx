@@ -11,5 +11,7 @@ run({
   This is the demo for eze
   `);
 
+  /** Show some complete application demos */
+  await eze.app(__dirname + '/app-1.tsx');
 });
 
