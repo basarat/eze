@@ -1,4 +1,5 @@
 import * as fse from 'fs-extra';
+import { toHtml } from './core/markdown';
 
 export class Eze {
 
@@ -14,8 +15,9 @@ export class Eze {
   private contents = [];
 
   md(markdown: string) {
-    /** TODO: render the markdown */
-    this.contents.push(markdown);
+    /** render the markdown */
+    this.contents.push(toHtml(markdown));
+    /** TODO: Collect heading in table of contents */
   }
 
   /** Writes out the contents  */
