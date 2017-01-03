@@ -1,56 +1,29 @@
 import * as fse from 'fs-extra';
-import { toHtml, dedent } from './internal/markdown';
-import { Data } from './types';
+import { Data, Config } from './types';
 import { bundle } from './internal/bundler';
+import { Collector } from './internal/collector';
 
-export interface EzeConfig {
-  outputDir: string,
-  title?: string
-}
-
-export class Eze {
-
-  constructor(private config: EzeConfig) {
-    this.config = { ...config };
-    this.config.title = config.title || 'Docs'
-  }
+export async function run(config: Config, cb: (eze: Collector) => Promise<void>) {
+  const eze = new Collector(config);
+  await cb(eze);
 
   /**
-   * We collect the rendered contents here
-   */
-  private data: Data = {
-    contents: []
-  }
+    * DESIGN Notes:
+    * We write out an 
+    * - a data.js that contains our data object
+    * - index.html file 
+    * - an application `app.js` that loads uses data.js to render the application
+    */
 
-  async md(markdown: string) {
-    /** render the markdown */
-    this.data.contents.push({ type: 'html', html: toHtml(dedent(markdown)) });
-    /** TODO: Collect headings in table of contents */
-  }
+  /** Write out the data */
+  const data = JSON.stringify(this.data);
+  fse.outputFileSync(this.config.outputDir + '/data.js', `var data = ${data}`);
 
-  /** Writes out the contents  */
-  async done() {
-    /**
-     * DESIGN Notes:
-     * We write out an 
-     * - a data.js that contains our data object
-     * - index.html file 
-     * - an application `app.js` that loads uses data.js to render the application
-     */
-
-    /** Write out the data */
-    const data = JSON.stringify(this.data);
-    fse.outputFileSync(this.config.outputDir + '/data.js', `var data = ${data}`);
-
-    /** Write the html + js */
-    fse.outputFileSync(this.config.outputDir + '/index.html', fse.readFileSync(__dirname + '/app/index.html'));
-    await bundle({ entryPointName: __dirname + '/app/app.tsx', outputFileName: this.config.outputDir + '/app.js' });
-  }
-}
-
-export async function run(config: EzeConfig, cb: (eze: Eze) => Promise<void>) {
-  const eze = new Eze(config);
-  await cb(eze);
-  eze.done();
+  /** Write the html + js */
+  fse.outputFileSync(
+    this.config.outputDir + '/index.html',
+    fse.readFileSync(__dirname + '/app/index.html').toString().replace('TitleHere', config.title || "Docs")
+  );
+  await bundle({ entryPointName: __dirname + '/app/app.tsx', outputFileName: this.config.outputDir + '/app.js' });
 }
 
