@@ -169,13 +169,13 @@ namespace MarkDownStyles {
 
 
 
-interface Props { markdown: string }
+export interface MarkdownProps { markdown: string }
 
 /**
  * Renders markdown
  */
-export class MarkDown extends React.Component<Props, {}> {
-  constructor(props: Props) {
+export class MarkDown extends React.Component<MarkdownProps, {}> {
+  constructor(props: MarkdownProps) {
     super(props);
   }
 
