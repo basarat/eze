@@ -9,7 +9,7 @@ ghpages.publish(path.resolve(__dirname + '/../docs'), {
 
   /** Branch */
   branch: 'gh-pages',
-  repo: 'https://' + process.env.GH_TOKEN + '@github.com/basarat/eze.github.io.git',
+  repo: 'https://' + process.env.GH_TOKEN + '@github.com/basarat/eze.git',
 
   /** User */
   user: {
