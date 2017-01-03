@@ -147,27 +147,6 @@ namespace MarkDownStyles {
   `);
 }
 
-
-
-export interface MarkdownProps { markdown: string }
-
-/**
- * Renders markdown
- */
-export class MarkDown extends React.Component<MarkdownProps, {}> {
-  constructor(props: MarkdownProps) {
-    super(props);
-  }
-
-  render() {
-    const rendered = toHtml(this.props.markdown);
-
-    return (
-      <div className={classes(MarkDownStyles.rootClass, style(csstips.verticallySpaced(10)))} dangerouslySetInnerHTML={{ __html: rendered }} />
-    );
-  }
-}
-
 /** Converts an html string to markdown */
 export function toHtml(markdown: string) {
   /** Custom rendering */

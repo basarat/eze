@@ -2,15 +2,25 @@ import * as fse from 'fs-extra';
 import { toHtml } from './core/markdown';
 import * as typestyle from 'typestyle';
 import * as csstips from 'csstips';
+import * as ReactDOMServer from 'react-dom/server';
+import * as React from 'react';
 
 /** Normalize and page setup */
 csstips.normalize();
 csstips.setupPage('#root');
 
 /**
+ * DESIGN Notes:
+ * We write out an 
+ * - index.html file 
+ * - a data.js that contains our data object
+ * - an application `app.js` that loads uses data.js to render the application
+ */
+
+/**
  * Our main index.html
  */
-const indexTemplate = ({title, body, css }: {title: string, body: string, css: string }) => `
+const indexTemplate = ({ title, body, css }: { title: string, body: string, css: string }) => `
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +31,7 @@ const indexTemplate = ({title, body, css }: {title: string, body: string, css: s
     <!-- Site Properties -->
     <title>${title}</title>
 
+    <script src="./data.js"></script>
     <style>
       ${css}
     </style>
@@ -37,6 +48,10 @@ const indexTemplate = ({title, body, css }: {title: string, body: string, css: s
 </html>
 `;
 
+interface Data { 
+  contents: string[];
+}
+
 export class Eze {
 
   constructor(private config: {
@@ -50,23 +65,27 @@ export class Eze {
   /**
    * We collect the rendered contents here
    */
-  private contents = [];
+  private data: Data = {
+    contents: []
+  }
 
   md(markdown: string) {
     /** render the markdown */
-    this.contents.push(toHtml(markdown));
+    this.data.contents.push(toHtml(markdown));
     /** TODO: Collect heading in table of contents */
   }
 
   /** Writes out the contents  */
   done() {
-    const contents = this.contents.join('\n');
+    /** Write out the data */
+    const data = JSON.stringify(this.data);
+    fse.outputFileSync(this.config.outputDir + '/data.js', `var data = ${data}`);
 
     /** TODO: write the html + js */
 
     fse.outputFileSync(this.config.outputDir + '/index.html', indexTemplate({
       title: this.config.title,
-      body: contents,
+      body: '',
       css: typestyle.getStyles()
     }));
   }
