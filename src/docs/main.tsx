@@ -12,8 +12,6 @@ render({
   `);
 
   /** Show some complete application demos */
-  console.log(('here 1'))  
   await eze.app({ entryPointPath: __dirname + '/app-1.tsx' });
-  console.log('here 2');
 })
 

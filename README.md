@@ -17,19 +17,22 @@ Install
 Create a ts (tsx) file (e.g. `./src/docs/main.ts`)
 
 ```ts
-import {Eze} from "eze";
+import { render } from "../index";
 
-/** Create an eze instance */
-const eze = new Eze();
+/** Render documentation */
+render({
+  outputDir: __dirname + '/../../docs'
+}, async eze => {
 
-/** Write some markdown */
-eze.md(`
-# Demo
-This is the demo for eze
-`);
+  /** Write some markdown */
+  await eze.md(`
+  # Demo
+  This is the demo for eze
+  `);
 
-/** Render it out */
-eze.done('../docs');
+  /** Show some complete application demos */
+  await eze.app({ entryPointPath: __dirname + '/app-1.tsx' });
+});
 ```
 
 Run it!: 
