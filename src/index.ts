@@ -20,6 +20,7 @@ export class Eze {
   /** Writes out the contents  */
   done() {
     const contents = this.contents.join('\n');
-    fse.outputFileSync(this.config.outputDir, contents);
+    /** TODO: write the html + js */
+    fse.outputFileSync(this.config.outputDir + '/index.html', contents);
   }
 }
