@@ -47,18 +47,27 @@ namespace PlayButtonStyles {
  * CSS customizations
  */
 namespace MarkDownStyles {
-  export const rootClass = 'typestyle-markdown';
+  export const rootClass = 'eze-markdown';
 
   cssRaw(`
 .${rootClass} {
   color: ${colors.text}
 }
 
+.${rootClass}>* {
+  margin-bottom: 10px !important;
+}
+.${rootClass}>*:last-child {
+  margin-bottom: 0px !important;
+}
+
 .${rootClass} p {
   margin: 0px;
   line-height: 24px;
 }
-
+.${rootClass} h1 {
+  margin: 0px;
+}
 .${rootClass} h2 {
   margin: 0px;
 }
@@ -172,7 +181,7 @@ export function toHtml(markdown: string): string {
   };
 
   return (
-    marked(markdown, {
+    `<div class=${MarkDownStyles.rootClass}>` + marked(markdown, {
       gfm: true,
       renderer: renderer,
       highlight: (code, lang) => {
@@ -195,7 +204,7 @@ export function toHtml(markdown: string): string {
     })
       // don't want a trailing newline
       .trim()
-  );
+  ) + '</div>';
 }
 
 /**

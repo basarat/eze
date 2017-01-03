@@ -23,14 +23,17 @@ ReactDOM.render(<div>
   {/** Docs */}
   <div className={typestyle.style(
     csstips.horizontallyCenterSelf,
-    csstips.maxWidth(900))
+    csstips.maxWidth(900),
+    csstips.padding(20, 10),
+    csstips.verticallySpaced(10)
+  )
   }>
     {data.contents.map((c,i) => {
       if (c.type === 'html') {
         return <div key={i} dangerouslySetInnerHTML={{__html: c.html}}/>
       }
       if (c.type === 'app') {
-        return <iframe src={`./${c.htmlFileName}`}/>
+        return <iframe key={i} src={`./${c.htmlFileName}`}/>
       }
     })}
   </div>
