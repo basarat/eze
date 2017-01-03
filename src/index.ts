@@ -3,7 +3,7 @@ import { Data, Config } from './types';
 import { bundle } from './internal/bundler';
 import { Collector } from './internal/collector';
 
-export async function run(config: Config, cb: (eze: Collector) => Promise<void>) {
+export async function render(config: Config, cb: (eze: Collector) => Promise<void>) {
   const eze = new Collector(config);
   await cb(eze);
 
