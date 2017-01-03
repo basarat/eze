@@ -1,1 +1,1 @@
-var data = {"contents":[{"type":"html","html":"<h1 id=\"demo\">Demo</h1>\n<p>This is the demo for eze</p>"},{"type":"app","htmlFileName":"app-1.html"},{"type":"app","htmlFileName":"app-2.html"},{"type":"app","htmlFileName":"app-3.html"}]}
+var data = {"contents":[{"type":"html","html":"<h1 id=\"demo\">Demo</h1>\n<p>This is the demo for eze</p>"},{"type":"app","htmlFileName":"app-1.html"}]}
