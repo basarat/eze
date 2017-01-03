@@ -45,7 +45,7 @@ export class Collector {
     /** TODO: Collect headings in table of contents */
   }
 
-  async app(entryPointPath: string) {
+  async app({ entryPointPath }: { entryPointPath: string}) {
     this.entryPointIndex++;
 
     const index = this.entryPointIndex;

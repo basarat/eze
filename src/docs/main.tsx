@@ -12,6 +12,6 @@ run({
   `);
 
   /** Show some complete application demos */
-  await eze.app(__dirname + '/app-1.tsx');
+  await eze.app({ entryPointPath: __dirname + '/app-1.tsx' });
 });
 
