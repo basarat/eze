@@ -13,5 +13,7 @@ run({
 
   /** Show some complete application demos */
   await eze.app({ entryPointPath: __dirname + '/app-1.tsx' });
+}).then(() => {
+  console.log('here')
 });
 
