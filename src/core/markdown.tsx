@@ -51,7 +51,7 @@ namespace MarkDownStyles {
 
   cssRaw(`
 .${rootClass} {
-    color: ${colors.text}
+  color: ${colors.text}
 }
 
 .${rootClass} p {
