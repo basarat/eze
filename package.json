@@ -5,11 +5,16 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc -p .",
-    "start": "concurrently -k \"npm run build -- -w\""
+    "start": "concurrently -k \"npm run build -- -w\"",
+    "publishdocs": "ts-node ./scripts/publishdocs.ts"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "ts-node": "^1.5.2",
     "typescript": "2.2.0-dev.20161130"
+  },
+  "devDependencies": {
+    "gh-pages": "^0.11.0"
   }
 }

@@ -34,15 +34,15 @@ Run `eze`:
 ```json
 {
   "scripts": {
-    "docs": "eze ./eze/demo.ts --out ./docs"  
+    "docs": "eze ./docs/ --out ./public"  
   }
 }
 ```
-This builds the demos out to the `./docs` folder. HTML + JavaScript 🌹.
+This builds the demos out to the `./public` folder. HTML + JavaScript 🌹.
 
 # Demo
 
-[Jump to the demo for eze built with eze 🌹](https://basarat.com/eze)
+[Jump to the demo for eze built with eze 📝](https://basarat.com/eze)
 
 
 [travis-image]:https://travis-ci.org/basarat/eze.svg?branch=master
