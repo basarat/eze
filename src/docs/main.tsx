@@ -1,15 +1,15 @@
-import { Eze } from "../index";
+import { run } from "../index";
 
-/** Create an eze instance */
-const eze = new Eze({
+/** Run to create a document */
+run({
   outputDir: __dirname + '/../../docs'
-});
+}, async eze => {
 
-/** Write some markdown */
-eze.md(`
+  /** Write some markdown */
+  await eze.md(`
 # Demo
 This is the demo for eze
 `);
 
-/** Render it out */
-eze.done();
+});
+
