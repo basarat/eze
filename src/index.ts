@@ -1,10 +1,11 @@
 import * as fse from 'fs-extra';
+
 export class Eze {
 
   constructor(private config: {
     outputDir: string
   }) {
-    
+
   }
 
   /**

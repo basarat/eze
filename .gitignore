@@ -5,7 +5,7 @@
 # Content generated on build
 lib/**/*.js
 lib/**/*.d.ts
-public
+docs
 
 # Logs
 npm-debug.log*

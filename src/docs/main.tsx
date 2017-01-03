@@ -2,7 +2,7 @@ import { Eze } from "../index";
 
 /** Create an eze instance */
 const eze = new Eze({
-  outputDir: '../docs'
+  outputDir: __dirname + '/../../docs'
 });
 
 /** Write some markdown */
