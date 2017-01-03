@@ -11,7 +11,7 @@ export function bundle(args: {
   outputFileName: string,
 }) {
   console.log('Bundling request:', args);
-  return new Promise(res => {
+  return new Promise((res,rej) => {
     const config = {
       devtool: 'source-map',
       entry: args.entryPointName,
@@ -55,6 +55,12 @@ export function bundle(args: {
 
     const compiler = webpack(config);
     compiler.run(function(err, stats) {
+      if (err) {
+        console.error("BUNDLING FAILED:", args);
+        console.error(err);
+        rej(err);
+        return;
+      }
       console.log('Bundling done:', args);
       res();
     });
