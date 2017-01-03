@@ -59,9 +59,9 @@
 	csstips.normalize();
 	csstips.setupPage('#root');
 	ReactDOM.render(React.createElement("div", null,
-	    React.createElement("div", { className: typestyle.style(csstips.horizontallyCenterSelf, csstips.maxWidth(900)) }, data.contents.map(function (c) {
+	    React.createElement("div", { className: typestyle.style(csstips.horizontallyCenterSelf, csstips.maxWidth(900)) }, data.contents.map(function (c, i) {
 	        if (c.type === 'html') {
-	            return React.createElement("div", { dangerouslySetInnerHTML: { __html: c.html } });
+	            return React.createElement("div", { key: i, dangerouslySetInnerHTML: { __html: c.html } });
 	        }
 	    }))), document.getElementById('root'));
 
