@@ -1,1 +1,0 @@
-var data = {"contents":[{"type":"html","html":"<h1 id=\"demo\">Demo</h1>\n<p>This is the demo for eze</p>"}]}
