@@ -61,7 +61,7 @@ export function bundle(args: {
         rej(err);
         return;
       }
-      console.log('Bundling done:', args);
+      console.log('Bundling done:', args, err);
       res();
     });
   });

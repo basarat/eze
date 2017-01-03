@@ -13,7 +13,7 @@ render({
 
   /** Show some complete application demos */
   console.log(('here 1'))  
-  const res = await eze.app({ entryPointPath: __dirname + '/app-1.tsx' });
-  console.log('here 2', res);
+  await eze.app({ entryPointPath: __dirname + '/app-1.tsx' });
+  console.log('here 2');
 })
 
