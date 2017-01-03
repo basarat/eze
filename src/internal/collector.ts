@@ -32,7 +32,7 @@ export class Collector {
   /**
    * We collect the rendered contents here
    */
-  private data: Data = {
+  data: Data = {
     contents: []
   }
 
@@ -52,8 +52,11 @@ export class Collector {
     const jsFileName = `app-${this.entryPointIndex}.js`;
     const htmlFileName = `app-${this.entryPointIndex}.html`;
 
-    /** TODO: collect in data */
-    const outputFileName = `${this.config.outputDir}/${jsFileName}`;
+    /** Collect */
+    this.data.contents.push({
+      type: 'app',
+      htmlFileName
+    });
 
     /** Write the html */
     fse.outputFileSync(
@@ -62,6 +65,7 @@ export class Collector {
     );
 
     /** Bundle */
+    const outputFileName = `${this.config.outputDir}/${jsFileName}`;
     await bundle({ entryPointName: entryPointPath, outputFileName: outputFileName });
   }
 }

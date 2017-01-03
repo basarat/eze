@@ -29,6 +29,9 @@ ReactDOM.render(<div>
       if (c.type === 'html') {
         return <div key={i} dangerouslySetInnerHTML={{__html: c.html}}/>
       }
+      if (c.type === 'app') {
+        return <iframe src={`./${c.htmlFileName}`}/>
+      }
     })}
   </div>
 </div>,

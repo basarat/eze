@@ -16,14 +16,14 @@ export async function run(config: Config, cb: (eze: Collector) => Promise<void>)
     */
 
   /** Write out the data */
-  const data = JSON.stringify(this.data);
-  fse.outputFileSync(this.config.outputDir + '/data.js', `var data = ${data}`);
+  const data = JSON.stringify(eze.data);
+  fse.outputFileSync(config.outputDir + '/data.js', `var data = ${data}`);
 
   /** Write the html + js */
   fse.outputFileSync(
-    this.config.outputDir + '/index.html',
+    config.outputDir + '/index.html',
     fse.readFileSync(__dirname + '/app/index.html').toString().replace('TitleHere', config.title || "Docs")
   );
-  await bundle({ entryPointName: __dirname + '/app/app.tsx', outputFileName: this.config.outputDir + '/app.js' });
+  await bundle({ entryPointName: __dirname + '/app/app.tsx', outputFileName: config.outputDir + '/app.js' });
 }
 
