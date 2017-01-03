@@ -14,31 +14,34 @@ Install
 
 `npm install eze --save-dev`
 
-Give a ts (tsx) file 
+Create a ts (tsx) file (e.g. `./src/docs/main.ts`)
 
 ```ts
 import {Eze} from "eze";
 
-/** Export an eze instance */
-export default eze = new Eze();
+/** Create an eze instance */
+const eze = new Eze();
 
 /** Write some markdown */
 eze.md(`
 # Demo
 This is the demo for eze
 `);
+
+/** Render it out */
+eze.write('../docs/');
 ```
 
-Run `eze`: 
+Run it!: 
 
 ```json
 {
   "scripts": {
-    "docs": "eze ./docs/ --out ./public"  
+    "docs": "ts-node ./src/docs/main.ts"  
   }
 }
 ```
-This builds the demos out to the `./public` folder. HTML + JavaScript 🌹.
+This builds the demos out to the specified folder. HTML + JavaScript 🌹.
 
 # Demo
 

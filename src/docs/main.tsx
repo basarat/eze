@@ -1,0 +1,2 @@
+import { Eze } from "../index";
+

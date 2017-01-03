@@ -1,1 +1,7 @@
-console.log("hello world");
+export class Eze {
+
+  /** TODO: Writes out the contents  */
+  render(dirPath: string) {
+    
+  }
+}
