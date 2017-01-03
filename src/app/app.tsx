@@ -9,7 +9,7 @@ import * as typestyle from 'typestyle';
 import { Data } from '../types';
 
 /** Ensure loading the markdown styles */
-import { toHtml } from '../core/markdown';
+import { toHtml } from '../internal/markdown';
 const ensureUsage = toHtml;
 
 /** Normalize and page setup */
