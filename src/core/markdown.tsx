@@ -148,7 +148,7 @@ namespace MarkDownStyles {
 }
 
 /** Converts an html string to markdown */
-export function toHtml(markdown: string) {
+export function toHtml(markdown: string): string {
   /** Custom rendering */
   const renderer = new marked.Renderer();
 

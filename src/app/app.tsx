@@ -19,4 +19,17 @@ csstips.setupPage('#root');
 /** Data has been loaded for us using index.html */
 declare const data: Data;
 
-console.log(data);
+ReactDOM.render(<div>
+  {/** Docs */}
+  <div className={typestyle.style(
+    csstips.horizontallyCenterSelf,
+    csstips.maxWidth(900))
+  }>
+    {data.contents.map(c => {
+      if (c.type === 'html') {
+        return <div dangerouslySetInnerHTML={{__html: c.html}}/>
+      }
+    })}
+  </div>
+</div>,
+  document.getElementById('root'));

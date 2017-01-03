@@ -1,3 +1,4 @@
-export interface Data { 
-  contents: string[];
+export type ContentItem = { type: "html", html: string }
+export interface Data {
+  contents: ContentItem[];
 }

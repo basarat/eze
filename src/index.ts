@@ -23,8 +23,8 @@ export class Eze {
 
   md(markdown: string) {
     /** render the markdown */
-    this.data.contents.push(toHtml(markdown));
-    /** TODO: Collect heading in table of contents */
+    this.data.contents.push({ type: 'html', html: toHtml(markdown) });
+    /** TODO: Collect headings in table of contents */
   }
 
   /** Writes out the contents  */
