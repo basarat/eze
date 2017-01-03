@@ -29,7 +29,7 @@ This is the demo for eze
 `);
 
 /** Render it out */
-eze.write('../docs/');
+eze.render('../docs');
 ```
 
 Run it!: 
@@ -41,7 +41,7 @@ Run it!:
   }
 }
 ```
-This builds the demos out to the specified folder. HTML + JavaScript 🌹.
+This builds the demos out to the specified folder. HTML + JavaScript. You can push that folder to s3 or surge.sh or even github  🌹
 
 # Demo
 
