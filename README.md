@@ -29,7 +29,7 @@ This is the demo for eze
 `);
 
 /** Render it out */
-eze.render('../docs');
+eze.done('../docs');
 ```
 
 Run it!: 
