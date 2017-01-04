@@ -40766,6 +40766,7 @@
 	};
 	var React = __webpack_require__(1);
 	var typestyle_1 = __webpack_require__(175);
+	var styles = __webpack_require__(187);
 	var HtmlRenderer = (function (_super) {
 	    __extends(HtmlRenderer, _super);
 	    function HtmlRenderer() {
@@ -40821,16 +40822,62 @@
 	        var props = this.props;
 	        return React.createElement("div", null,
 	            React.createElement("div", { style: { textAlign: 'right' } },
-	                React.createElement("button", { onClick: function () { return _this.setState({ mode: 'auto' }); } }, "Auto"),
-	                React.createElement("button", { onClick: function () { return _this.setState({ mode: 'desktop' }); } }, "Desktop"),
-	                React.createElement("button", { onClick: function () { return _this.setState({ mode: 'tablet' }); } }, "Tablet"),
-	                React.createElement("button", { onClick: function () { return _this.setState({ mode: 'mobile' }); } }, "Mobile")),
+	                React.createElement(Breakpoints, { mode: this.state.mode, onModeChange: function (mode) { return _this.setState({ mode: mode }); } })),
 	            React.createElement("div", { style: { height: '10px' } }),
 	            React.createElement("iframe", { className: typestyle_1.classes(AppRendererStyles.iframe, AppRendererStyles[this.state.mode]), src: "./" + props.htmlFileName }));
 	    };
 	    return AppRenderer;
 	}(React.PureComponent));
 	exports.AppRenderer = AppRenderer;
+	var Breakpoints = (function (_super) {
+	    __extends(Breakpoints, _super);
+	    function Breakpoints() {
+	        return _super.apply(this, arguments) || this;
+	    }
+	    Breakpoints.prototype.render = function () {
+	        var _this = this;
+	        var containerClass = typestyle_1.style({
+	            display: 'inline-block',
+	            border: '2px solid #ccc',
+	            borderRadius: '13px',
+	            $nest: {
+	                '&>*': {
+	                    border: 'none',
+	                    borderRadius: '13px',
+	                    backgroundColor: 'white',
+	                    transition: 'background-color .2s, color .2s',
+	                    color: styles.colors.text
+	                },
+	                '&>*:focus': {
+	                    outline: 'none',
+	                },
+	                '&>*:hover': {
+	                    color: '#999',
+	                },
+	                '&>*:first-child': {
+	                    borderLeft: '2px solid #ccc !important'
+	                },
+	                '&>*:last-child': {
+	                    borderRight: '2px solid #ccc !important'
+	                },
+	            }
+	        });
+	        var selectedClass = typestyle_1.style({
+	            backgroundColor: '#ccc',
+	            $nest: {
+	                '&:hover': {
+	                    color: 'white'
+	                }
+	            }
+	        });
+	        return React.createElement("div", { className: containerClass },
+	            React.createElement("button", { className: typestyle_1.classes(this.props.mode === 'auto' && selectedClass), onClick: function () { return _this.props.onModeChange('auto'); } }, "Auto"),
+	            React.createElement("button", { className: typestyle_1.classes(this.props.mode === 'desktop' && selectedClass), onClick: function () { return _this.props.onModeChange('desktop'); } }, "Desktop"),
+	            React.createElement("button", { className: typestyle_1.classes(this.props.mode === 'tablet' && selectedClass), onClick: function () { return _this.props.onModeChange('tablet'); } }, "Tablet"),
+	            React.createElement("button", { className: typestyle_1.classes(this.props.mode === 'mobile' && selectedClass), onClick: function () { return _this.props.onModeChange('mobile'); } }, "Mobile"));
+	    };
+	    return Breakpoints;
+	}(React.PureComponent));
 
 
 /***/ }
