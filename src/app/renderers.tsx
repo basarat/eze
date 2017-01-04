@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as types from '../types';
-import { style, classes, cssRaw } from 'typestyle';
+import { style, classes, cssRaw, media } from 'typestyle';
 import * as csstips from 'csstips';
 import * as styles from '../internal/styles';
 import { highlightCodeWithMode, MarkDownStyles } from '../internal/markdown';
@@ -52,6 +52,19 @@ namespace AppRendererStyles {
   export const mobile = style(centerWidth, {
     width: '320px',
   });
+
+  /** Autosize the iframe to remove scroll bars http://stackoverflow.com/a/9976309/390330 */
+  export function resizeIframe(frame: HTMLFrameElement) {
+    /** 
+     * Without this we expand constantly slowly and slowly
+     *  +2 is by testing. Haven't investigated reason.
+     **/
+    if (frame.style.height === frame.contentWindow.document.body.scrollHeight + 2 + 'px') {
+      return;
+    }
+    /** Without 5 we still get scrollbars :-/ */
+    frame.style.height = frame.contentWindow.document.body.scrollHeight + 5 + 'px';
+  }
 }
 
 export type AppMode = 'auto' | 'desktop' | 'tablet' | 'mobile';
@@ -63,17 +76,15 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
       viewCode: false
     }
   }
+  ctrls: {
+    frame?: HTMLFrameElement
+  } = {}
   render() {
     const { props } = this;
     return <gls.VerticalMargined>
-
-      { /** Breakpoint buttons */}
-      <div style={{ textAlign: 'right' }}>
-        <Breakpoints mode={this.state.mode} onModeChange={mode => this.setState({ mode })} />
-      </div>
-
       {/** iframe the html */}
       <iframe
+        ref={(frame) => this.ctrls.frame = frame as any}
         className={classes(
           AppRendererStyles.iframe,
           AppRendererStyles[this.state.mode],
@@ -81,22 +92,28 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
         )}
         src={`./${props.htmlFileName}`}
         onLoad={e => {
-          /** Autosize the iframe to remove scroll bars http://stackoverflow.com/a/9976309/390330 */
-          if (!props.height) {
-            e.target.style.height = e.target.contentWindow.document.body.scrollHeight + 5 + 'px';
-          }
+          if (!props.height) AppRendererStyles.resizeIframe(this.ctrls.frame);
         }} />
 
-      {/** View code toggle */}
-      <gls.ContentHorizontalMargined>
+      { /** Controls */}
+      <gls.ResponsiveGridParent breakpoint={650}>
         <Toggle
           label="Show Code"
           value={this.state.viewCode}
           onChange={() => this.setState({ viewCode: !this.state.viewCode })} />
-        <gls.Flex />
-        {!!props.sourceUrl && <a target="_blank" href={props.sourceUrl} title="View Source"><icons.File /></a>}
-        <a target="_blank" href={`./${props.htmlFileName}`} title="Open demo in a new window"><icons.OpenExternal /></a>
-      </gls.ContentHorizontalMargined>
+        <div className={style(media({ minWidth: 650 }, { textAlign: 'center' }))}>
+          <Breakpoints mode={this.state.mode} onModeChange={mode => {
+            this.setState({ mode });
+            setTimeout(() => {
+              if (!props.height) AppRendererStyles.resizeIframe(this.ctrls.frame);
+            }, 500);
+          }} />
+        </div>
+        <gls.ContentHorizontalMargined className={style(media({ minWidth: 650 }, csstips.endJustified))}>
+          {!!props.sourceUrl && <a target="_blank" href={props.sourceUrl} title="View Source"><icons.File /></a>}
+          <a target="_blank" href={`./${props.htmlFileName}`} title="Open demo in a new window"><icons.OpenExternal /></a>
+        </gls.ContentHorizontalMargined>
+      </gls.ResponsiveGridParent>
 
       {/** Code */}
       <Expandible open={this.state.viewCode}>

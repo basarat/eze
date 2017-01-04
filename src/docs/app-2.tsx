@@ -4,7 +4,7 @@ import { colors } from '../internal/styles';
 
 ReactDOM.render(
   <div style={{ color: colors.text }}>
-    <h1>Example with lots of content</h1>
+    <h3>Example with lots of content</h3>
     <h2>...</h2>
     <h2>...</h2>
     <h2>...</h2>

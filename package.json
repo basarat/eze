@@ -8,7 +8,7 @@
     "buildtsc": "tsc -p .",
     "builddocs": "ts-node ./src/docs/main.tsx",
     "test": "npm run buildtsc && npm run builddocs",
-    "serve": "light-server -s docs -w src/**",
+    "serve": "light-server -s docs -w docs/** -q -d 2000",
     "start": "concurrently -k \"npm run buildtsc -- -w\" \"nodemon --watch src --ext ts,tsx --exec npm run builddocs\" \"npm run serve\"",
     "publishdocs": "ts-node ./scripts/publishdocs.ts"
   },

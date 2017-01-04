@@ -1,4 +1,5 @@
 import { render } from "../index";
+import { colors } from '../internal/styles';
 
 /** Render */
 render({
@@ -8,25 +9,36 @@ render({
   /** Write some markdown */
   await eze.md(`
   # Demo
-  Lets start with some inception showing the code for this demo in this demo:
+  To create demos like this you write code like this:
   `);
 
   /** Show this file */
   await eze.code({ mode: 'js', code: require('fs').readFileSync(__filename).toString() })
 
   await eze.md(`
-  # Embed applications
-  You can easily show complete applications:
+  # Why?
+  Because its code. 
+
+  Reuse code variables + do fancy **code** stuff like a 👔 . 
+
+  e.g. the color of this text is ${colors.text} 🌹
+
+  And so many of the same advantages as [TypeStyle](http://typestyle.io/#/why).
   `);
 
   /** Show some complete application demos */
+  await eze.md(`
+  # Embed applications
+  You can easily show complete applications:
+  `);
   await eze.app({
     entryPointPath: __dirname + '/app-1.tsx',
-    sourceUrl: 'https://github.com/basarat/eze/blob/master/src/docs/app-1.tsx'
+    sourceUrl: 'https://github.com/basarat/eze/blob/master/src/docs/app-1.tsx',
+    height: '100px'
   });
-
   await eze.md(`
-  They are automatically showcased in the best size to prevent a vertical scrollbar
+  Embedded applications are automatically showcased in the best height
+   to prevent a vertical scrollbar on initial load.
   `);
   await eze.app({
     entryPointPath: __dirname + '/app-2.tsx',

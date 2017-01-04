@@ -3,6 +3,6 @@ import * as ReactDOM from 'react-dom';
 import { colors } from '../internal/styles';
 
 ReactDOM.render(
-  <h1 style={{color: colors.text}}>Hello World</h1>,
+  <h2 style={{color: colors.text}}>Hello World</h2>,
   document.getElementById('root')
 );
