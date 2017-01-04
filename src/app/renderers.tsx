@@ -6,6 +6,7 @@ import * as styles from '../internal/styles';
 import { highlightCodeWithMode, MarkDownStyles } from '../internal/markdown';
 import { Expandible } from 'expandible';
 import Toggle from 'react-toggle'
+import * as gls from './gls';
 
 export class HtmlRenderer extends React.PureComponent<types.HTMLContent, {}> {
   render() {
@@ -75,7 +76,7 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
 
 
       {/** View code toggle */}
-      <div>
+      <gls.ContentHorizontal>
         <label style={{ display: 'inline-block' }}>
           <Toggle
             value={this.state.viewCode}
@@ -92,7 +93,8 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
             userSelect: 'none',
           }}>Show Code</span>
         </label>
-      </div>
+        <gls.Flex/>
+      </gls.ContentHorizontal>
 
       {/** Code */}
       <Expandible open={this.state.viewCode}>

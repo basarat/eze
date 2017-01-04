@@ -48,7 +48,7 @@ This builds the demos out to the specified folder. HTML + JavaScript. You can pu
 
 # Demo
 
-[Jump to the demo for eze built with eze 📝](https://basarat.com/eze)
+[Jump to the demo for eze built with eze 📝](http://basarat.com/eze)
 
 
 [travis-image]:https://travis-ci.org/basarat/eze.svg?branch=master
