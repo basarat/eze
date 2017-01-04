@@ -163,5 +163,6 @@ export const Toggle = (props: { label, value, onChange }) =>
       position: 'relative',
       top: '-5px',
       userSelect: 'none',
+      '-webkit-user-select': 'none',
     }}>{props.label}</span>
   </label>

@@ -22,25 +22,31 @@ csstips.setupPage('#root');
 /** Data has been loaded for us using index.html */
 declare const data: Data;
 
-ReactDOM.render(<div>
-  {/** Docs */}
-  <div className={typestyle.style(
-    csstips.horizontallyCenterSelf,
-    csstips.maxWidth(900),
-    csstips.padding(20, 10),
-    csstips.verticallySpaced(10)
-  )
-  }>
-    {data.contents.map((c,i) => {
-      if (c.type === 'html') {
-        return <renderers.HtmlRenderer key={i} {...c}/>
-      }
-      if (c.type === 'app') {
-        return <renderers.AppRenderer key={i} {...c}/>
-      }
-    })}
-  </div>
-</div>,
-  document.getElementById('root'));
+ReactDOM.render(
+  <div>
+    {/** Docs */}
+    <div className={typestyle.style(
+      csstips.horizontallyCenterSelf,
+      csstips.maxWidth(900),
+      csstips.padding(20, 10),
+      csstips.verticallySpaced(10)
+    )
+    }>
+      {data.contents.map((c, i) => {
+        if (c.type === 'html') {
+          return <renderers.HtmlRenderer key={i} {...c} />
+        }
+        if (c.type === 'app') {
+          return <renderers.AppRenderer key={i} {...c} />
+        }
+      })}
+      {/** Footer */}
+      <div style={{ textAlign: 'center' }}>
+        <a href={'https://npmjs.org/package/eze'} target="_blank">eze ❤️</a>
+      </div>
+    </div>
+  </div>,
+  document.getElementById('root')
+);
 
 typestyle.forceRenderStyles();

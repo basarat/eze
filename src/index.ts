@@ -9,11 +9,6 @@ export async function render(config: Config, cb: (eze: Collector) => Promise<voi
     const eze = new Collector(config);
     await cb(eze);
 
-    await eze.html(`<div style="text-align:center">
-      ${toHtml(`[eze ❤️](https://npmjs.org/package/eze)`)}
-    </div>
-    `);
-
     /**
       * DESIGN Notes:
       * We write out an 

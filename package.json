@@ -8,8 +8,8 @@
     "buildtsc": "tsc -p .",
     "builddocs": "ts-node ./src/docs/main.tsx",
     "test": "npm run buildtsc && npm run builddocs",
-    "serve": "light-server -s docs -w docs/** -q -d 2000",
-    "start": "concurrently -k \"npm run buildtsc -- -w\" \"nodemon --watch src --ext ts,tsx --exec npm run builddocs\" \"npm run serve\"",
+    "serve": "light-server -s docs -w 'src/** # npm run builddocs' -q",
+    "start": "concurrently -k \"npm run buildtsc -- -w\" \"npm run serve\"",
     "publishdocs": "ts-node ./scripts/publishdocs.ts",
     "preversion": "npm run test",
     "postversion": "git push --follow-tags && npm publish"
@@ -41,7 +41,6 @@
     "expandible": "0.1.1",
     "gh-pages": "0.11.0",
     "light-server": "1.1.7",
-    "nodemon": "1.11.0",
     "react": "15.3.2",
     "react-dom": "15.3.2",
     "react-toggle": "2.2.0",
