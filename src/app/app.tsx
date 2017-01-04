@@ -14,6 +14,7 @@ const ensureUsage = toHtml;
 
 /** Renderers */
 import * as renderers from './renderers';
+import { Anchor } from "./components/anchor";
 
 /** Normalize and page setup */
 csstips.normalize();
@@ -42,7 +43,7 @@ ReactDOM.render(
       })}
       {/** Footer */}
       <div style={{ textAlign: 'center' }}>
-        <a href={'https://npmjs.org/package/eze'} target="_blank">eze ❤️</a>
+        <Anchor href={'https://npmjs.org/package/eze'} className={typestyle.style({fontSize: '15px'})} target="_blank">Built with eze ❤️</Anchor>
       </div>
     </div>
   </div>,
