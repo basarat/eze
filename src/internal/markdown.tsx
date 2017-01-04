@@ -142,6 +142,7 @@ export namespace MarkDownStyles {
 }
 .${rootClass} h1 {
   margin: 0px;
+  line-height: 1.5;
 }
 .${rootClass} h2 {
   margin: 0px;

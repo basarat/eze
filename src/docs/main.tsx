@@ -1,7 +1,6 @@
 import { render } from "../index";
-import * as fs from 'fs';
 
-/** Run to create a document */
+/** Render */
 render({
   outputDir: __dirname + '/../../docs'
 }, async eze => {
@@ -13,7 +12,7 @@ render({
   `);
 
   /** Show this file */
-  await eze.code({ mode: 'js', code: fs.readFileSync(__filename).toString() })
+  await eze.code({ mode: 'js', code: require('fs').readFileSync(__filename).toString() })
 
   await eze.md(`
   # Embed applications
