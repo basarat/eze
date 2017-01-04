@@ -16,7 +16,7 @@ namespace AppRendererStyles {
 
   /** Keep centered with fixed widths */
   const centerWidth = {
-    position: 'absolute' as 'absolute',
+    position: 'relative' as 'relative',
     left: '50%',
     transform: 'translateX(-50%)'
   }
