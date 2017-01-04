@@ -40765,6 +40765,7 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var React = __webpack_require__(1);
+	var typestyle_1 = __webpack_require__(175);
 	var HtmlRenderer = (function (_super) {
 	    __extends(HtmlRenderer, _super);
 	    function HtmlRenderer() {
@@ -40777,14 +40778,40 @@
 	    return HtmlRenderer;
 	}(React.PureComponent));
 	exports.HtmlRenderer = HtmlRenderer;
+	var AppRendererStyles;
+	(function (AppRendererStyles) {
+	    var borderColor = '#bbb';
+	    AppRendererStyles.iframe = typestyle_1.style({
+	        borderTop: "10px solid " + borderColor,
+	        borderBottom: "10px solid " + borderColor,
+	        borderLeft: "2px solid " + borderColor,
+	        borderRight: "2px solid " + borderColor,
+	    });
+	    AppRendererStyles.auto = typestyle_1.style({
+	        width: '100%',
+	    });
+	    AppRendererStyles.desktop = typestyle_1.style({
+	        width: '100%',
+	    });
+	    AppRendererStyles.tablet = typestyle_1.style({
+	        width: '100%',
+	    });
+	    AppRendererStyles.mobile = typestyle_1.style({
+	        width: '100%',
+	    });
+	})(AppRendererStyles || (AppRendererStyles = {}));
 	var AppRenderer = (function (_super) {
 	    __extends(AppRenderer, _super);
-	    function AppRenderer() {
-	        return _super.apply(this, arguments) || this;
+	    function AppRenderer(props) {
+	        var _this = _super.call(this, props) || this;
+	        _this.state = {
+	            mode: 'auto'
+	        };
+	        return _this;
 	    }
 	    AppRenderer.prototype.render = function () {
 	        var props = this.props;
-	        return React.createElement("iframe", { src: "./" + props.htmlFileName });
+	        return React.createElement("iframe", { className: typestyle_1.classes(AppRendererStyles.iframe, AppRendererStyles[this.state.mode]), src: "./" + props.htmlFileName });
 	    };
 	    return AppRenderer;
 	}(React.PureComponent));
