@@ -54,10 +54,17 @@ export class Collector {
 
   async app({
     entryPointPath,
-    sourceUrl
+    sourceUrl,
+    height
   }: {
       entryPointPath: string,
       sourceUrl?: string,
+
+      /** 
+       * Use this as the height for the demo embedding
+       * If not specified we default to the iframe content scroll height
+       **/
+      height?: string
     }) {
     this.entryPointIndex++;
 
@@ -75,7 +82,8 @@ export class Collector {
           code: fse.readFileSync(entryPointPath).toString()
         }
       ],
-      sourceUrl
+      sourceUrl,
+      height: height
     });
 
     /** Write the html */

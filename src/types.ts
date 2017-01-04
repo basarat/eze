@@ -1,5 +1,12 @@
 export type HTMLContent = { type: 'html', html: string }
-export type AppContent = { type: 'app', htmlFileName: string, sourceUrl?: string, sources: { mode: 'js', code: string }[] }
+export type AppContent = {
+  type: 'app',
+  htmlFileName: string,
+  sources: { mode: 'js', code: string }[],
+
+  sourceUrl?: string, 
+  height?: string,
+}
 
 export type ContentItem =
   /** e.g. markdown */

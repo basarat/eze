@@ -65,16 +65,28 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
   }
   render() {
     const { props } = this;
-    return <div className={style(csstips.verticallySpaced(10))}>
+    return <gls.VerticalMargined>
 
       { /** Breakpoint buttons */}
       <div style={{ textAlign: 'right' }}>
         <Breakpoints mode={this.state.mode} onModeChange={mode => this.setState({ mode })} />
       </div>
 
-      {/** Iframe */}
-      <iframe className={classes(AppRendererStyles.iframe, AppRendererStyles[this.state.mode])} src={`./${props.htmlFileName}`} />
+      {/** iframe the html */}
+      <iframe
+        className={classes(
+          AppRendererStyles.iframe,
+          AppRendererStyles[this.state.mode],
+          !!props.height && style({ height: props.height }),
+        )}
+        src={`./${props.htmlFileName}`}
+        onLoad={e => {
+          /** Autosize the iframe to remove scroll bars http://stackoverflow.com/a/9976309/390330 */
+          if (!props.height) {
+            e.target.style.height = e.target.contentWindow.document.body.scrollHeight + 'px';
+          }
 
+        }} />
 
       {/** View code toggle */}
       <gls.ContentHorizontalMargined>
@@ -97,7 +109,7 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
         </div>
       </Expandible>
 
-    </div>;
+    </gls.VerticalMargined>;
   }
 }
 
