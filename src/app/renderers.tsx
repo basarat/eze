@@ -58,18 +58,26 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode: A
   render() {
     const { props } = this;
     return <div>
+
+      { /** Breakpoint buttons */ }
       <div style={{ textAlign: 'right' }}>
         <Breakpoints mode={this.state.mode} onModeChange={mode => this.setState({ mode })} />
       </div>
+
       <div style={{ height: '10px' }} />
+
+      {/** Iframe */}
       <iframe className={classes(AppRendererStyles.iframe, AppRendererStyles[this.state.mode])} src={`./${props.htmlFileName}`} />
 
       {/** Render code in same dom structure as markdown would. To reuse styles */}
-      <div className={MarkDownStyles.rootClass}>
-        <pre>
-          <code dangerouslySetInnerHTML={{ __html: highlightCodeWithMode(props.sources[0]) }} />
-        </pre>
-      </div>
+      <Collapsible trigger="View Code">
+        <div className={MarkDownStyles.rootClass}>
+          <pre>
+            <code dangerouslySetInnerHTML={{ __html: highlightCodeWithMode(props.sources[0]) }} />
+          </pre>
+        </div>
+      </Collapsible>
+
     </div>;
   }
 }
@@ -123,16 +131,17 @@ class Breakpoints extends React.PureComponent<{ mode: AppMode, onModeChange: (mo
   }
 }
 
-type CollapsibleProps = {
-  transitionTime: number,
-  easing: string,
-  open: boolean,
-  classParentString: string,
-  handleTriggerClick: (accordionPosition: number) => void,
+export type CollapsibleProps = {
   trigger: string | HTMLElement,
-  triggerWhenOpen: string | HTMLElement,
-  lazyRender: boolean,
-  overflowWhenOpen: 'hidden' | 'visible' | 'auto' | 'scroll' | 'inherit' | 'initial' | 'unset'
+
+  transitionTime?: number,
+  easing?: string,
+  open?: boolean,
+  classParentString?: string,
+  handleTriggerClick?: (accordionPosition: number) => void,
+  triggerWhenOpen?: string | HTMLElement,
+  lazyRender?: boolean,
+  overflowWhenOpen?: 'hidden' | 'visible' | 'auto' | 'scroll' | 'inherit' | 'initial' | 'unset'
 
   /** To work in an accordian */
   accordionPosition?: number,
@@ -149,7 +158,7 @@ export class Collapsible extends React.PureComponent<CollapsibleProps, {
 
   //If no transition time or easing is passed then default to this
   static defaultProps = {
-    transitionTime: 400,
+    transitionTime: 200,
     easing: 'linear',
     open: false,
     classParentString: 'Collapsible',
@@ -214,7 +223,7 @@ export class Collapsible extends React.PureComponent<CollapsibleProps, {
     });
   }
 
-  componentDidUpdate = (prevProps:CollapsibleProps) => {
+  componentDidUpdate = (prevProps: CollapsibleProps) => {
 
     if (this.state.shouldSwitchAutoOnNextCycle === true && this.state.isClosed === false) {
       //Set the height to auto to make compoenent re-render with the height set to auto.
