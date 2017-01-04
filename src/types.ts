@@ -20,5 +20,6 @@ export interface Data {
 
 export interface Config {
   outputDir: string,
-  title?: string
+  title?: string,
+  repoUrl?: string,
 }

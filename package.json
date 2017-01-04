@@ -10,7 +10,9 @@
     "test": "npm run buildtsc && npm run builddocs",
     "serve": "light-server -s docs -w docs/** -q -d 2000",
     "start": "concurrently -k \"npm run buildtsc -- -w\" \"nodemon --watch src --ext ts,tsx --exec npm run builddocs\" \"npm run serve\"",
-    "publishdocs": "ts-node ./scripts/publishdocs.ts"
+    "publishdocs": "ts-node ./scripts/publishdocs.ts",
+    "preversion": "npm run test",
+    "postversion": "git push --follow-tags && npm publish"
   },
   "author": "",
   "license": "MIT",

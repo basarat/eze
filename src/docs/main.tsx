@@ -3,11 +3,9 @@ import { colors } from '../internal/styles';
 
 /** Render */
 render({
-  outputDir: __dirname + '/../../docs'
+  outputDir: __dirname + '/../../docs',
+  repoUrl: "http://github.com/basarat/eze"
 }, async eze => {
-
-  /** Fork me */
-  await eze.html(require('fs').readFileSync(__dirname + '/../app/fork.html').toString())
 
   /** Write some markdown */
   await eze.md(`
