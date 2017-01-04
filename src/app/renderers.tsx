@@ -34,7 +34,7 @@ namespace AppRendererStyles {
     borderLeft: `2px solid ${borderColor}`,
     borderRight: `1px solid ${borderColor}`,
 
-    transition: 'width .2s',
+    transition: 'width .2s, height .2s',
   });
 
   export const auto = style({
