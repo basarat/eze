@@ -39,7 +39,7 @@ namespace AppRendererStyles {
   });
 
   export const tablet = style(centerWidth, {
-    width: '800px',
+    width: '768px',
   });
 
   export const mobile = style(centerWidth, {
@@ -116,9 +116,9 @@ class Breakpoints extends React.PureComponent<{ mode: AppMode, onModeChange: (mo
 
     return <div className={containerClass}>
       <button className={classes(this.props.mode === 'auto' && selectedClass)} onClick={() => this.props.onModeChange('auto')}>Auto</button>
-      <button className={classes(this.props.mode === 'desktop' && selectedClass)} onClick={() => this.props.onModeChange('desktop')}>Desktop</button>
-      <button className={classes(this.props.mode === 'tablet' && selectedClass)} onClick={() => this.props.onModeChange('tablet')}>Tablet</button>
-      <button className={classes(this.props.mode === 'mobile' && selectedClass)} onClick={() => this.props.onModeChange('mobile')}>Mobile</button>
+      <button className={classes(this.props.mode === 'desktop' && selectedClass)} onClick={() => this.props.onModeChange('desktop')}>1200</button>
+      <button className={classes(this.props.mode === 'tablet' && selectedClass)} onClick={() => this.props.onModeChange('tablet')}>768</button>
+      <button className={classes(this.props.mode === 'mobile' && selectedClass)} onClick={() => this.props.onModeChange('mobile')}>320</button>
     </div>;
   }
 }
