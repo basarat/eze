@@ -6,6 +6,9 @@ render({
   outputDir: __dirname + '/../../docs'
 }, async eze => {
 
+  /** Fork me */
+  await eze.html(require('fs').readFileSync(__dirname + '/../app/fork.html').toString())
+
   /** Write some markdown */
   await eze.md(`
   # Demo

@@ -36,8 +36,9 @@ export class Collector {
     contents: []
   }
 
-  /** Each demo gets its index */
-  private entryPointIndex = 0;
+  async html(html: string) {
+    this.data.contents.push({ type: 'html', html});
+  }
 
   async md(markdown: string) {
     /** render the markdown */
@@ -51,6 +52,9 @@ export class Collector {
       html: `<div class=${MarkDownStyles.rootClass}><pre><code>${highlightCodeWithMode({ mode, code: code.trim() })}</code></pre></div>`
     });
   }
+
+  /** Each demo gets its index */
+  private entryPointIndex = 0;
 
   async app({
     entryPointPath,
