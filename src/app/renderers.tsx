@@ -29,10 +29,11 @@ namespace AppRendererStyles {
   export const iframe = style({
     display: 'block',
 
-    borderTop: `1px solid ${borderColor}`,
-    borderBottom: `1px solid ${borderColor}`,
-    borderLeft: `2px solid ${borderColor}`,
-    borderRight: `1px solid ${borderColor}`,
+    /** Bit big border needed as mobile browsers have rendering issues with 1px */
+    borderTop: `2px solid ${borderColor}`,
+    borderBottom: `2px solid ${borderColor}`,
+    borderLeft: `4px solid ${borderColor}`,
+    borderRight: `2px solid ${borderColor}`,
 
     transition: 'width .2s, height .2s',
   });
