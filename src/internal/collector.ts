@@ -1,5 +1,5 @@
 import { Config, Data } from '../types';
-import { toHtml, dedent } from './markdown';
+import { toHtml, dedent, highlightCodeWithMode, MarkDownStyles } from './markdown';
 import { bundle } from './bundler';
 import * as fse from 'fs-extra';
 
@@ -45,7 +45,14 @@ export class Collector {
     /** TODO: Collect headings in table of contents */
   }
 
-  async app({ entryPointPath }: { entryPointPath: string}) {
+  async code({ mode, code }: { mode: string, code: string }) {
+    this.data.contents.push({
+      type: 'html',
+      html: `<div class=${MarkDownStyles.rootClass}><pre><code>${highlightCodeWithMode({ mode, code: code.trim() })}</code></pre></div>`
+    });
+  }
+
+  async app({ entryPointPath }: { entryPointPath: string }) {
     this.entryPointIndex++;
 
     const index = this.entryPointIndex;

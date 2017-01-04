@@ -1,4 +1,5 @@
 import { render } from "../index";
+import * as fs from 'fs';
 
 /** Run to create a document */
 render({
@@ -8,7 +9,15 @@ render({
   /** Write some markdown */
   await eze.md(`
   # Demo
-  This is the demo for eze
+  Lets start with some inception showing the code for this demo in this demo:
+  `);
+
+  /** Show this file */
+  await eze.code({ mode: 'js', code: fs.readFileSync(__filename).toString() })
+
+  await eze.md(`
+  # Embed applications
+  You can easily show complete applications:
   `);
 
   /** Show some complete application demos */
