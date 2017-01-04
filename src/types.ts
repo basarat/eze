@@ -1,8 +1,11 @@
+export type HTMLContent = { type: "html", html: string }
+export type AppContent = { type: "app", htmlFileName: string }
+
 export type ContentItem =
   /** e.g. markdown */
-  | { type: "html", html: string }
+  | HTMLContent
   /** app */
-  | { type: "app", htmlFileName: string }
+  | AppContent
 
 export interface Data {
   contents: ContentItem[];

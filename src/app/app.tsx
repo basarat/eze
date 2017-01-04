@@ -12,6 +12,9 @@ import { Data } from '../types';
 import { toHtml } from '../internal/markdown';
 const ensureUsage = toHtml;
 
+/** Renderers */
+import * as renderers from './renderers';
+
 /** Normalize and page setup */
 csstips.normalize();
 csstips.setupPage('#root');
@@ -30,10 +33,10 @@ ReactDOM.render(<div>
   }>
     {data.contents.map((c,i) => {
       if (c.type === 'html') {
-        return <div key={i} dangerouslySetInnerHTML={{__html: c.html}}/>
+        return <renderers.HtmlRenderer key={i} {...c}/>
       }
       if (c.type === 'app') {
-        return <iframe key={i} src={`./${c.htmlFileName}`}/>
+        return <renderers.AppRenderer key={i} {...c}/>
       }
     })}
   </div>
