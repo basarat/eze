@@ -7,6 +7,7 @@ import { highlightCodeWithMode, MarkDownStyles } from '../internal/markdown';
 import { Expandible } from 'expandible';
 import * as gls from './components/gls';
 import { Toggle } from './components/toggle';
+import * as icons from './components/icons';
 
 export class HtmlRenderer extends React.PureComponent<types.HTMLContent, {}> {
   render() {
@@ -76,13 +77,15 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
 
 
       {/** View code toggle */}
-      <gls.ContentHorizontal>
+      <gls.ContentHorizontalMargined>
         <Toggle
           label="Show Code"
           value={this.state.viewCode}
           onChange={() => this.setState({ viewCode: !this.state.viewCode })} />
         <gls.Flex />
-      </gls.ContentHorizontal>
+        {!!props.sourceUrl && <a target="_blank" href={props.sourceUrl} title="View Source"><icons.File /></a>}
+        <a target="_blank" href={`./${props.htmlFileName}`} title="Open demo in a new window"><icons.OpenExternal /></a>
+      </gls.ContentHorizontalMargined>
 
       {/** Code */}
       <Expandible open={this.state.viewCode}>

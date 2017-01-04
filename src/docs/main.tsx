@@ -20,6 +20,9 @@ render({
   `);
 
   /** Show some complete application demos */
-  await eze.app({ entryPointPath: __dirname + '/app-1.tsx' });
+  await eze.app({
+    entryPointPath: __dirname + '/app-1.tsx',
+    sourceUrl: 'https://github.com/basarat/eze/blob/master/src/docs/app-1.tsx'
+  });
 })
 

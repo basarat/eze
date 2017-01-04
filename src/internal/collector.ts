@@ -52,7 +52,13 @@ export class Collector {
     });
   }
 
-  async app({ entryPointPath }: { entryPointPath: string }) {
+  async app({
+    entryPointPath,
+    sourceUrl
+  }: {
+      entryPointPath: string,
+      sourceUrl?: string,
+    }) {
     this.entryPointIndex++;
 
     const index = this.entryPointIndex;
@@ -68,7 +74,8 @@ export class Collector {
           mode: 'js',
           code: fse.readFileSync(entryPointPath).toString()
         }
-      ]
+      ],
+      sourceUrl
     });
 
     /** Write the html */
