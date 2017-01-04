@@ -42,3 +42,5 @@ ReactDOM.render(<div>
   </div>
 </div>,
   document.getElementById('root'));
+
+typestyle.forceRenderStyles();
