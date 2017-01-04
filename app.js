@@ -40781,23 +40781,30 @@
 	var AppRendererStyles;
 	(function (AppRendererStyles) {
 	    var borderColor = '#bbb';
+	    /** Keep centered with fixed widths */
+	    var centerWidth = {
+	        position: 'absolute',
+	        left: '50%',
+	        transform: 'translateX(-50%)'
+	    };
 	    AppRendererStyles.iframe = typestyle_1.style({
 	        borderTop: "10px solid " + borderColor,
 	        borderBottom: "10px solid " + borderColor,
 	        borderLeft: "2px solid " + borderColor,
 	        borderRight: "2px solid " + borderColor,
+	        transition: 'width .2s',
 	    });
 	    AppRendererStyles.auto = typestyle_1.style({
 	        width: '100%',
 	    });
-	    AppRendererStyles.desktop = typestyle_1.style({
-	        width: '100%',
+	    AppRendererStyles.desktop = typestyle_1.style(centerWidth, {
+	        width: '1200px',
 	    });
-	    AppRendererStyles.tablet = typestyle_1.style({
-	        width: '100%',
+	    AppRendererStyles.tablet = typestyle_1.style(centerWidth, {
+	        width: '800px',
 	    });
-	    AppRendererStyles.mobile = typestyle_1.style({
-	        width: '100%',
+	    AppRendererStyles.mobile = typestyle_1.style(centerWidth, {
+	        width: '320px',
 	    });
 	})(AppRendererStyles || (AppRendererStyles = {}));
 	var AppRenderer = (function (_super) {
@@ -40810,8 +40817,16 @@
 	        return _this;
 	    }
 	    AppRenderer.prototype.render = function () {
+	        var _this = this;
 	        var props = this.props;
-	        return React.createElement("iframe", { className: typestyle_1.classes(AppRendererStyles.iframe, AppRendererStyles[this.state.mode]), src: "./" + props.htmlFileName });
+	        return React.createElement("div", null,
+	            React.createElement("div", { style: { textAlign: 'right' } },
+	                React.createElement("button", { onClick: function () { return _this.setState({ mode: 'auto' }); } }, "Auto"),
+	                React.createElement("button", { onClick: function () { return _this.setState({ mode: 'desktop' }); } }, "Desktop"),
+	                React.createElement("button", { onClick: function () { return _this.setState({ mode: 'tablet' }); } }, "Tablet"),
+	                React.createElement("button", { onClick: function () { return _this.setState({ mode: 'mobile' }); } }, "Mobile")),
+	            React.createElement("div", { style: { height: '10px' } }),
+	            React.createElement("iframe", { className: typestyle_1.classes(AppRendererStyles.iframe, AppRendererStyles[this.state.mode]), src: "./" + props.htmlFileName }));
 	    };
 	    return AppRenderer;
 	}(React.PureComponent));
