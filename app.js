@@ -48,6 +48,14 @@
 	 * This is the application that renders our main docs on the clients
 	 */
 	"use strict";
+	var __assign = (this && this.__assign) || Object.assign || function(t) {
+	    for (var s, i = 1, n = arguments.length; i < n; i++) {
+	        s = arguments[i];
+	        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+	            t[p] = s[p];
+	    }
+	    return t;
+	};
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
 	var csstips = __webpack_require__(172);
@@ -55,16 +63,18 @@
 	/** Ensure loading the markdown styles */
 	var markdown_1 = __webpack_require__(185);
 	var ensureUsage = markdown_1.toHtml;
+	/** Renderers */
+	var renderers = __webpack_require__(359);
 	/** Normalize and page setup */
 	csstips.normalize();
 	csstips.setupPage('#root');
 	ReactDOM.render(React.createElement("div", null,
 	    React.createElement("div", { className: typestyle.style(csstips.horizontallyCenterSelf, csstips.maxWidth(900), csstips.padding(20, 10), csstips.verticallySpaced(10)) }, data.contents.map(function (c, i) {
 	        if (c.type === 'html') {
-	            return React.createElement("div", { key: i, dangerouslySetInnerHTML: { __html: c.html } });
+	            return React.createElement(renderers.HtmlRenderer, __assign({ key: i }, c));
 	        }
 	        if (c.type === 'app') {
-	            return React.createElement("iframe", { key: i, src: "./" + c.htmlFileName });
+	            return React.createElement(renderers.AppRenderer, __assign({ key: i }, c));
 	        }
 	    }))), document.getElementById('root'));
 
@@ -40743,6 +40753,43 @@
 	    ]
 	  };
 	};
+
+/***/ },
+/* 359 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var React = __webpack_require__(1);
+	var HtmlRenderer = (function (_super) {
+	    __extends(HtmlRenderer, _super);
+	    function HtmlRenderer() {
+	        return _super.apply(this, arguments) || this;
+	    }
+	    HtmlRenderer.prototype.render = function () {
+	        var props = this.props;
+	        return React.createElement("div", { dangerouslySetInnerHTML: { __html: props.html } });
+	    };
+	    return HtmlRenderer;
+	}(React.PureComponent));
+	exports.HtmlRenderer = HtmlRenderer;
+	var AppRenderer = (function (_super) {
+	    __extends(AppRenderer, _super);
+	    function AppRenderer() {
+	        return _super.apply(this, arguments) || this;
+	    }
+	    AppRenderer.prototype.render = function () {
+	        var props = this.props;
+	        return React.createElement("iframe", { src: "./" + props.htmlFileName });
+	    };
+	    return AppRenderer;
+	}(React.PureComponent));
+	exports.AppRenderer = AppRenderer;
+
 
 /***/ }
 /******/ ]);
