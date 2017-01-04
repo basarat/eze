@@ -25,6 +25,10 @@ export function bundle(args: {
           { test: /\.tsx?$/, loader: 'ts-loader' }
         ]
       },
+      /** minify */
+      plugins: [
+        new webpack.optimize.UglifyJsPlugin()
+      ],
       /** Decrease noise */
       stats: {
         hash: false, version: false, timings: false, assets: false,
