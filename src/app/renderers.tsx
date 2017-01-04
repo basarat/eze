@@ -153,7 +153,9 @@ export class Collapsible extends React.PureComponent<CollapsibleProps, {
   overflow?: CollapsibleProps['overflowWhenOpen'],
 }>{
 
-  //If no transition time or easing is passed then default to this
+  /**
+   * Default properties
+   */
   static defaultProps = {
     transitionTime: 200,
     easing: 'linear',
@@ -167,23 +169,25 @@ export class Collapsible extends React.PureComponent<CollapsibleProps, {
   constructor(props: CollapsibleProps) {
     super(props);
 
-    this.state = this.props.open ? {
-      isClosed: false,
-      shouldSwitchAutoOnNextCycle: false,
-      height: 'auto',
-      transition: 'none',
-      hasBeenOpened: true,
-      overflow: this.props.overflowWhenOpen
-    }
-      : {
-        isClosed: true,
-        shouldSwitchAutoOnNextCycle: false,
-        height: 0,
-        transition: 'height ' + this.props.transitionTime + 'ms ' + this.props.easing,
-        hasBeenOpened: false,
-        overflow: 'hidden'
-      }
-  };
+    this.state =
+      this.props.open
+        ? {
+          isClosed: false,
+          shouldSwitchAutoOnNextCycle: false,
+          height: 'auto',
+          transition: 'none',
+          hasBeenOpened: true,
+          overflow: this.props.overflowWhenOpen
+        }
+        : {
+          isClosed: true,
+          shouldSwitchAutoOnNextCycle: false,
+          height: 0,
+          transition: 'height ' + this.props.transitionTime + 'ms ' + this.props.easing,
+          hasBeenOpened: false,
+          overflow: 'hidden'
+        };
+  }
 
   // Taken from https://github.com/EvandroLG/transitionEnd/
   // Determines which prefixed event to listen for
