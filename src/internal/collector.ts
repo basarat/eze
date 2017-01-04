@@ -58,7 +58,7 @@ export class Collector {
       htmlFileName,
       sources: [
         {
-          mode: 'ts',
+          mode: 'js',
           code: fse.readFileSync(entryPointPath).toString()
         }
       ]

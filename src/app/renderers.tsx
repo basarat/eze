@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as types from '../types';
 import { style, classes } from 'typestyle';
 import * as styles from '../internal/styles';
-import {highlightCodeWithMode} from '../internal/markdown';
+import {highlightCodeWithMode, MarkDownStyles} from '../internal/markdown';
 
 export class HtmlRenderer extends React.PureComponent<types.HTMLContent, {}> {
   render() {
@@ -63,7 +63,13 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode: A
       </div>
       <div style={{ height: '10px' }} />
       <iframe className={classes(AppRendererStyles.iframe, AppRendererStyles[this.state.mode])} src={`./${props.htmlFileName}`} />
-      <pre dangerouslySetInnerHTML={{ __html: highlightCodeWithMode(props.sources[0])}}/>
+
+      {/** Render code in same dom structure as markdown would. To reuse styles */}
+      <div className={MarkDownStyles.rootClass}>
+        <pre>
+          <code dangerouslySetInnerHTML={{ __html: highlightCodeWithMode(props.sources[0]) }} />
+        </pre>
+      </div>
     </div>;
   }
 }

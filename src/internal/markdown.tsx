@@ -121,7 +121,7 @@ export function highlightCodeWithMode(args: { code: string, mode: string }) {
 /**
  * CSS customizations
  */
-namespace MarkDownStyles {
+export namespace MarkDownStyles {
   export const rootClass = 'eze-markdown';
 
   cssRaw(`
@@ -266,10 +266,10 @@ export function toHtml(markdown: string): string {
           || lang === 'jsx'
           || lang === 'typescript'
           || lang === 'javascript') {
-          return highlightCodeWithMode({ code, mode: 'jsx' })
+          return highlightCodeWithMode({ code, mode: 'js' })
         }
         if (lang === 'html') {
-          return highlightCodeWithMode({ code, mode: 'text/html' })
+          return highlightCodeWithMode({ code, mode: 'html' })
         }
         if (lang === 'css') {
           return highlightCodeWithMode({ code, mode: 'css' })
