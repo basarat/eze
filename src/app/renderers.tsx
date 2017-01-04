@@ -49,18 +49,19 @@ namespace AppRendererStyles {
 }
 
 export type AppMode = 'auto' | 'desktop' | 'tablet' | 'mobile';
-export class AppRenderer extends React.PureComponent<types.AppContent, { mode: AppMode }> {
+export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: AppMode, viewCode?: boolean }> {
   constructor(props) {
     super(props);
     this.state = {
-      mode: 'auto'
+      mode: 'auto',
+      viewCode: false
     }
   }
   render() {
     const { props } = this;
     return <div className={style(csstips.verticallySpaced(10))}>
 
-      { /** Breakpoint buttons */ }
+      { /** Breakpoint buttons */}
       <div style={{ textAlign: 'right' }}>
         <Breakpoints mode={this.state.mode} onModeChange={mode => this.setState({ mode })} />
       </div>
@@ -69,9 +70,9 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode: A
       <iframe className={classes(AppRendererStyles.iframe, AppRendererStyles[this.state.mode])} src={`./${props.htmlFileName}`} />
 
       {/** Render code in same dom structure as markdown would. To reuse styles */}
-      <Collapsible trigger="Show Code">
+      <Collapsible trigger="Show Code" open={this.state.viewCode} onOpenChange={(open) => this.setState({ viewCode: open })}>
         <div className={MarkDownStyles.rootClass}>
-          <pre className={style({margin:'0px'})}>
+          <pre className={style({ margin: '0px' })}>
             <code dangerouslySetInnerHTML={{ __html: highlightCodeWithMode(props.sources[0]) }} />
           </pre>
         </div>
@@ -132,18 +133,15 @@ class Breakpoints extends React.PureComponent<{ mode: AppMode, onModeChange: (mo
 
 export type CollapsibleProps = {
   trigger: string | HTMLElement,
+  open: boolean,
+  onOpenChange: (open: boolean) => void,
 
   transitionTime?: number,
   easing?: string,
-  open?: boolean,
   classParentString?: string,
-  handleTriggerClick?: (accordionPosition: number) => void,
   triggerWhenOpen?: string | HTMLElement,
   lazyRender?: boolean,
   overflowWhenOpen?: 'hidden' | 'visible' | 'auto' | 'scroll' | 'inherit' | 'initial' | 'unset'
-
-  /** To work in an accordian */
-  accordionPosition?: number,
 }
 /** Based on https://www.npmjs.com/package/react-collapsible */
 export class Collapsible extends React.PureComponent<CollapsibleProps, {
@@ -163,7 +161,6 @@ export class Collapsible extends React.PureComponent<CollapsibleProps, {
     classParentString: 'Collapsible',
     lazyRender: false,
     overflowWhenOpen: 'hidden',
-
     accordionPosition: 0
   };
 
@@ -190,7 +187,7 @@ export class Collapsible extends React.PureComponent<CollapsibleProps, {
 
   // Taken from https://github.com/EvandroLG/transitionEnd/
   // Determines which prefixed event to listen for
-  whichTransitionEnd = (element) => {
+  whichTransitionEnd = (element: HTMLElement): string => {
     var transitions = {
       'WebkitTransition': 'webkitTransitionEnd',
       'MozTransition': 'transitionend',
@@ -198,7 +195,7 @@ export class Collapsible extends React.PureComponent<CollapsibleProps, {
       'transition': 'transitionend'
     };
 
-    for (var t in transitions) {
+    for (let t in transitions) {
       if (element.style[t] !== undefined) {
         return transitions[t];
       }
@@ -233,10 +230,8 @@ export class Collapsible extends React.PureComponent<CollapsibleProps, {
       this.prepareToOpen();
     }
 
-    //If there has been a change in the open prop (controlled by accordion)
+    // If there has been a change in the open prop (controlled by accordion)
     if (prevProps.open != this.props.open) {
-      console.log('Open state changed!', this.props.accordionPosition);
-
       if (this.props.open === true) {
         this.openCollapsible();
       }
@@ -246,24 +241,9 @@ export class Collapsible extends React.PureComponent<CollapsibleProps, {
     }
   }
 
-
   handleTriggerClick = (event) => {
-
     event.preventDefault();
-
-    if (this.props.handleTriggerClick) {
-      this.props.handleTriggerClick(this.props.accordionPosition);
-    }
-    else {
-
-      if (this.state.isClosed === true) {
-        this.openCollapsible();
-      }
-      else {
-        this.closeCollapsible();
-      }
-    }
-
+    this.props.onOpenChange(!this.props.open);
   }
 
   closeCollapsible = () => {
@@ -329,9 +309,7 @@ export class Collapsible extends React.PureComponent<CollapsibleProps, {
       <div className={this.props.classParentString}>
         <span className={this.props.classParentString + "__trigger" + ' ' + openClass} onClick={this.handleTriggerClick}>{trigger}</span>
         <div className={this.props.classParentString + "__contentOuter"} ref="outer" style={dropdownStyle}>
-          <div className={this.props.classParentString + "__contentInner"} ref="inner">
-            {children}
-          </div>
+          <div className={this.props.classParentString + "__contentInner"} ref="inner" children={children} />
         </div>
       </div>
     );
