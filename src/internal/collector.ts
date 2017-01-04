@@ -55,7 +55,13 @@ export class Collector {
     /** Collect */
     this.data.contents.push({
       type: 'app',
-      htmlFileName
+      htmlFileName,
+      sources: [
+        {
+          mode: 'ts',
+          code: fse.readFileSync(entryPointPath).toString()
+        }
+      ]
     });
 
     /** Write the html */
@@ -66,6 +72,6 @@ export class Collector {
 
     /** Bundle */
     const outputFileName = `${this.config.outputDir}/${jsFileName}`;
-    await bundle({ entryPointName: entryPointPath, outputFileName: outputFileName });
+    await bundle({ entryPointName: entryPointPath, outputFileName: outputFileName, prod: false });
   }
 }

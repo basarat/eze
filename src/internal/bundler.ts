@@ -9,8 +9,9 @@ import * as webpack from 'webpack';
 export function bundle(args: {
   entryPointName: string,
   outputFileName: string,
+  prod: boolean
 }) {
-  return new Promise((res,rej) => {
+  return new Promise((res, rej) => {
     const config = {
       devtool: 'source-map',
       entry: args.entryPointName,
@@ -26,9 +27,14 @@ export function bundle(args: {
         ]
       },
       /** minify */
-      plugins: [
-        new webpack.optimize.UglifyJsPlugin()
-      ],
+      plugins: args.prod ? [
+        new webpack.DefinePlugin({
+          'process.env': {
+            NODE_ENV: "production",
+          },
+        }),
+        new webpack.optimize.UglifyJsPlugin(),
+      ] : [],
       /** Decrease noise */
       stats: {
         hash: false, version: false, timings: false, assets: false,

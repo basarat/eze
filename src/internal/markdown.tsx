@@ -7,7 +7,7 @@ import * as escape from 'escape-html';
 import * as hljs from 'highlight.js';
 
 /** Our function */
-function highlightCodeWithMode(args: { code: string, mode: string }) {
+export function highlightCodeWithMode(args: { code: string, mode: string }) {
   // console.log({ code }); // DEBUG
   const res = hljs.highlight(args.mode, args.code);
   return `<div style="display: inline-block">${res.value}</div>`

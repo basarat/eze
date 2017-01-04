@@ -24,6 +24,6 @@ export async function render(config: Config, cb: (eze: Collector) => Promise<voi
     config.outputDir + '/index.html',
     fse.readFileSync(__dirname + '/app/index.html').toString().replace('TitleHere', config.title || "Docs")
   );
-  await bundle({ entryPointName: __dirname + '/app/app.tsx', outputFileName: config.outputDir + '/app.js' });
+  await bundle({ entryPointName: __dirname + '/app/app.tsx', outputFileName: config.outputDir + '/app.js', prod: true });
 }
 
