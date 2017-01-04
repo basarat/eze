@@ -8,7 +8,8 @@
     "buildtsc": "tsc -p .",
     "builddocs": "ts-node ./src/docs/main.tsx",
     "test": "npm run buildtsc && npm run builddocs",
-    "start": "concurrently -k \"npm run buildtsc -- -w\" \"nodemon --watch src --ext ts,tsx --exec npm run builddocs\"",
+    "serve": "light-server -s docs -w src/**",
+    "start": "concurrently -k \"npm run buildtsc -- -w\" \"nodemon --watch src --ext ts,tsx --exec npm run builddocs\" \"npm run serve\"",
     "publishdocs": "ts-node ./scripts/publishdocs.ts"
   },
   "author": "",
@@ -37,6 +38,7 @@
     "escape-html": "1.0.3",
     "expandible": "0.1.1",
     "gh-pages": "0.11.0",
+    "light-server": "1.1.7",
     "nodemon": "1.11.0",
     "react": "15.3.2",
     "react-dom": "15.3.2",

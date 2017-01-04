@@ -24,5 +24,13 @@ render({
     entryPointPath: __dirname + '/app-1.tsx',
     sourceUrl: 'https://github.com/basarat/eze/blob/master/src/docs/app-1.tsx'
   });
+
+  await eze.md(`
+  They are automatically showcased in the best size to prevent a vertical scrollbar
+  `);
+  await eze.app({
+    entryPointPath: __dirname + '/app-2.tsx',
+    sourceUrl: 'https://github.com/basarat/eze/blob/master/src/docs/app-2.tsx'
+  });
 })
 

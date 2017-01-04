@@ -83,9 +83,8 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
         onLoad={e => {
           /** Autosize the iframe to remove scroll bars http://stackoverflow.com/a/9976309/390330 */
           if (!props.height) {
-            e.target.style.height = e.target.contentWindow.document.body.scrollHeight + 'px';
+            e.target.style.height = e.target.contentWindow.document.body.scrollHeight + 5 + 'px';
           }
-
         }} />
 
       {/** View code toggle */}
