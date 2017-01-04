@@ -77,6 +77,7 @@
 	            return React.createElement(renderers.AppRenderer, __assign({ key: i }, c));
 	        }
 	    }))), document.getElementById('root'));
+	typestyle.forceRenderStyles();
 
 
 /***/ },
