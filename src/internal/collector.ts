@@ -1,4 +1,4 @@
-import { Config, Data } from '../types';
+import { Config, Data, SupportedMode } from '../types';
 import { toHtml, dedent, highlightCodeWithMode, MarkDownStyles } from './markdown';
 import { bundle } from './bundler';
 import * as fse from 'fs-extra';
@@ -51,7 +51,7 @@ export class Collector {
     /** TODO: Collect headings in table of contents */
   }
 
-  async code({ mode, code }: { mode: string, code: string }) {
+  async code({ mode, code }: { mode: SupportedMode, code: string }) {
     this.data.contents.push({
       type: 'html',
       html: `<div class=${MarkDownStyles.rootClass}><pre><code>${highlightCodeWithMode({ mode, code: code.trim() })}</code></pre></div>`

@@ -1,10 +1,12 @@
+export type SupportedMode = 'ts' | 'js' | 'tsx' | 'jsx' | 'javascript' | 'typescript' | 'html' | 'css';
+
 export type HTMLContent = { type: 'html', html: string }
 export type AppContent = {
   type: 'app',
   htmlFileName: string,
-  sources: { mode: 'js', code: string }[],
+  sources: { mode: SupportedMode, code: string }[],
 
-  sourceUrl?: string, 
+  sourceUrl?: string,
   height?: string,
 }
 

@@ -14,7 +14,7 @@ render({
   `);
 
   /** Show this file */
-  await eze.code({ mode: 'js', code: require('fs').readFileSync(__filename).toString() })
+  await eze.code({ mode: 'ts', code: require('fs').readFileSync(__filename).toString() })
 
   await eze.md(`
   # Why?

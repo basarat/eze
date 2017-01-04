@@ -5,6 +5,7 @@ import * as csstips from 'csstips';
 import { colors, spacing, fontSizes } from './styles';
 import * as escape from 'escape-html';
 import * as hljs from 'highlight.js';
+import { SupportedMode } from '../types';
 
 
 /** Highlight code */
@@ -112,8 +113,18 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   font-weight: bold;
 }
 `);
-export function highlightCodeWithMode(args: { code: string, mode: string }) {
+export function highlightCodeWithMode(args: { code: string, mode: SupportedMode }) {
   // console.log({ code }); // DEBUG
+  let { mode } = args;
+  if (mode === 'ts'
+    || mode === 'js'
+    || mode === 'tsx'
+    || mode === 'jsx'
+    || mode === 'typescript'
+    || mode === 'javascript') {
+    mode = 'js';
+  }
+
   const res = hljs.highlight(args.mode, args.code);
   return `<div style="display: inline-block">${res.value}</div>`
 }
@@ -261,21 +272,7 @@ export function toHtml(markdown: string): string {
       gfm: true,
       renderer: renderer,
       highlight: (code, lang) => {
-        if (lang === 'ts'
-          || lang === 'js'
-          || lang === 'tsx'
-          || lang === 'jsx'
-          || lang === 'typescript'
-          || lang === 'javascript') {
-          return highlightCodeWithMode({ code, mode: 'js' })
-        }
-        if (lang === 'html') {
-          return highlightCodeWithMode({ code, mode: 'html' })
-        }
-        if (lang === 'css') {
-          return highlightCodeWithMode({ code, mode: 'css' })
-        }
-        return code;
+        return highlightCodeWithMode({ code, mode: lang });
       }
     })
       // don't want a trailing newline
