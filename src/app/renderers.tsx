@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as types from '../types';
 import { style, classes } from 'typestyle';
+import * as csstips from 'csstips';
 import * as styles from '../internal/styles';
 import { highlightCodeWithMode, MarkDownStyles } from '../internal/markdown';
 
@@ -57,22 +58,20 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode: A
   }
   render() {
     const { props } = this;
-    return <div>
+    return <div className={style(csstips.verticallySpaced(10))}>
 
       { /** Breakpoint buttons */ }
       <div style={{ textAlign: 'right' }}>
         <Breakpoints mode={this.state.mode} onModeChange={mode => this.setState({ mode })} />
       </div>
 
-      <div style={{ height: '10px' }} />
-
       {/** Iframe */}
       <iframe className={classes(AppRendererStyles.iframe, AppRendererStyles[this.state.mode])} src={`./${props.htmlFileName}`} />
 
       {/** Render code in same dom structure as markdown would. To reuse styles */}
-      <Collapsible trigger="View Code">
+      <Collapsible trigger="Show Code">
         <div className={MarkDownStyles.rootClass}>
-          <pre>
+          <pre className={style({margin:'0px'})}>
             <code dangerouslySetInnerHTML={{ __html: highlightCodeWithMode(props.sources[0]) }} />
           </pre>
         </div>
@@ -219,7 +218,6 @@ export class Collapsible extends React.PureComponent<CollapsibleProps, {
           shouldSwitchAutoOnNextCycle: true
         });
       }
-
     });
   }
 
