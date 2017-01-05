@@ -132,6 +132,20 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
   }
 }
 
+namespace StoryRendererStyles {
+  export const iframe = style({
+    display: 'block',
+    border: 'none',
+    width: '100%',
+    transition: 'height .2s',
+  });
+
+  /** Autosize the iframe to remove scroll bars http://stackoverflow.com/a/9976309/390330 */
+  export function resizeIframe(frame: HTMLFrameElement) {
+    frame.style.height = frame.contentWindow.document.body.scrollHeight + 'px';
+  }
+}
+
 export class StoryRenderer extends React.PureComponent<types.StoryContent, {}> {
   constructor(props) {
     super(props);
@@ -148,14 +162,15 @@ export class StoryRenderer extends React.PureComponent<types.StoryContent, {}> {
       <iframe
         ref={(frame) => this.ctrls.frame = frame as any}
         className={classes(
-          AppRendererStyles.iframe,
-          AppRendererStyles['auto'],
+          StoryRendererStyles.iframe,
         )}
         src={`./${props.htmlFileName}`}
         onLoad={e => {
-          this.ctrls.frame.style.height = '10px'; // Really small
+          /**  Start of small */
+          this.ctrls.frame.style.height = '10px'; 
+          /** Then resize to remove scrollbars */
           setTimeout(() => {
-            AppRendererStyles.resizeIframe(this.ctrls.frame);
+            StoryRendererStyles.resizeIframe(this.ctrls.frame);
           }, 100);
         }} />
     </gls.VerticalMargined>;

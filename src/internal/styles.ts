@@ -7,7 +7,9 @@ export const colors = {
   header: 'black',
   headerHover: '#444',
 
-  text: '#555'
+  text: '#555',
+
+  errorText: '#e12f19',
 }
 export const fontSizes = {
   buttonText: '15px',
