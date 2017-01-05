@@ -16,11 +16,17 @@ export type ContentItem =
   /** app */
   | AppContent
 
-export interface Data {
-  contents: ContentItem[];
+export type TableOfContentEntry = {
+  title: string, 
+  subItems: TableOfContentEntry[]
 }
 
-export interface Config {
+export interface Data {
+  contents: ContentItem[];
+  tableOfContents: TableOfContentEntry[]
+}
+
+export interface RenderConfig {
   outputDir: string,
   title?: string,
   repoUrl?: string,

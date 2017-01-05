@@ -1,10 +1,10 @@
 import * as fse from 'fs-extra';
-import { Data, Config } from './types';
+import { Data, RenderConfig } from './types';
 import { bundle } from './internal/bundler';
 import { Collector } from './internal/collector';
 import { toHtml } from './internal/markdown';
 
-export async function render(config: Config, cb: (eze: Collector) => Promise<void>) {
+export async function render(config: RenderConfig, cb: (eze: Collector) => Promise<void>) {
   try {
     const eze = new Collector(config);
     await cb(eze);
