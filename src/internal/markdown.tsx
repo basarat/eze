@@ -160,6 +160,15 @@ export namespace MarkDownStyles {
 .${rootClass} h3 {
   margin: 0px;
 }
+.${rootClass} h4 {
+  margin: 0px;
+}
+.${rootClass} h5 {
+  margin: 0px;
+}
+.${rootClass} h6 {
+  margin: 0px;
+}
 
 /** List styling */
 .${rootClass} ul {
