@@ -2,7 +2,7 @@ import { RenderConfig, Data, SupportedMode, TableOfContentEntry } from '../types
 import { toHtml, dedent, highlightCodeWithMode, MarkDownStyles } from './markdown';
 import { bundle } from './bundler';
 import * as fse from 'fs-extra';
-import { getDemoCodes } from './tsMagic/astutils';
+import { getDemoCodes } from './tsMagic/astUtils';
 
 export const appIndexTemplate = ({ index, jsFileName }: { index: number, jsFileName: string }) => `
 <!DOCTYPE html>
