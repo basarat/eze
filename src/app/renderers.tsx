@@ -165,6 +165,7 @@ export class StoryRenderer extends React.PureComponent<types.StoryContent, { loa
 
       {/** iframe the html */}
       <iframe
+        id={`story${props.index}`}
         ref={(frame) => this.ctrls.frame = frame as any}
         className={classes(
           StoryRendererStyles.iframe,

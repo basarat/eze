@@ -2,7 +2,7 @@ import { RenderConfig, Data, SupportedMode, TableOfContentEntry } from '../types
 import { toHtml, dedent, highlightCodeWithMode, MarkDownStyles } from './markdown';
 import { bundle } from './bundler';
 import * as fse from 'fs-extra';
-import { getDemoCodes } from './tsMagic/astUtils';
+import { getDemoCodes, getMd } from './tsMagic/astUtils';
 import * as types from '../types';
 
 export const appIndexTemplate = (
@@ -176,8 +176,10 @@ export class Collector {
 
     /** Collect */
     const code = fse.readFileSync(entryPointPath).toString();
+    const md = getMd(code);
     const content: types.StoryContent = {
       type: 'story',
+      index: this.entryPointIndex,
       htmlFileName,
       code: code,
       demoCodes: getDemoCodes(code).map(

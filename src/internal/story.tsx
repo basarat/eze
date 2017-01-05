@@ -73,14 +73,14 @@ export class Story {
           {
             this.stories.map((s, i) => {
               return s.type === 'md'
-                ? <MarkDown key={i} markdown={dedent(s.md)} />
+                ? <MarkDown key={i} markdown={dedent(s.md)} iframeId={'story' + data.index} />
                 : s.type === 'demo'
                   ? <div key={i} className={style(csstips.verticallySpaced(10))}>
                     <div>
                       {s.demo}
                     </div>
                     {/** Padded code extra to give visual association with what was on top */}
-                    <div style={{paddingLeft: '20px', paddingRight: '20px'}} dangerouslySetInnerHTML={{
+                    <div style={{ paddingLeft: '20px', paddingRight: '20px' }} dangerouslySetInnerHTML={{
                       __html: `<div class=${MarkDownStyles.rootClass}><pre><code>${highlightCodeWithMode({
                         mode: 'tsx',
                         code: `/** Code for above demo */\n${s.code}`

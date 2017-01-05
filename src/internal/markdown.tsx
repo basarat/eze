@@ -271,7 +271,7 @@ h4:hover .heading-anchor {
 }
 
 /** Converts an html string to markdown */
-export function toHtml(markdown: string): {
+export function toHtml(markdown: string, iframeId = ''): {
   html: string,
   headings: Heading[]
 } {
@@ -301,7 +301,7 @@ export function toHtml(markdown: string): {
 
   /** Collect headings */
   renderer.heading = function(text: string, level: Heading['level']) {
-    const id = text.toLowerCase().replace(/[^\w]+/g, '-');
+    const id = (iframeId ? iframeId + '-' : '') + text.toLowerCase().replace(/[^\w]+/g, '-');
     headings.push({
       level,
       id,
@@ -386,14 +386,14 @@ export function dedent(strings, ...values) {
 }
 
 
-export interface MarkdownProps { markdown: string };
+export interface MarkdownProps { markdown: string, iframeId?: string };
 
 /**
  * Renders markdown
  */
 export class MarkDown extends React.PureComponent<MarkdownProps, {}> {
   render() {
-    const html = toHtml(this.props.markdown).html;
+    const html = toHtml(this.props.markdown, this.props.iframeId).html;
     return (
       <div className={classes(MarkDownStyles.rootClass, style(csstips.verticallySpaced(10)))}
         dangerouslySetInnerHTML={{ __html: html }} />

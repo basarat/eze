@@ -11,6 +11,7 @@ export type AppContent = {
 }
 export type StoryContent = {
   type: 'story',
+  index: number,
   htmlFileName: string,
   code: string,
 
