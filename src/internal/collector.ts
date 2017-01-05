@@ -48,7 +48,8 @@ export class Collector {
 
   async md(markdown: string) {
     /** render the markdown */
-    this.data.contents.push({ type: 'html', html: toHtml(dedent(markdown)) });
+    const { html } = toHtml(dedent(markdown));
+    this.data.contents.push({ type: 'html', html });
     /** TODO: Collect headings in table of contents */
   }
 

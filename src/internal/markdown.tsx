@@ -244,7 +244,7 @@ export namespace MarkDownStyles {
 }
 
 /** Converts an html string to markdown */
-export function toHtml(markdown: string): string {
+export function toHtml(markdown: string): { html: string } {
   /** Custom rendering */
   const renderer = new marked.Renderer();
 
@@ -267,7 +267,7 @@ export function toHtml(markdown: string): string {
     return output;
   };
 
-  return (
+  const html = (
     `<div class=${MarkDownStyles.rootClass}>` + marked(markdown, {
       gfm: true,
       renderer: renderer,
@@ -278,6 +278,7 @@ export function toHtml(markdown: string): string {
       // don't want a trailing newline
       .trim()
   ) + '</div>';
+  return { html };
 }
 
 /**
