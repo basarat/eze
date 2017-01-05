@@ -178,7 +178,13 @@ export class Collector {
       type: 'story',
       htmlFileName,
       code: code,
-      demoCodes: getDemoCodes(code).map(dedent)
+      demoCodes: getDemoCodes(code).map(
+        /** 
+         * Don't remove this lambda.
+         * Otherwise `dedent` uses the `index` argument adding the number to output
+         */
+        (c) => dedent(c)
+      )
     };
     this.data.contents.push(content);
 
