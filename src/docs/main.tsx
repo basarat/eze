@@ -1,10 +1,12 @@
 import { render } from "../index";
 import { colors } from '../internal/styles';
+import { appIndexTemplate } from '../internal/collector';
 
 /** Render */
 render({
   outputDir: __dirname + '/../../docs',
-  repoUrl: "http://github.com/basarat/eze"
+  repoUrl: "http://github.com/basarat/eze",
+  title: 'eze 🌹'
 }, async eze => {
 
   /** Write some markdown */
@@ -50,7 +52,7 @@ render({
   `);
   await eze.code({
     mode: 'html',
-    code: require('fs').readFileSync(__dirname + '/../app/index.html').toString()
+    code: appIndexTemplate({ index: 0, jsFileName: 'app-0.js'})
   })
 })
 
