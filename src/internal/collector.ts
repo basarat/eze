@@ -58,6 +58,19 @@ export class Collector {
     });
   }
 
+  /**
+   * Renders a react element
+   */
+  async react(code: () => React.ReactNode) {
+    /**
+     * We have no idea about what surrounding context this code fragment might depend upon
+     * That context may or may not be webpackable
+     * So can't be done?
+     * 
+     * NOTE: other things do this by having their own *runner* whereas we are actually running in pure node.
+     **/
+  }
+
   /** Each demo gets its index */
   private entryPointIndex = 0;
 

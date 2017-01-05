@@ -1,5 +1,6 @@
 import { render } from "../index";
 import { colors } from '../internal/styles';
+import { demo } from '../app/components/anchor';
 
 /** Render */
 render({
@@ -45,5 +46,8 @@ render({
     entryPointPath: __dirname + '/app-2.tsx',
     sourceUrl: 'https://github.com/basarat/eze/blob/master/src/docs/app-2.tsx'
   });
+
+  /** Show react demos */
+  demo();
 })
 
