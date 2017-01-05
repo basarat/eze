@@ -104,7 +104,7 @@ export class Collector {
       const newHeading = {
         level: heading.level,
         text: heading.text,
-        id: heading.text,
+        id: heading.id,
         subItems: [],
       };
 

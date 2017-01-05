@@ -54,5 +54,15 @@ render({
     mode: 'html',
     code: appIndexTemplate({ index: 0, jsFileName: 'app-0.js'})
   })
+
+  /** Table of contents */
+  await eze.md(`
+  # Table of contents
+  ## Generated
+  ### Automatically
+  #### Based on
+  the headings parsed from markdown.
+  `);
+  
 })
 
