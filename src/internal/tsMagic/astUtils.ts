@@ -11,3 +11,35 @@ export function createSourceFile(code: string): ts.SourceFile {
   );
   return sourceFile;
 }
+
+
+export function getDemoCodes(code: string): string[] {
+  const demoCodes: string[] = [];
+
+  const visitNode = (node: ts.Node) => {
+
+    /** 
+     * Heuristic:
+     * call expressions
+     *  with property access name `demo`.
+     *   Collect their first argument
+     */
+    if (node.kind === ts.SyntaxKind.CallExpression) {
+      const call = node as ts.CallExpression;
+      if (call.expression.kind === ts.SyntaxKind.PropertyAccessExpression) {
+        const propertyAccess = call.expression as ts.PropertyAccessExpression;
+        if (
+          propertyAccess.name.text === 'demo'
+          && call.arguments.length
+        ) {
+          demoCodes.push(call.arguments[0].getFullText());
+        }
+      }
+    }
+
+    ts.forEachChild(node, visitNode);
+  };
+  visitNode(createSourceFile(code));
+
+  return demoCodes;
+}

@@ -2,6 +2,7 @@ import { RenderConfig, Data, SupportedMode, TableOfContentEntry } from '../types
 import { toHtml, dedent, highlightCodeWithMode, MarkDownStyles } from './markdown';
 import { bundle } from './bundler';
 import * as fse from 'fs-extra';
+import { getDemoCodes } from "./tsmagic/astutils";
 
 export const appIndexTemplate = ({ index, jsFileName }: { index: number, jsFileName: string }) => `
 <!DOCTYPE html>
@@ -171,8 +172,7 @@ export class Collector {
       type: 'story',
       htmlFileName,
       code: code,
-      /** TODO: collect the demo codes */
-      demoCodes: []
+      demoCodes: getDemoCodes(code)
     });
 
     /** Write the html */
