@@ -2,6 +2,7 @@
  * @module wraps webpack in a nice api
  */
 import * as webpack from 'webpack';
+import * as fse from 'fs-extra';
 
 /**
  * Creates a webpack bundle
@@ -12,6 +13,12 @@ export function bundle(args: {
   prod: boolean
 }) {
   return new Promise((res, rej) => {
+
+    if (!fse.existsSync(args.entryPointName)) {
+      /** Webpack ignores this siliently sadly so we need to catch it ourselves */
+      rej(new Error(`Entry point does not exist: ${args.entryPointName}`));
+    }
+
     const config = {
       devtool: 'source-map',
       entry: args.entryPointName,

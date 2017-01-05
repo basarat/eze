@@ -41,13 +41,13 @@ export class Collector {
   /**
    * We collect the rendered contents here
    */
-  data: Data = {
+  _data: Data = {
     contents: [],
     tableOfContents: []
   }
 
   async html(html: string) {
-    this.data.contents.push({ type: 'html', html });
+    this._data.contents.push({ type: 'html', html });
   }
 
   async md(markdown: string) {
@@ -55,7 +55,7 @@ export class Collector {
     const { html, headings } = toHtml(dedent(markdown));
 
     /** Store the html */
-    this.data.contents.push({ type: 'html', html });
+    this._data.contents.push({ type: 'html', html });
 
     /** Ammend TOC */
     this.ammendTocWithHeadings(headings);
@@ -65,7 +65,7 @@ export class Collector {
     /** 
     * Collect headings in table of contents
     **/
-    const tableOfContents = this.data.tableOfContents;
+    const tableOfContents = this._data.tableOfContents;
 
     /** Keep track of the last heading */
     let _lastHeading: TableOfContentEntry | undefined = undefined;
@@ -156,7 +156,7 @@ export class Collector {
   }
 
   async code({ mode, code }: { mode: SupportedMode, code: string }) {
-    this.data.contents.push({
+    this._data.contents.push({
       type: 'html',
       html: `<div class=${MarkDownStyles.rootClass}><pre><code>${highlightCodeWithMode({ mode, code: code.trim() })}</code></pre></div>`
     });
@@ -189,7 +189,7 @@ export class Collector {
         (c) => dedent(c)
       )
     };
-    this.data.contents.push(content);
+    this._data.contents.push(content);
 
     /** Ammend TOC */
     const { headings } = toHtml(getMds(code).map(md => dedent(md)).join('\n'), 'story' + this.entryPointIndex);
@@ -207,7 +207,11 @@ export class Collector {
 
     /** Bundle */
     const outputFileName = `${this.config.outputDir}/${jsFileName}`;
-    await bundle({ entryPointName: entryPointPath, outputFileName: outputFileName, prod: true });
+    await (bundle({
+      entryPointName: entryPointPath,
+      outputFileName: outputFileName,
+      prod: true
+    }));
   }
 
   /** Adds a raw application demo */
@@ -232,7 +236,7 @@ export class Collector {
     const htmlFileName = `app-${this.entryPointIndex}.html`;
 
     /** Collect */
-    this.data.contents.push({
+    this._data.contents.push({
       type: 'app',
       htmlFileName,
       sources: [
@@ -253,6 +257,36 @@ export class Collector {
 
     /** Bundle */
     const outputFileName = `${this.config.outputDir}/${jsFileName}`;
-    await bundle({ entryPointName: entryPointPath, outputFileName: outputFileName, prod: false });
+    await (bundle({
+      entryPointName: entryPointPath,
+      outputFileName: outputFileName,
+      prod: false
+    }));
+  }
+
+  /** The end */
+  async _done() {
+    /**
+     * DESIGN Notes:
+     * We write out an 
+     * - a data.js that contains our data object
+     * - index.html file 
+     * - an application `app.js` that loads uses data.js to render the application
+     */
+
+    /** Write out the data */
+    const data = JSON.stringify(this._data);
+    fse.outputFileSync(this.config.outputDir + '/data.js', `var data = ${data}`);
+
+    /** Write the html + js */
+    fse.outputFileSync(
+      this.config.outputDir + '/index.html',
+      fse.readFileSync(__dirname + '/../app/index.html').toString().replace('TitleHere', this.config.title || "Docs")
+    );
+    await (bundle({
+      entryPointName: __dirname + '/../app/app.tsx',
+      outputFileName: this.config.outputDir + '/app.js',
+      prod: true
+    }));
   }
 }
