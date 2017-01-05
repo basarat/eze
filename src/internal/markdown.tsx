@@ -383,3 +383,19 @@ export function dedent(strings, ...values) {
   // handle escaped newlines at the end to ensure they don't get stripped too
   return result.replace(/\\n/g, "\n");
 }
+
+
+export interface MarkdownProps { markdown: string };
+
+/**
+ * Renders markdown
+ */
+export class MarkDown extends React.PureComponent<MarkdownProps, {}> {
+  render() {
+    const html = toHtml(this.props.markdown).html;
+    return (
+      <div className={classes(MarkDownStyles.rootClass, style(csstips.verticallySpaced(10)))}
+        dangerouslySetInnerHTML={{ __html: html }} />
+    );
+  }
+}
