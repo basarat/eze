@@ -18,6 +18,8 @@ export class HtmlRenderer extends React.PureComponent<types.HTMLContent, {}> {
 
 namespace AppRendererStyles {
   const borderColor = '#bbb'
+  const topBorderHeight = 2;
+  const bottomBorderHeight = 2;
 
   /** Keep centered with fixed widths */
   const centerWidth = {
@@ -30,8 +32,8 @@ namespace AppRendererStyles {
     display: 'block',
 
     /** Bit big border needed as mobile browsers have rendering issues with 1px */
-    borderTop: `2px solid ${borderColor}`,
-    borderBottom: `2px solid ${borderColor}`,
+    borderTop: `${topBorderHeight}px solid ${borderColor}`,
+    borderBottom: `${bottomBorderHeight}px solid ${borderColor}`,
     borderLeft: `4px solid ${borderColor}`,
     borderRight: `2px solid ${borderColor}`,
 
@@ -58,13 +60,13 @@ namespace AppRendererStyles {
   export function resizeIframe(frame: HTMLFrameElement) {
     /** 
      * Without this we expand constantly slowly and slowly
-     *  +2 is by testing. Haven't investigated reason.
      **/
-    if (frame.style.height === frame.contentWindow.document.body.scrollHeight + 2 + 'px') {
+    if (frame.style.height
+      === frame.contentWindow.document.body.scrollHeight + topBorderHeight + bottomBorderHeight + 'px') {
       return;
     }
-    /** Without 5 we still get scrollbars :-/ */
-    frame.style.height = frame.contentWindow.document.body.scrollHeight + 5 + 'px';
+    /** Without the +borderHeight we still get scrollbars :-/ */
+    frame.style.height = frame.contentWindow.document.body.scrollHeight + topBorderHeight + bottomBorderHeight + 'px';
   }
 }
 

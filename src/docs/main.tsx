@@ -45,5 +45,9 @@ render({
     entryPointPath: __dirname + '/app-2.tsx',
     sourceUrl: 'https://github.com/basarat/eze/blob/master/src/docs/app-2.tsx'
   });
+  await eze.md(`
+  All applications can target the \`root\` element. The following is the HTML that is used:
+  `);
+  await eze.code({ mode: 'html', code: require('fs').readFileSync(__dirname + '/../app/index.html').toString() })
 })
 
