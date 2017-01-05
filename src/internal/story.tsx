@@ -79,7 +79,8 @@ export class Story {
                     <div>
                       {s.demo}
                     </div>
-                    <div dangerouslySetInnerHTML={{
+                    {/** Padded code extra to give visual association with what was on top */}
+                    <div style={{paddingLeft: '20px', paddingRight: '20px'}} dangerouslySetInnerHTML={{
                       __html: `<div class=${MarkDownStyles.rootClass}><pre><code>${highlightCodeWithMode({
                         mode: 'tsx',
                         code: `/** Code for above demo */\n${s.code}`
