@@ -180,7 +180,7 @@ export class Collector {
 
     /** Bundle */
     const outputFileName = `${this.config.outputDir}/${jsFileName}`;
-    await bundle({ entryPointName: entryPointPath, outputFileName: outputFileName, prod: false });
+    await bundle({ entryPointName: entryPointPath, outputFileName: outputFileName, prod: true });
   }
 
   /** Adds a raw application demo */

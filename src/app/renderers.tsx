@@ -8,6 +8,7 @@ import { Expandible } from 'expandible';
 import * as gls from './components/gls';
 import { Toggle } from './components/toggle';
 import * as icons from './components/icons';
+import { Loader } from "./components/loader";
 
 export class HtmlRenderer extends React.PureComponent<types.HTMLContent, {}> {
   render() {
@@ -138,6 +139,7 @@ namespace StoryRendererStyles {
     border: 'none',
     width: '100%',
     transition: 'height .2s',
+    height: '10px',
   });
 
   /** Autosize the iframe to remove scroll bars http://stackoverflow.com/a/9976309/390330 */
@@ -146,10 +148,11 @@ namespace StoryRendererStyles {
   }
 }
 
-export class StoryRenderer extends React.PureComponent<types.StoryContent, {}> {
+export class StoryRenderer extends React.PureComponent<types.StoryContent, { loading: boolean }> {
   constructor(props) {
     super(props);
     this.state = {
+      loading: true,
     }
   }
   ctrls: {
@@ -158,6 +161,8 @@ export class StoryRenderer extends React.PureComponent<types.StoryContent, {}> {
   render() {
     const { props } = this;
     return <gls.VerticalMargined>
+      {this.state.loading && <Loader />}
+
       {/** iframe the html */}
       <iframe
         ref={(frame) => this.ctrls.frame = frame as any}
@@ -166,12 +171,9 @@ export class StoryRenderer extends React.PureComponent<types.StoryContent, {}> {
         )}
         src={`./${props.htmlFileName}`}
         onLoad={e => {
-          /**  Start of small */
-          this.ctrls.frame.style.height = '10px'; 
-          /** Then resize to remove scrollbars */
-          setTimeout(() => {
-            StoryRendererStyles.resizeIframe(this.ctrls.frame);
-          }, 100);
+          this.setState({ loading: false });
+          /** Resize to remove scrollbars */
+          StoryRendererStyles.resizeIframe(this.ctrls.frame);
         }} />
     </gls.VerticalMargined>;
   }
