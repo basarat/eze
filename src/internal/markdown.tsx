@@ -320,6 +320,7 @@ export function toHtml(markdown: string, iframeId = ''): {
       gfm: true,
       renderer: renderer,
       highlight: (code, lang) => {
+        if (!lang) return code;
         return highlightCodeWithMode({ code, mode: lang });
       }
     })

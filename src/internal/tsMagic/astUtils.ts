@@ -56,6 +56,6 @@ export function getDemoCodes(code: string): string[] {
   return collectFunctionArguments(code, 'demo');
 }
 
-export function getMd(code: string): string {
-  return collectFunctionArguments(code, 'md').join('\n');
+export function getMds(code: string): string[] {
+  return collectFunctionArguments(code, 'md');
 }
