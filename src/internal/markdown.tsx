@@ -206,8 +206,12 @@ export namespace MarkDownStyles {
 /** Heading anchors */
 .${rootClass} .heading-anchor {
   float: left;
-  margin-left: -13px;
   line-height: 1.2;
+
+  /** Matches the height of the embedded svg */
+  margin-left: -20px;
+
+  /** Default display */
   opacity: .1;
   transition: opacity .1s;
 }
