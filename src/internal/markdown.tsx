@@ -208,12 +208,18 @@ export namespace MarkDownStyles {
   float: left;
   line-height: 1.2;
 
-  /** Matches the height of the embedded svg */
-  margin-left: -20px;
+  padding-right: 5px;
+
+  /** Matches the width of the embedded svg + right padding */
+  margin-left: -25px;
 
   /** Default display */
   opacity: .1;
   transition: opacity .1s;
+}
+.${rootClass} .heading-anchor:focus {
+  outline: none;
+  opacity: 1;
 }
 h1:hover .heading-anchor, 
 h2:hover .heading-anchor, 
