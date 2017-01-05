@@ -12,9 +12,12 @@ export function createSourceFile(code: string): ts.SourceFile {
   return sourceFile;
 }
 
-
-export function getDemoCodes(code: string): string[] {
-  const demoCodes: string[] = [];
+/**
+ * Given some code
+ * collects the functionName(firstArgument).something.functionName(secondArgument) < `firstAgument`s
+ **/
+function collectFunctionArguments(code: string, functionName: string): string[] {
+  const functionArguments: string[] = [];
 
   const visitNode = (node: ts.Node) => {
 
@@ -29,7 +32,7 @@ export function getDemoCodes(code: string): string[] {
       if (call.expression.kind === ts.SyntaxKind.PropertyAccessExpression) {
         const propertyAccess = call.expression as ts.PropertyAccessExpression;
         if (
-          propertyAccess.name.text === 'demo'
+          propertyAccess.name.text === functionName
           && call.arguments.length
         ) {
           /** 
@@ -37,7 +40,7 @@ export function getDemoCodes(code: string): string[] {
            * => second call is visited first because of AST structure
            * So last one visited is the first one the user wrote in the chain
            */
-          demoCodes.unshift(call.arguments[0].getFullText());
+          functionArguments.unshift(call.arguments[0].getFullText());
         }
       }
     }
@@ -46,5 +49,13 @@ export function getDemoCodes(code: string): string[] {
   };
   visitNode(createSourceFile(code));
 
-  return demoCodes;
+  return functionArguments;
+}
+
+export function getDemoCodes(code: string): string[] {
+  return collectFunctionArguments(code, 'demo');
+}
+
+export function getMd(code: string): string {
+  return collectFunctionArguments(code, 'md').join('\n');
 }
