@@ -51,3 +51,10 @@ export const Anchor = (props: AnchorProps) => {
     </a>
   );
 }
+
+/**
+ * TODO: thinking of a way to demo such functions
+ */
+export function demo() {
+  return <Anchor href="http://www.google.com">Go to google</Anchor>;
+}
