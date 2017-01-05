@@ -21476,7 +21476,8 @@
 	    white: 'white',
 	    header: 'black',
 	    headerHover: '#444',
-	    text: '#555'
+	    text: '#555',
+	    errorText: '#e12f19',
 	};
 	exports.fontSizes = {
 	    buttonText: '15px',
