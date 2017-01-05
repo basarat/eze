@@ -17,8 +17,10 @@ export type ContentItem =
   | AppContent
 
 export type TableOfContentEntry = {
-  title: string, 
-  subItems: TableOfContentEntry[]
+  text: string, 
+  id: string,
+  level: 1 | 2 | 3 | 4 | 5 | 6,
+  subItems: TableOfContentEntry[],
 }
 
 export interface Data {

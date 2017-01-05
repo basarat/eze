@@ -1,4 +1,4 @@
-import { RenderConfig, Data, SupportedMode } from '../types';
+import { RenderConfig, Data, SupportedMode, TableOfContentEntry } from '../types';
 import { toHtml, dedent, highlightCodeWithMode, MarkDownStyles } from './markdown';
 import { bundle } from './bundler';
 import * as fse from 'fs-extra';
@@ -49,8 +49,65 @@ export class Collector {
   async md(markdown: string) {
     /** render the markdown */
     const { html, headings } = toHtml(dedent(markdown));
+
+    /** Store the html */
     this.data.contents.push({ type: 'html', html });
-    /** TODO: Collect headings in table of contents */
+
+    /** 
+     * Collect headings in table of contents
+     **/
+    const tableOfContents = this.data.tableOfContents;
+
+    /** Keep track of the last heading */
+    let _lastHeading: TableOfContentEntry | undefined = undefined;
+    if (tableOfContents.length) {
+      _lastHeading = tableOfContents[tableOfContents.length - 1];
+      while (_lastHeading.subItems.length) {
+        _lastHeading = _lastHeading.subItems[_lastHeading.subItems.length - 1];
+      }
+    }
+
+    /** 
+     * Utility to get parent of heading
+     * Note: we don't store parent references otherwise we need a special JSON serializer.
+     * Not worried about this DFS tree hit for now
+     */
+    const getParentHeadingIfAny = () => {
+      if (!_lastHeading) return undefined;
+      const parent = _lastHeading;
+      /** TODO */
+    }
+
+    /** Loop them headings and add to TOC */
+    headings.forEach(heading => {
+      /** No current heading */
+      if (!_lastHeading) {
+        _lastHeading = {
+          level: heading.level,
+          text: heading.text,
+          id: heading.text,
+          subItems: [],
+        };
+        tableOfContents.push(_lastHeading);
+        return;
+      }
+      /** new heading is peer or new level */
+      else if (heading.level <= _lastHeading.level) {
+        /** Travel up till we find something that will accept it ... or we arrive at root */
+        /** TODO */
+      }
+      /** a sub of last */
+      else {
+        const newHeading = {
+          level: heading.level,
+          text: heading.text,
+          id: heading.text,
+          subItems: [],
+        };
+        _lastHeading.subItems.push(newHeading);
+        _lastHeading = newHeading;
+      }
+    });
   }
 
   async code({ mode, code }: { mode: SupportedMode, code: string }) {
