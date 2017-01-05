@@ -10,10 +10,14 @@ import * as typestyle from 'typestyle';
 import * as csstips from 'csstips';
 import * as styles from './styles';
 import * as txt from '../app/components/txt';
+import * as types from '../types';
 
 /** Normalize and page setup */
 csstips.normalize();
 csstips.setupPage('#root');
+
+/** Data has been loaded for us using index.html */
+declare const data: types.StoryContent; 
 
 export type StoryEntry =
   | {

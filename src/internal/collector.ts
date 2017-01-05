@@ -3,8 +3,12 @@ import { toHtml, dedent, highlightCodeWithMode, MarkDownStyles } from './markdow
 import { bundle } from './bundler';
 import * as fse from 'fs-extra';
 import { getDemoCodes } from './tsMagic/astUtils';
+import * as types from '../types';
 
-export const appIndexTemplate = ({ index, jsFileName }: { index: number, jsFileName: string }) => `
+export const appIndexTemplate = (
+  { index, jsFileName, hasData }
+    : { index: number, jsFileName: string, hasData?: boolean }
+) => `
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +18,8 @@ export const appIndexTemplate = ({ index, jsFileName }: { index: number, jsFileN
     <meta name="viewport" content="width=device-width">
 
     <title>Demo: ${index}</title>
+    
+    ${hasData ? `<script src="./data-${index}.js"></script>` : ''}
 </head>
 
 <body>
@@ -168,17 +174,22 @@ export class Collector {
 
     /** Collect */
     const code = fse.readFileSync(entryPointPath).toString();
-    this.data.contents.push({
+    const content: types.StoryContent = {
       type: 'story',
       htmlFileName,
       code: code,
       demoCodes: getDemoCodes(code)
-    });
+    };
+    this.data.contents.push(content);
+
+    /** Write out the data */
+    const data = JSON.stringify(content);
+    fse.outputFileSync(`${this.config.outputDir}/data-${this.entryPointIndex}.js`, `var data = ${JSON.stringify(content)}`);
 
     /** Write the html */
     fse.outputFileSync(
       this.config.outputDir + `/${htmlFileName}`,
-      appIndexTemplate({ index, jsFileName })
+      appIndexTemplate({ index, jsFileName, hasData: true })
     );
 
     /** Bundle */
