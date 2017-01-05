@@ -8,7 +8,7 @@
     "buildtsc": "tsc -p .",
     "builddocs": "ts-node ./src/docs/main.tsx",
     "test": "npm run buildtsc && npm run builddocs",
-    "serve": "light-server -s docs -w 'src/** # npm run builddocs' -q",
+    "serve": "light-server -b 0.0.0.0 -s docs -w 'src/** # npm run builddocs' -q",
     "start": "npm run builddocs && concurrently -k \"npm run buildtsc -- -w\" \"npm run serve\"",
     "publishdocs": "ts-node ./scripts/publishdocs.ts",
     "preversion": "npm run test",
