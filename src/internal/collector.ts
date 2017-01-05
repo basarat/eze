@@ -57,9 +57,14 @@ export class Collector {
     /** Store the html */
     this.data.contents.push({ type: 'html', html });
 
+    /** Ammend TOC */
+    this.ammendTocWithHeadings(headings);
+  }
+
+  private ammendTocWithHeadings = (headings: types.Heading[]) => {
     /** 
-     * Collect headings in table of contents
-     **/
+    * Collect headings in table of contents
+    **/
     const tableOfContents = this.data.tableOfContents;
 
     /** Keep track of the last heading */

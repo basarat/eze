@@ -5,7 +5,7 @@ import * as csstips from 'csstips';
 import { colors, spacing, fontSizes } from './styles';
 import * as escape from 'escape-html';
 import * as hljs from 'highlight.js';
-import { SupportedMode } from '../types';
+import { SupportedMode, Heading } from '../types';
 
 /** Highlight code */
 cssRaw(`
@@ -269,8 +269,6 @@ h4:hover .heading-anchor {
 }
   `);
 }
-
-export type Heading = { level: 1 | 2 | 3 | 4 | 5 | 6, text: string, id: string };
 
 /** Converts an html string to markdown */
 export function toHtml(markdown: string): {

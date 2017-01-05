@@ -43,3 +43,5 @@ export interface RenderConfig {
   title?: string,
   repoUrl?: string,
 }
+
+export type Heading = { level: 1 | 2 | 3 | 4 | 5 | 6, text: string, id: string };
