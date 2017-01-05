@@ -16,7 +16,10 @@ render({
   `);
 
   /** Show this file */
-  await eze.code({ mode: 'ts', code: require('fs').readFileSync(__filename).toString() })
+  await eze.code({
+    mode: 'ts',
+    code: require('fs').readFileSync(__filename).toString()
+  })
 
   await eze.md(`
   # Why?
@@ -52,10 +55,25 @@ render({
   `);
   await eze.code({
     mode: 'html',
-    code: appIndexTemplate({ index: 0, jsFileName: 'app-0.js'})
+    code: appIndexTemplate({ index: 0, jsFileName: 'app-0.js' })
   })
 
   /** Show stories */
+  await eze.md(`
+  # Stories
+  Stories are lightweight applications designed to showcase simple components.
+  
+  You write them using \`import {story} from 'eze/lib/story';\`
+
+  As an example the following code:
+  `);
+  await eze.code({
+    mode: 'ts',
+    code: require('fs').readFileSync(__dirname + '/story-1.tsx').toString()
+  })
+  await eze.md(`
+  Produces the following story:
+  `);
   await eze.story({
     entryPointPath: __dirname + '/story-1.tsx',
   });
@@ -68,6 +86,5 @@ render({
   #### Based on
   the headings parsed from markdown.
   `);
-  
 })
 

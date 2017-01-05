@@ -17,11 +17,8 @@ export const appIndexTemplate = (
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width">
 
-    <title>Demo: ${index}</title>
-    
-    ${hasData ? `<script src="./data-${index}.js"></script>` : ''}
+    <title>Demo: ${index}</title>${hasData ? `<script src="./data-${index}.js"></script>` : ''}
 </head>
-
 <body>
   <div id="root"></div>
   <script type="text/javascript" src="./${jsFileName}"></script>
