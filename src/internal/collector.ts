@@ -178,7 +178,7 @@ export class Collector {
       type: 'story',
       htmlFileName,
       code: code,
-      demoCodes: getDemoCodes(code)
+      demoCodes: getDemoCodes(code).map(dedent)
     };
     this.data.contents.push(content);
 

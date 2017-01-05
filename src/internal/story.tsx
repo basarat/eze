@@ -4,13 +4,14 @@
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { MarkDown, dedent } from '../internal/markdown';
+import { MarkDown, dedent, MarkDownStyles, highlightCodeWithMode } from '../internal/markdown';
 import * as gls from '../app/components/gls';
 import * as typestyle from 'typestyle';
 import * as csstips from 'csstips';
 import * as styles from './styles';
 import * as txt from '../app/components/txt';
 import * as types from '../types';
+import { style } from "typestyle";
 
 /** Normalize and page setup */
 csstips.normalize();
@@ -22,11 +23,12 @@ declare const data: types.StoryContent;
 export type StoryEntry =
   | {
     type: 'md';
-    md?: string;
+    md: string;
   }
   | {
     type: 'demo';
-    demo?: JSX.Element;
+    demo: JSX.Element;
+    code: string;
   };
 
 let createdOnce = false
@@ -53,8 +55,9 @@ export class Story {
     return this;
   }
 
+  private demoIndex = 0;
   demo(demo: JSX.Element) {
-    this.stories.push({ type: 'demo', demo });
+    this.stories.push({ type: 'demo', demo, code: data.demoCodes[this.demoIndex++] });
     return this;
   }
 
@@ -72,8 +75,13 @@ export class Story {
               return s.type === 'md'
                 ? <MarkDown key={i} markdown={dedent(s.md)} />
                 : s.type === 'demo'
-                  ? <div key={i}>
-                    {s.demo}
+                  ? <div key={i} className={style(csstips.verticallySpaced(10))}>
+                    <div dangerouslySetInnerHTML={{
+                      __html: `<div class=${MarkDownStyles.rootClass}><pre><code>${highlightCodeWithMode({ mode: 'tsx', code: s.code })}</code></pre></div>`
+                    }} />
+                    <div>
+                      {s.demo}
+                    </div>
                   </div>
                   : undefined
             })

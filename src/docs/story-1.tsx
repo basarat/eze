@@ -8,5 +8,7 @@ story()
     Just as easy to show as complete application demos.
     e.g. Lets showcase our anchor:
   `)
-  .demo(<Anchor href="http://www.google.com" target="_blank">As an example click here to open google.</Anchor>)
+  .demo(<Anchor href="http://www.google.com" target="_blank">
+    As an example click here to open google.
+  </Anchor>)
   .render();

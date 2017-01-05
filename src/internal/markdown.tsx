@@ -124,7 +124,7 @@ export function highlightCodeWithMode(args: { code: string, mode: SupportedMode 
     mode = 'js';
   }
 
-  const res = hljs.highlight(args.mode, args.code);
+  const res = hljs.highlight(mode, args.code);
   return `<div style="display: inline-block">${res.value}</div>`
 }
 
