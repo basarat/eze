@@ -48,6 +48,9 @@ render({
   await eze.md(`
   All applications can target the \`root\` element. The following is the HTML that is used:
   `);
-  await eze.code({ mode: 'html', code: require('fs').readFileSync(__dirname + '/../app/index.html').toString() })
+  await eze.code({
+    mode: 'html',
+    code: require('fs').readFileSync(__dirname + '/../app/index.html').toString()
+  })
 })
 
