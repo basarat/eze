@@ -166,10 +166,13 @@ export class Collector {
     const htmlFileName = `story-${this.entryPointIndex}.html`;
 
     /** Collect */
+    const code = fse.readFileSync(entryPointPath).toString();
     this.data.contents.push({
       type: 'story',
       htmlFileName,
-      code: fse.readFileSync(entryPointPath).toString()
+      code: code,
+      /** TODO: collect the demo codes */
+      demoCodes: []
     });
 
     /** Write the html */

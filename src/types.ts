@@ -13,6 +13,9 @@ export type StoryContent = {
   type: 'story',
   htmlFileName: string,
   code: string,
+
+  /** Each demo call has its code collected here */
+  demoCodes: string[];
 }
 
 export type ContentItem =
