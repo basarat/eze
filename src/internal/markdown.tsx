@@ -244,7 +244,10 @@ export namespace MarkDownStyles {
 }
 
 /** Converts an html string to markdown */
-export function toHtml(markdown: string): { html: string } {
+export function toHtml(markdown: string): {
+  html: string,
+  headings: { type: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6', text: string, id: string }[]
+} {
   /** Custom rendering */
   const renderer = new marked.Renderer();
 
@@ -267,6 +270,9 @@ export function toHtml(markdown: string): { html: string } {
     return output;
   };
 
+  const headings = [];
+  /** TODO: collect headings */
+
   const html = (
     `<div class=${MarkDownStyles.rootClass}>` + marked(markdown, {
       gfm: true,
@@ -278,7 +284,8 @@ export function toHtml(markdown: string): { html: string } {
       // don't want a trailing newline
       .trim()
   ) + '</div>';
-  return { html };
+
+  return { html, headings };
 }
 
 /**
@@ -286,7 +293,6 @@ export function toHtml(markdown: string): { html: string } {
  * https://github.com/dmnd/dedent/blob/master/dedent.js
  */
 export function dedent(strings, ...values) {
-
   let raw;
   if (typeof strings === "string") {
     // dedent can be used as a plain function
