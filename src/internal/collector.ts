@@ -70,43 +70,79 @@ export class Collector {
     /** 
      * Utility to get parent of heading
      * Note: we don't store parent references otherwise we need a special JSON serializer.
-     * Not worried about this DFS tree hit for now
+     * Not worried about this graph search hit for now
      */
-    const getParentHeadingIfAny = () => {
-      if (!_lastHeading) return undefined;
-      const parent = _lastHeading;
-      /** TODO */
+    const getParentHeadingIfAny = (tocEntry: TableOfContentEntry ) => {
+      if (!tocEntry) return undefined;
+      let foundParent: typeof tocEntry = undefined;
+
+      const subItemMatches = (subItem: typeof tocEntry) => {
+        if (subItem.text === tocEntry.text
+          && subItem.level === tocEntry.level) {
+          return true;
+        }
+      }
+
+      const visitAllChildren = (item: typeof tocEntry) => {
+        if (foundParent) return;
+
+        if (item.subItems.some(subItem => subItemMatches(subItem))) {
+          foundParent = item;
+          return;
+        }
+
+        item.subItems.forEach(visitAllChildren);
+      }
+
+      tableOfContents.forEach(visitAllChildren);
+
+      return foundParent;
     }
 
     /** Loop them headings and add to TOC */
     headings.forEach(heading => {
+      const newHeading = {
+        level: heading.level,
+        text: heading.text,
+        id: heading.text,
+        subItems: [],
+      };
+
       /** No current heading */
       if (!_lastHeading) {
-        _lastHeading = {
-          level: heading.level,
-          text: heading.text,
-          id: heading.text,
-          subItems: [],
-        };
-        tableOfContents.push(_lastHeading);
-        return;
+        tableOfContents.push(newHeading);
       }
       /** new heading is peer or new level */
       else if (heading.level <= _lastHeading.level) {
         /** Travel up till we find something that will accept it ... or we arrive at root */
-        /** TODO */
+        let parent = getParentHeadingIfAny(_lastHeading);
+        /** No parent */
+        if (!parent) {
+          tableOfContents.push(newHeading);
+        }
+        else {
+          /** Parent found. Keep going up to check viability */
+          while (parent) {
+            if (parent.level < heading.level) { // viable parent
+              parent.subItems.push(newHeading);
+              break;
+            }
+            else {
+              parent = getParentHeadingIfAny(parent);
+              /** No viable parent found */
+              if (!parent) {
+                tableOfContents.push(newHeading);
+                break;
+              }
+            }
+          }
+        }
       }
       /** a sub of last */
       else {
-        const newHeading = {
-          level: heading.level,
-          text: heading.text,
-          id: heading.text,
-          subItems: [],
-        };
         _lastHeading.subItems.push(newHeading);
-        _lastHeading = newHeading;
       }
+      _lastHeading = newHeading;
     });
   }
 
