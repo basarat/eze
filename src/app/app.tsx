@@ -14,7 +14,10 @@ const ensureUsage = toHtml;
 
 /** Renderers */
 import * as renderers from './renderers';
+
+/** Components */
 import { Anchor } from "./components/anchor";
+import { Toc } from "./components/toc";
 
 /** Normalize and page setup */
 csstips.normalize();
@@ -25,7 +28,6 @@ declare const data: Data;
 
 ReactDOM.render(
   <div>
-    {/** Docs */}
     <div className={typestyle.style(
       csstips.horizontallyCenterSelf,
       csstips.maxWidth(900),
@@ -33,6 +35,9 @@ ReactDOM.render(
       csstips.verticallySpaced(10)
     )
     }>
+      {/** TOC */}
+      <Toc toc={data.tableOfContents}/>
+      {/** Docs */}
       {data.contents.map((c, i) => {
         if (c.type === 'html') {
           return <renderers.HtmlRenderer key={i} {...c} />
@@ -43,11 +48,11 @@ ReactDOM.render(
       })}
       {/** Footer */}
       <div style={{ textAlign: 'center' }}>
-        <Anchor href={'https://npmjs.org/package/eze'} className={typestyle.style({fontSize: '15px'})} target="_blank">Built with eze ❤️</Anchor>
+        <Anchor href={'https://npmjs.org/package/eze'} className={typestyle.style({ fontSize: '15px' })} target="_blank">Built with eze ❤️</Anchor>
       </div>
     </div>
   </div>,
-  document.getElementById('root')
+  document.getElementById('eze-application-root')
 );
 
 typestyle.forceRenderStyles();
