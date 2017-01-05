@@ -82,7 +82,7 @@ export class Story {
                     <div dangerouslySetInnerHTML={{
                       __html: `<div class=${MarkDownStyles.rootClass}><pre><code>${highlightCodeWithMode({
                         mode: 'tsx',
-                        code: `// Code for above demo:\n ${s.code}`
+                        code: `/** Code for above demo */\n${s.code}`
                       })}</code></pre></div>`
                     }} />
                   </div>
