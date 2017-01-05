@@ -3,8 +3,14 @@
  */
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { MarkDown } from '../internal/markdown';
+import { MarkDown, dedent } from '../internal/markdown';
 import * as gls from '../app/components/gls';
+import * as typestyle from 'typestyle';
+import * as csstips from 'csstips';
+
+/** Normalize and page setup */
+csstips.normalize();
+csstips.setupPage('#root');
 
 export type StoryEntry =
   | {
@@ -23,10 +29,12 @@ export class Story {
 
   md(md: string) {
     this.stories.push({ type: 'md', md });
+    return this;
   }
 
   demo(demo: JSX.Element) {
     this.stories.push({ type: 'demo', demo });
+    return this;
   }
 
   /** Client side rendering of a story */
@@ -35,16 +43,19 @@ export class Story {
       <gls.VerticalMargined>
         {
           this.stories.map((s, i) => {
-            s.type === 'md'
-              ? <MarkDown key={i} markdown={s.md} />
+            return s.type === 'md'
+              ? <MarkDown key={i} markdown={dedent(s.md)} />
               : s.type === 'demo'
-                ? s.demo
+                ? <div key={i}>
+                  {s.demo}
+                </div>
                 : undefined
           })
         }
       </gls.VerticalMargined>,
       document.getElementById('root'),
     );
+    typestyle.forceRenderStyles();
   }
 }
 export const story = () => new Story();

@@ -72,7 +72,7 @@ export class Collector {
      * Note: we don't store parent references otherwise we need a special JSON serializer.
      * Not worried about this graph search hit for now
      */
-    const getParentHeadingIfAny = (tocEntry: TableOfContentEntry ) => {
+    const getParentHeadingIfAny = (tocEntry: TableOfContentEntry) => {
       if (!tocEntry) return undefined;
       let foundParent: typeof tocEntry = undefined;
 
@@ -153,9 +153,37 @@ export class Collector {
     });
   }
 
-  /** Each demo gets its index */
+  /** Each demo gets its index. This drives the JS / HTML files names */
   private entryPointIndex = 0;
 
+  async story({
+    entryPointPath,
+  }: { entryPointPath: string }) {
+    this.entryPointIndex++;
+
+    const index = this.entryPointIndex;
+    const jsFileName = `story-${this.entryPointIndex}.js`;
+    const htmlFileName = `story-${this.entryPointIndex}.html`;
+
+    /** Collect */
+    this.data.contents.push({
+      type: 'story',
+      htmlFileName,
+      code: fse.readFileSync(entryPointPath).toString()
+    });
+
+    /** Write the html */
+    fse.outputFileSync(
+      this.config.outputDir + `/${htmlFileName}`,
+      appIndexTemplate({ index, jsFileName })
+    );
+
+    /** Bundle */
+    const outputFileName = `${this.config.outputDir}/${jsFileName}`;
+    await bundle({ entryPointName: entryPointPath, outputFileName: outputFileName, prod: false });
+  }
+
+  /** Adds a raw application demo */
   async app({
     entryPointPath,
     sourceUrl,

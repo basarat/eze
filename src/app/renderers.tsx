@@ -105,7 +105,7 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
           value={this.state.viewCode}
           onChange={() => this.setState({ viewCode: !this.state.viewCode })} />
         <div className={style(media({ minWidth: 650 }, { textAlign: 'center' }))}>
-          <Breakpoints mode={this.state.mode} onModeChange={mode => {
+          <BreakpointButtons mode={this.state.mode} onModeChange={mode => {
             this.setState({ mode });
             setTimeout(() => {
               if (!props.height) AppRendererStyles.resizeIframe(this.ctrls.frame);
@@ -132,8 +132,38 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
   }
 }
 
+export class StoryRenderer extends React.PureComponent<types.StoryContent, {}> {
+  constructor(props) {
+    super(props);
+    this.state = {
+    }
+  }
+  ctrls: {
+    frame?: HTMLFrameElement
+  } = {}
+  render() {
+    const { props } = this;
+    return <gls.VerticalMargined>
+      {/** iframe the html */}
+      <iframe
+        ref={(frame) => this.ctrls.frame = frame as any}
+        className={classes(
+          AppRendererStyles.iframe,
+          AppRendererStyles['auto'],
+        )}
+        src={`./${props.htmlFileName}`}
+        onLoad={e => {
+          this.ctrls.frame.style.height = '10px'; // Really small
+          setTimeout(() => {
+            AppRendererStyles.resizeIframe(this.ctrls.frame);
+          }, 100);
+        }} />
+    </gls.VerticalMargined>;
+  }
+}
 
-class Breakpoints extends React.PureComponent<{ mode: AppMode, onModeChange: (mode: AppMode) => void }, {}>{
+
+class BreakpointButtons extends React.PureComponent<{ mode: AppMode, onModeChange: (mode: AppMode) => void }, {}>{
   render() {
 
     const containerClass = style({

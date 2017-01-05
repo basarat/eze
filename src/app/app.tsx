@@ -21,7 +21,7 @@ import { Toc } from "./components/toc";
 
 /** Normalize and page setup */
 csstips.normalize();
-csstips.setupPage('#root');
+csstips.setupPage('#eze-application-root');
 
 /** Data has been loaded for us using index.html */
 declare const data: Data;
@@ -42,8 +42,11 @@ ReactDOM.render(
         if (c.type === 'html') {
           return <renderers.HtmlRenderer key={i} {...c} />
         }
-        if (c.type === 'app') {
+        else if (c.type === 'app') {
           return <renderers.AppRenderer key={i} {...c} />
+        }
+        else if (c.type === 'story') {
+          return <renderers.StoryRenderer key={i} {...c} />
         }
       })}
       {/** Footer */}

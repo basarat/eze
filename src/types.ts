@@ -9,12 +9,19 @@ export type AppContent = {
   sourceUrl?: string,
   height?: string,
 }
+export type StoryContent = {
+  type: 'story',
+  htmlFileName: string,
+  code: string,
+}
 
 export type ContentItem =
   /** e.g. markdown */
   | HTMLContent
   /** app */
   | AppContent
+  /** story */
+  | StoryContent;
 
 export type TableOfContentEntry = {
   text: string, 

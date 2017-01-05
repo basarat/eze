@@ -55,6 +55,11 @@ render({
     code: appIndexTemplate({ index: 0, jsFileName: 'app-0.js'})
   })
 
+  /** Show stories */
+  await eze.story({
+    entryPointPath: __dirname + '/story-1.tsx',
+  });
+
   /** Table of contents */
   await eze.md(`
   # Table of contents
