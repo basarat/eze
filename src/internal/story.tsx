@@ -17,7 +17,7 @@ csstips.normalize();
 csstips.setupPage('#root');
 
 /** Data has been loaded for us using index.html */
-declare const data: types.StoryContent; 
+declare const data: types.StoryContent;
 
 export type StoryEntry =
   | {
@@ -61,19 +61,25 @@ export class Story {
   /** Client side rendering of a story */
   render() {
     ReactDOM.render(
-      <gls.VerticalMargined>
-        {
-          this.stories.map((s, i) => {
-            return s.type === 'md'
-              ? <MarkDown key={i} markdown={dedent(s.md)} />
-              : s.type === 'demo'
-                ? <div key={i}>
-                  {s.demo}
-                </div>
-                : undefined
-          })
-        }
-      </gls.VerticalMargined>,
+      <div>
+        <div className={typestyle.style(
+          csstips.horizontallyCenterSelf,
+          csstips.maxWidth(900),
+          csstips.verticallySpaced(10)
+        )}>
+          {
+            this.stories.map((s, i) => {
+              return s.type === 'md'
+                ? <MarkDown key={i} markdown={dedent(s.md)} />
+                : s.type === 'demo'
+                  ? <div key={i}>
+                    {s.demo}
+                  </div>
+                  : undefined
+            })
+          }
+        </div>
+      </div>,
       document.getElementById('root'),
     );
     typestyle.forceRenderStyles();

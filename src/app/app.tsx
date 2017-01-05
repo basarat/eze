@@ -33,8 +33,7 @@ ReactDOM.render(
       csstips.maxWidth(900),
       csstips.padding(20, 10),
       csstips.verticallySpaced(10)
-    )
-    }>
+    )}>
       {/** TOC */}
       <Toc toc={data.tableOfContents}/>
       {/** Docs */}
