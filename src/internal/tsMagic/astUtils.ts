@@ -32,7 +32,12 @@ export function getDemoCodes(code: string): string[] {
           propertyAccess.name.text === 'demo'
           && call.arguments.length
         ) {
-          demoCodes.push(call.arguments[0].getFullText());
+          /** 
+           * Unshift as .demo().demo()
+           * => second call is visited first because of AST structure
+           * So last one visited is the first one the user wrote in the chain
+           */
+          demoCodes.unshift(call.arguments[0].getFullText());
         }
       }
     }

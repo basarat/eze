@@ -12,6 +12,6 @@ story()
     As an example click here to open google.
   </Anchor>)
   .demo(<Anchor href="https://github.com/basarat/eze" target="_blank">
-    Or click here to open google
+    Or click here to open github
   </Anchor>)
   .render();

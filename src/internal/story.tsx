@@ -76,12 +76,15 @@ export class Story {
                 ? <MarkDown key={i} markdown={dedent(s.md)} />
                 : s.type === 'demo'
                   ? <div key={i} className={style(csstips.verticallySpaced(10))}>
-                    <div dangerouslySetInnerHTML={{
-                      __html: `<div class=${MarkDownStyles.rootClass}><pre><code>${highlightCodeWithMode({ mode: 'tsx', code: s.code })}</code></pre></div>`
-                    }} />
                     <div>
                       {s.demo}
                     </div>
+                    <div dangerouslySetInnerHTML={{
+                      __html: `<div class=${MarkDownStyles.rootClass}><pre><code>${highlightCodeWithMode({
+                        mode: 'tsx',
+                        code: `// Code for above demo:\n ${s.code}`
+                      })}</code></pre></div>`
+                    }} />
                   </div>
                   : undefined
             })
