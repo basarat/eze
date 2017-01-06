@@ -48,7 +48,12 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(32);
 	var styles_1 = __webpack_require__(178);
-	ReactDOM.render(React.createElement("h2", { style: { color: styles_1.colors.text } }, "Hello World"), document.getElementById('root'));
+	ReactDOM.render(React.createElement("div", { style: { color: styles_1.colors.text } },
+	    React.createElement("h2", null, "Example with lots of content"),
+	    React.createElement("h2", null, "..."),
+	    React.createElement("h2", null, "..."),
+	    React.createElement("h2", null, "..."),
+	    React.createElement("h2", null, "...")), document.getElementById('root'));
 
 
 /***/ },
@@ -21492,4 +21497,4 @@
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=app-1.js.map
+//# sourceMappingURL=app-3.js.map
