@@ -169,7 +169,7 @@ export class StoryRenderer extends React.PureComponent<types.StoryContent, { loa
 
       {/** iframe the html */}
       <iframe
-        id={`story${props.index}`}
+        id={types.makeIframeId(props.index)}
         /** 100% width on ios http://stackoverflow.com/a/20142280/390330 */
         scrolling="no"
         ref={(frame) => this.ctrls.frame = frame as any}

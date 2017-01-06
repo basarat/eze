@@ -61,7 +61,7 @@ export class Collector {
     this.ammendTocWithHeadings(headings);
   }
 
-  private ammendTocWithHeadings = (headings: types.Heading[]) => {
+  private ammendTocWithHeadings = (headings: types.Heading[], iframeId?: string) => {
     /** 
     * Collect headings in table of contents
     **/
@@ -115,6 +115,7 @@ export class Collector {
         text: heading.text,
         id: heading.id,
         subItems: [],
+        iframeId,
       };
 
       /** No current heading */
@@ -192,8 +193,8 @@ export class Collector {
     this._data.contents.push(content);
 
     /** Ammend TOC */
-    const { headings } = toHtml(getMds(code).map(md => dedent(md)).join('\n'), 'story' + this.entryPointIndex);
-    this.ammendTocWithHeadings(headings);
+    const { headings } = toHtml(getMds(code).map(md => dedent(md)).join('\n'), types.makeIframeId(this.entryPointIndex));
+    this.ammendTocWithHeadings(headings, types.makeIframeId(this.entryPointIndex));
 
     /** Write out the data */
     const data = JSON.stringify(content);

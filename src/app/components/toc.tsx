@@ -30,7 +30,11 @@ namespace TocStyles {
 
 const renderTocEntry = (t: types.TableOfContentEntry) => [<a key={t.level + t.id} className={classes(
   TocStyles.tocAnchorClass,
-)} style={TocStyles.marginLeft(t.level)} href={"#" + t.id}>
+)} style={TocStyles.marginLeft(t.level)} href={"#" + t.id} onClick={() => {
+  if (t.iframeId) {
+    console.log("TODO: navigate to iframe:", t.iframeId, 'with id:', t.id)
+  }
+}}>
   {t.text}
 </a>].concat(t.subItems.map(renderTocEntry));
 

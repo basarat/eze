@@ -73,7 +73,7 @@ export class Story {
           {
             this.stories.map((s, i) => {
               return s.type === 'md'
-                ? <MarkDown key={i} markdown={dedent(s.md)} iframeId={'story' + data.index} />
+                ? <MarkDown key={i} markdown={dedent(s.md)} iframeId={types.makeIframeId(data.index)} />
                 : s.type === 'demo'
                   ? <div key={i} className={style(csstips.verticallySpaced(10))}>
                     <div>

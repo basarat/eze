@@ -32,6 +32,9 @@ export type TableOfContentEntry = {
   id: string,
   level: 1 | 2 | 3 | 4 | 5 | 6,
   subItems: TableOfContentEntry[],
+
+  /** If the heading is in an iframe */
+  iframeId: string,
 }
 
 export interface Data {
@@ -46,3 +49,7 @@ export interface RenderConfig {
 }
 
 export type Heading = { level: 1 | 2 | 3 | 4 | 5 | 6, text: string, id: string };
+
+export function makeIframeId(index: number) { 
+  return 'iframe' + index;
+}
