@@ -35,7 +35,7 @@ render({
 });
 ```
 
-Run it!: 
+Run it `npm install ts-node --save --save-exact` with `package.json`: 
 
 ```json
 {
