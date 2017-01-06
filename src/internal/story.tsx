@@ -74,7 +74,7 @@ export class Story {
       });
       /** Remove the leading and trailing `()` that we added */
       return '<div style="display: inline-block">' + highlighted.substr('<div style="display: inline-block">('.length,
-          highlighted.length - ')</div>'.length) + '</div>';
+          highlighted.length - ')</div>'.length - 1) + '</div>';
     }
 
     ReactDOM.render(
