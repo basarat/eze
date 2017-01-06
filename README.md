@@ -40,7 +40,7 @@ Run it!:
 ```json
 {
   "scripts": {
-    "docs": "ts-node ./src/docs/main.ts"  
+    "docs": "eze ./src/docs/main.ts"  
   }
 }
 ```
