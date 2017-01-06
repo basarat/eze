@@ -291,12 +291,16 @@ export class Collector {
     );
     /** If dev also write out the app */
     if (fse.existsSync(__dirname + '/../app/app.tsx')) {
-      this._buildCollector.push(bundle({
+      await bundle({
         entryPointName: __dirname + '/../app/app.tsx',
-        outputFileName: this.config.outputDir + '/app.js',
+        outputFileName: __dirname + '/../../lib/app.js',
         prod: true
-      }));
-    };
+      });
+    }
+    const outputFileName = fse.writeFileSync(
+      this.config.outputDir + '/app.js',
+      fse.readFileSync(__dirname + '/../../lib/app.js')
+    );
 
     /** Await all builds */
     await Promise.all(this._buildCollector);
