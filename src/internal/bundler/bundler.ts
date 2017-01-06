@@ -1,5 +1,11 @@
 /**
  * @module wraps webpack in a nice api
+ * 
+ * TODO:
+ * this should exec webpack in a seperate process.
+ *  Otherwise its not really async.
+ *  Create a process that internally uses the following bundle function.
+ *  and simply calls exec.
  */
 import * as webpack from 'webpack';
 import * as fse from 'fs-extra';

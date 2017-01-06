@@ -1,6 +1,6 @@
 import * as fse from 'fs-extra';
 import { Data, RenderConfig } from './types';
-import { bundle } from './internal/bundler';
+import { bundle } from './internal/bundler/bundler';
 import { Collector } from './internal/collector';
 import { toHtml } from './internal/markdown';
 
