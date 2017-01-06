@@ -95,6 +95,8 @@ render({
   eze.md(`
   # Table of contents generation
   Generated automatically based on the headings parsed from markdown.
+  ## Sample subheading
+  Yup. You guessed it. ^ It should be visible in the TOC.
   `);
 })
 
