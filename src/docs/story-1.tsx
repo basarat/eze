@@ -1,4 +1,4 @@
-import { story } from '../story';
+import { story } from '../client';
 import * as React from 'react';
 import { Anchor } from '../app/components/anchor';
 

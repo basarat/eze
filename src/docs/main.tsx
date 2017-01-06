@@ -76,7 +76,7 @@ render({
   # Stories
   Stories are lightweight applications designed to showcase simple components.
   
-  You write them using \`import {story} from 'eze/lib/story';\`
+  You write them using \`import {story} from 'eze/lib/client';\`
 
   As an example the following code:
   `);
