@@ -32,7 +32,18 @@ const renderTocEntry = (t: types.TableOfContentEntry) => [<a key={t.level + t.id
   TocStyles.tocAnchorClass,
 )} style={TocStyles.marginLeft(t.level)} href={"#" + t.id} onClick={() => {
   if (t.iframeId) {
-    console.log("TODO: navigate to iframe:", t.iframeId, 'with id:', t.id)
+    const child = document.getElementById(t.iframeId) as HTMLIFrameElement;
+    if (child) {
+      /** Scroll to iframe */
+      window.scrollTo(0, child.offsetTop)
+
+      /** Also request sub item scroll */
+      const p2cScroll: types.IframeP2CScroll = {
+        type: 'IframeP2CScroll',
+        id: t.id
+      };
+      child.contentWindow.postMessage(p2cScroll, '*');
+    }
   }
 }}>
   {t.text}
@@ -48,3 +59,16 @@ export const Toc = ({ toc }: { toc: types.TableOfContentEntry[] }) => <gls.Conte
     }
   </gls.ContentVertical>
 </gls.ContentVerticalContentMargined>;
+
+
+/**
+ * Scroll handling for iframes
+ * http://stackoverflow.com/a/19503982/390330
+ */
+window.addEventListener('message', (e) => {
+  const data: types.IframeC2PMessage = e.data;
+
+  if (data.type === 'IframeC2PScrollMore') {
+    window.scrollTo(0, window.scrollY + data.more);
+  }
+});

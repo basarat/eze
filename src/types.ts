@@ -28,7 +28,7 @@ export type ContentItem =
   | StoryContent;
 
 export type TableOfContentEntry = {
-  text: string, 
+  text: string,
   id: string,
   level: 1 | 2 | 3 | 4 | 5 | 6,
   subItems: TableOfContentEntry[],
@@ -50,6 +50,26 @@ export interface RenderConfig {
 
 export type Heading = { level: 1 | 2 | 3 | 4 | 5 | 6, text: string, id: string };
 
-export function makeIframeId(index: number) { 
+export function makeIframeId(index: number) {
   return 'iframe' + index;
 }
+
+/**
+ * Iframe messages
+ * http://stackoverflow.com/a/19503982/390330
+ */
+/** Parent to child messages */
+export type IframeP2CScroll = {
+  type: 'IframeP2CScroll',
+  id: string,
+}
+export type IframeP2CMessage =
+  | IframeP2CScroll
+
+/** Child to parent messages */
+export type IframeC2PScrollMore = {
+  type: 'IframeC2PScrollMore',
+  more: number
+}
+export type IframeC2PMessage =
+  | IframeC2PScrollMore

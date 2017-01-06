@@ -7,9 +7,15 @@ story()
     ## Anchors
     Anchors styled to match our styleguide.
   `)
-  .demo(<Anchor href="https://www.google.com" target="_blank">
+  .md(`
+    ### Link for Twitter
+  `)
+  .demo(<Anchor href="https://twitter.com/basarat" target="_blank">
     As an example click here to open google.
   </Anchor>)
+  .md(`
+    ### Link for Github
+  `)
   .demo(<Anchor href="https://github.com/basarat/eze" target="_blank">
     Or click here to open github
   </Anchor>)

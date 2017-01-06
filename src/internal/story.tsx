@@ -97,3 +97,21 @@ export class Story {
     typestyle.forceRenderStyles();
   }
 }
+
+/**
+ * Scroll handling for iframes
+ * http://stackoverflow.com/a/19503982/390330
+ */
+window.addEventListener('message', (e) => {
+  const data: types.IframeP2CMessage = e.data;
+
+  if (data.type === 'IframeP2CScroll') {
+    const child = document.getElementsByName(data.id)[0];
+    const more = child.offsetTop;
+    const message: types.IframeC2PScrollMore = {
+      type: 'IframeC2PScrollMore',
+      more: more
+    };
+    window.parent.postMessage(message, '*');
+  }
+});
