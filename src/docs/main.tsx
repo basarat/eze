@@ -45,10 +45,30 @@ render({
   Checkout the [README](https://github.com/basarat/eze#install) ⚡
   `);
 
+  /** Show stories */
+  eze.md(`
+  # Stories
+  Stories are lightweight applications designed to showcase simple components.
+  
+  You write them using \`import {story} from 'eze/lib/client';\`
+
+  As an example the following code:
+  `);
+  eze.code({
+    mode: 'ts',
+    code: require('fs').readFileSync(__dirname + '/story-1.tsx').toString()
+  })
+  eze.md(`
+  Produces the following story:
+  `);
+  eze.story({
+    entryPointPath: __dirname + '/story-1.tsx',
+  });
+
   /** Show some complete application demos */
   eze.md(`
   # Embed applications
-  You can easily show complete applications:
+  You can easily show complete applications. This allows you to showcase application level layouts.
   `);
   eze.app({
     entryPointPath: __dirname + '/app-1.tsx',
@@ -71,33 +91,10 @@ render({
     code: appIndexTemplate({ index: 0, jsFileName: 'app-0.js' })
   })
 
-  /** Show stories */
-  eze.md(`
-  # Stories
-  Stories are lightweight applications designed to showcase simple components.
-  
-  You write them using \`import {story} from 'eze/lib/client';\`
-
-  As an example the following code:
-  `);
-  eze.code({
-    mode: 'ts',
-    code: require('fs').readFileSync(__dirname + '/story-1.tsx').toString()
-  })
-  eze.md(`
-  Produces the following story:
-  `);
-  eze.story({
-    entryPointPath: __dirname + '/story-1.tsx',
-  });
-
   /** Table of contents */
   eze.md(`
-  # Table of contents
-  ## Generated
-  ### Automatically
-  #### Based on
-  the headings parsed from markdown.
+  # Table of contents generation
+  Generated automatically based on the headings parsed from markdown.
   `);
 })
 
