@@ -46,6 +46,21 @@ Run it!:
 ```
 This builds the demos out to the specified folder. HTML + JavaScript. You can push that folder to s3 or surge.sh or even github  🌹
 
+## Live Preview
+
+For live development just use `npm install light-server --save-dev --save-exact`: 
+
+```json
+{
+  "scripts": {
+    "docs": "eze ./src/docs/main.ts",
+    "serve": "light-server -b 0.0.0.0 -s docs -w 'src/** # npm run docs' -q", 
+  }
+}
+```
+
+`npm run serve` 🌹
+
 # Demo
 
 [Jump to the demo for eze built with eze 📝](http://basarat.com/eze)
