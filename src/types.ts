@@ -50,8 +50,9 @@ export interface RenderConfig {
 
 export type Heading = { level: 1 | 2 | 3 | 4 | 5 | 6, text: string, id: string };
 
+export const iframeIdBeginsWith = 'iframe';
 export function makeIframeId(index: number) {
-  return 'iframe' + index;
+  return iframeIdBeginsWith + index;
 }
 
 /**
