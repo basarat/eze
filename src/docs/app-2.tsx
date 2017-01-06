@@ -13,4 +13,6 @@ ReactDOM.render(
   </div>,
   document.getElementById('root')
 );
+
+/** Request eze app parent to resize */
 resize();

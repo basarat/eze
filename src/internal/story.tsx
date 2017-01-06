@@ -13,10 +13,6 @@ import * as txt from '../app/components/txt';
 import * as types from '../types';
 import { style } from "typestyle";
 
-/** Normalize and page setup */
-csstips.normalize();
-csstips.setupPage('#root');
-
 /** Data has been loaded for us using index.html */
 declare const data: types.StoryContent | types.AppContent;
 
@@ -46,6 +42,10 @@ export class Story {
       throw new Error(errorMessage);
     }
     createdOnce = true;
+
+    /** Normalize and page setup only done for stories */
+    csstips.normalize();
+    csstips.setupPage('#root');
   }
 
   private stories: StoryEntry[] = [];
