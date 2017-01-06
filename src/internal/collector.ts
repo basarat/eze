@@ -46,11 +46,14 @@ export class Collector {
     tableOfContents: []
   }
 
-  async html(html: string) {
+  /** We collect all async things in here */
+  _buildCollector: Promise<any>[] = [];
+
+  html(html: string) {
     this._data.contents.push({ type: 'html', html });
   }
 
-  async md(markdown: string) {
+  md(markdown: string) {
     /** render the markdown */
     const { html, headings } = toHtml(dedent(markdown));
 
@@ -156,7 +159,7 @@ export class Collector {
     });
   }
 
-  async code({ mode, code }: { mode: SupportedMode, code: string }) {
+  code({ mode, code }: { mode: SupportedMode, code: string }) {
     this._data.contents.push({
       type: 'html',
       html: `<div class=${MarkDownStyles.rootClass}><pre><code>${highlightCodeWithMode({ mode, code: code.trim() })}</code></pre></div>`
@@ -166,7 +169,7 @@ export class Collector {
   /** Each demo gets its index. This drives the JS / HTML files names */
   private entryPointIndex = 0;
 
-  async story({
+  story({
     entryPointPath,
   }: { entryPointPath: string }) {
     this.entryPointIndex++;
@@ -208,7 +211,7 @@ export class Collector {
 
     /** Bundle */
     const outputFileName = `${this.config.outputDir}/${jsFileName}`;
-    await (bundle({
+    this._buildCollector.push(bundle({
       entryPointName: entryPointPath,
       outputFileName: outputFileName,
       prod: true
@@ -216,7 +219,7 @@ export class Collector {
   }
 
   /** Adds a raw application demo */
-  async app({
+  app({
     entryPointPath,
     sourceUrl,
     height
@@ -258,7 +261,7 @@ export class Collector {
 
     /** Bundle */
     const outputFileName = `${this.config.outputDir}/${jsFileName}`;
-    await (bundle({
+    this._buildCollector.push(bundle({
       entryPointName: entryPointPath,
       outputFileName: outputFileName,
       prod: false
@@ -284,10 +287,13 @@ export class Collector {
       this.config.outputDir + '/index.html',
       fse.readFileSync(__dirname + '/../app/index.html').toString().replace('TitleHere', this.config.title || "Docs")
     );
-    await (bundle({
+    this._buildCollector.push(bundle({
       entryPointName: __dirname + '/../app/app.tsx',
       outputFileName: this.config.outputDir + '/app.js',
       prod: true
     }));
+
+    /** Await all builds */
+    await Promise.all(this._buildCollector);
   }
 }

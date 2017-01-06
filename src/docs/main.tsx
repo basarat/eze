@@ -10,18 +10,18 @@ render({
 }, async eze => {
 
   /** Write some markdown */
-  await eze.md(`
+  eze.md(`
   # Demo
   To create demos like this you write code like this:
   `);
 
   /** Show this file */
-  await eze.code({
+  eze.code({
     mode: 'ts',
     code: require('fs').readFileSync(__filename).toString()
   })
 
-  await eze.md(`
+  eze.md(`
   # Why?
   Because its code. 
 
@@ -33,33 +33,33 @@ render({
   `);
 
   /** Show some complete application demos */
-  await eze.md(`
+  eze.md(`
   # Embed applications
   You can easily show complete applications:
   `);
-  await eze.app({
+  eze.app({
     entryPointPath: __dirname + '/app-1.tsx',
     sourceUrl: 'https://github.com/basarat/eze/blob/master/src/docs/app-1.tsx',
     height: '100px'
   });
-  await eze.md(`
+  eze.md(`
   Embedded applications are automatically showcased in the best height
    to prevent a vertical scrollbar on initial load.
   `);
-  await eze.app({
+  eze.app({
     entryPointPath: __dirname + '/app-2.tsx',
     sourceUrl: 'https://github.com/basarat/eze/blob/master/src/docs/app-2.tsx'
   });
-  await eze.md(`
+  eze.md(`
   All applications can target the \`root\` element. The following is the HTML that is used:
   `);
-  await eze.code({
+  eze.code({
     mode: 'html',
     code: appIndexTemplate({ index: 0, jsFileName: 'app-0.js' })
   })
 
   /** Show stories */
-  await eze.md(`
+  eze.md(`
   # Stories
   Stories are lightweight applications designed to showcase simple components.
   
@@ -67,19 +67,19 @@ render({
 
   As an example the following code:
   `);
-  await eze.code({
+  eze.code({
     mode: 'ts',
     code: require('fs').readFileSync(__dirname + '/story-1.tsx').toString()
   })
-  await eze.md(`
+  eze.md(`
   Produces the following story:
   `);
-  await eze.story({
+  eze.story({
     entryPointPath: __dirname + '/story-1.tsx',
   });
 
   /** Table of contents */
-  await eze.md(`
+  eze.md(`
   # Table of contents
   ## Generated
   ### Automatically
