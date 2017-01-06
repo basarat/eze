@@ -7,7 +7,7 @@ render({
   outputDir: __dirname + '/../../docs',
   repoUrl: "http://github.com/basarat/eze",
   title: 'eze 🌹'
-}, async eze => {
+}, eze => {
 
   /** Write some markdown */
   eze.md(`

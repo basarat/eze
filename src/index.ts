@@ -3,10 +3,10 @@ import { Data, RenderConfig } from './types';
 import { Collector } from './internal/collector';
 import { toHtml } from './internal/markdown';
 
-export async function render(config: RenderConfig, cb: (eze: Collector) => Promise<void>) {
+export async function render(config: RenderConfig, cb: (eze: Collector) => void) {
   try {
     const eze = new Collector(config);
-    await cb(eze);
+    cb(eze);
 
     /** Final render */
     await eze._done();
