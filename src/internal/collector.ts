@@ -289,11 +289,14 @@ export class Collector {
       this.config.outputDir + '/index.html',
       mainIndex({ title: this.config.title || "Docs" })
     );
-    this._buildCollector.push(bundle({
-      entryPointName: fse.existsSync(__dirname + '/../app/app.tsx') ? __dirname + '/../app/app.tsx' : __dirname + '/../app/app.js',
-      outputFileName: this.config.outputDir + '/app.js',
-      prod: true
-    }));
+    /** If dev also write out the app */
+    if (fse.existsSync(__dirname + '/../app/app.tsx')) {
+      this._buildCollector.push(bundle({
+        entryPointName: __dirname + '/../app/app.tsx',
+        outputFileName: this.config.outputDir + '/app.js',
+        prod: true
+      }));
+    };
 
     /** Await all builds */
     await Promise.all(this._buildCollector);
