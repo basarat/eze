@@ -40,11 +40,13 @@ Run it!:
 ```json
 {
   "scripts": {
-    "docs": "eze ./src/docs/main.ts"  
+    "docs": "ts-node ./src/docs/main.ts"  
   }
 }
 ```
 This builds the demos out to the specified folder. HTML + JavaScript. You can push that folder to s3 or surge.sh or even github  🌹
+
+> Ofcourse you can use js / raw node if you want to. But why would you.
 
 ## Live Preview
 
@@ -53,7 +55,7 @@ For live development just use `npm install light-server --save-dev --save-exact`
 ```json
 {
   "scripts": {
-    "docs": "eze ./src/docs/main.ts",
+    "docs": "ts-node ./src/docs/main.ts",
     "serve": "light-server -b 0.0.0.0 -s docs -w 'src/** # npm run docs' -q", 
   }
 }
