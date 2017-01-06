@@ -290,7 +290,7 @@ export class Collector {
       mainIndex({ title: this.config.title || "Docs" })
     );
     this._buildCollector.push(bundle({
-      entryPointName: __dirname + '/../app/app.tsx',
+      entryPointName: __dirname + '/../app/app.js',
       outputFileName: this.config.outputDir + '/app.js',
       prod: true
     }));
