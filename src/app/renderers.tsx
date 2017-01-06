@@ -9,6 +9,8 @@ import * as gls from './components/gls';
 import { Toggle } from './components/toggle';
 import * as icons from './components/icons';
 import { Loader } from "./components/loader";
+import { P } from "./components/txt";
+import { iframeRenderComplete } from './components/toc';
 
 export class HtmlRenderer extends React.PureComponent<types.HTMLContent, {}> {
   render() {
@@ -156,7 +158,7 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
   }
 }
 
-namespace StoryRendererStyles {
+export namespace StoryRendererStyles {
   export const iframe = style({
     display: 'block',
     border: 'none',
@@ -170,7 +172,7 @@ namespace StoryRendererStyles {
   });
 
   /** Autosize the iframe to remove scroll bars http://stackoverflow.com/a/9976309/390330 */
-  export function resizeIframe(frame: HTMLFrameElement) {
+  export function resizeIframe(frame: HTMLIFrameElement) {
     frame.style.height = frame.contentWindow.document.body.scrollHeight + 'px';
   }
 }
@@ -182,28 +184,38 @@ export class StoryRenderer extends React.PureComponent<types.StoryContent, { loa
       loading: true,
     }
   }
+  componentDidMount() {
+    iframeRenderComplete.on(({ iframeId }) => {
+      if (iframeId === types.makeIframeId(this.props.index)) {
+        this.setState({ loading: false });
+        StoryRendererStyles.resizeIframe(this.ctrls.frame);
+      }
+    });
+  }
   ctrls: {
-    frame?: HTMLFrameElement
+    frame?: HTMLIFrameElement
   } = {}
   render() {
     const { props } = this;
     return <gls.VerticalMargined>
-      {this.state.loading && <Loader />}
+      {this.state.loading && <gls.ContentHorizontalMarginedCentered>
+        <Loader />
+        <P>
+          Waiting for story render to complete
+        </P>
+      </gls.ContentHorizontalMarginedCentered>}
 
       {/** iframe the html */}
       <iframe
         id={types.makeIframeId(props.index)}
         /** 100% width on ios http://stackoverflow.com/a/20142280/390330 */
         scrolling="no"
-        ref={(frame) => this.ctrls.frame = frame as any}
+        ref={(frame) => this.ctrls.frame = frame as HTMLIFrameElement}
         className={classes(
           StoryRendererStyles.iframe,
         )}
         src={`./${props.htmlFileName}`}
         onLoad={e => {
-          this.setState({ loading: false });
-          /** Resize to remove scrollbars */
-          StoryRendererStyles.resizeIframe(this.ctrls.frame);
         }} />
     </gls.VerticalMargined>;
   }

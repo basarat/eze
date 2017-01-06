@@ -83,6 +83,11 @@ export type IframeC2PSetHash = {
   type: 'IframeC2PSetHash',
   hash: string,
 }
+export type IframeC2PRenderComplete = {
+  type: 'IframeC2PRenderComplete',
+  iframeId: string,
+}
 export type IframeC2PMessage =
   | IframeC2PScrollMore
   | IframeC2PSetHash
+  | IframeC2PRenderComplete

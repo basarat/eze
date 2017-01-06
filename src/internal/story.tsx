@@ -107,6 +107,13 @@ export class Story {
       document.getElementById('root'),
     );
     typestyle.forceRenderStyles();
+
+    /** Tell the parent we are done */
+    const message: types.IframeC2PRenderComplete = {
+      type: 'IframeC2PRenderComplete',
+      iframeId: types.makeIframeId(data.index)
+    };
+    window.parent.postMessage(message, '*');
   }
 }
 
