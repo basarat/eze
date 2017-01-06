@@ -72,5 +72,10 @@ export type IframeC2PScrollMore = {
   type: 'IframeC2PScrollMore',
   more: number
 }
+export type IframeC2PSetHash = {
+  type: 'IframeC2PSetHash',
+  hash: string,
+}
 export type IframeC2PMessage =
   | IframeC2PScrollMore
+  | IframeC2PSetHash

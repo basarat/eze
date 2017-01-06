@@ -60,6 +60,9 @@ window.addEventListener('message', (e) => {
   if (data.type === 'IframeC2PScrollMore') {
     window.scrollTo(0, window.scrollY + data.more);
   }
+  else if (data.type === 'IframeC2PSetHash') {
+    window.location.hash = data.hash;
+  }
 });
 /** Utility: nav to child item in some iframe */
 function navToChildInIframe(iframeId: string, childId: string) {

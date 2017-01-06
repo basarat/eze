@@ -115,3 +115,14 @@ window.addEventListener('message', (e) => {
     window.parent.postMessage(message, '*');
   }
 });
+/** On hash change ask parent to update its hash as well */
+window.addEventListener("hashchange", () => {
+  const hash = window.location.hash;
+  const message: types.IframeC2PSetHash = {
+    type: 'IframeC2PSetHash',
+    hash
+  };
+  if (window.parent) {
+    window.parent.postMessage(message, '*');  
+  }
+}, false);
