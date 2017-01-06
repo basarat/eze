@@ -56,7 +56,7 @@ For live development just use `npm install light-server --save-dev --save-exact`
 {
   "scripts": {
     "docs": "ts-node ./src/docs/main.ts",
-    "serve": "light-server -q -b 0.0.0.0 -s docs -w 'src/** # npm run docs'", 
+    "serve": "npm run docs && light-server -q -b 0.0.0.0 -s docs -w 'src/** # npm run docs'", 
   }
 }
 ```
