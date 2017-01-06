@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { colors } from '../internal/styles';
+import { resize } from '../client';
 
 ReactDOM.render(
   <div style={{ color: colors.text }}>
@@ -12,3 +13,4 @@ ReactDOM.render(
   </div>,
   document.getElementById('root')
 );
+resize();

@@ -18,7 +18,7 @@ csstips.normalize();
 csstips.setupPage('#root');
 
 /** Data has been loaded for us using index.html */
-declare const data: types.StoryContent;
+declare const data: types.StoryContent | types.AppContent;
 
 export type StoryEntry =
   | {
@@ -57,7 +57,8 @@ export class Story {
 
   private demoIndex = 0;
   demo(demo: JSX.Element) {
-    this.stories.push({ type: 'demo', demo, code: data.demoCodes[this.demoIndex++] });
+    const storyData = data as types.StoryContent;
+    this.stories.push({ type: 'demo', demo, code: storyData.demoCodes[this.demoIndex++] });
     return this;
   }
 
@@ -109,15 +110,15 @@ export class Story {
     typestyle.forceRenderStyles();
 
     /** Tell parent that render is complete */
-    sendResizeRequest(types.makeIframeId(data.index));
+    sendResizeRequest();
   }
 }
 
-export function sendResizeRequest(iframeId: string) {
+export function sendResizeRequest() {
   /** Tell the parent we are done */
   const message: types.IframeC2PRenderComplete = {
     type: 'IframeC2PRenderComplete',
-    iframeId
+    iframeId: types.makeIframeId(data.index)
   };
   window.parent.postMessage(message, '*');
 }

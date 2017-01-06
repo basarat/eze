@@ -83,7 +83,7 @@ namespace AppRendererStyles {
   });
 
   /** Autosize the iframe to remove scroll bars http://stackoverflow.com/a/9976309/390330 */
-  export function resizeIframe(frame: HTMLFrameElement) {
+  export function resizeIframe(frame: HTMLIFrameElement) {
     /** 
      * Without this we expand constantly slowly and slowly
      **/
@@ -105,15 +105,22 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
       viewCode: false
     }
   }
+  componentDidMount() {
+    iframeRenderComplete.on(({ iframeId }) => {
+      if (iframeId === types.makeIframeId(this.props.index)) {
+        AppRendererStyles.resizeIframe(this.ctrls.frame);
+      }
+    });
+  }
   ctrls: {
-    frame?: HTMLFrameElement
+    frame?: HTMLIFrameElement
   } = {}
   render() {
     const { props } = this;
     return <gls.VerticalMargined>
       {/** iframe the html */}
       <iframe
-        ref={(frame) => this.ctrls.frame = frame as any}
+        ref={(frame) => this.ctrls.frame = frame as HTMLIFrameElement}
         className={classes(
           AppRendererStyles.iframe,
           AppRendererStyles[this.state.mode],

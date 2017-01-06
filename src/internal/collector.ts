@@ -7,8 +7,8 @@ import * as types from '../types';
 import { mainIndex } from "../app/mainIndex";
 
 export const appIndexTemplate = (
-  { index, jsFileName, hasData }
-    : { index: number, jsFileName: string, hasData?: boolean }
+  { index, jsFileName }
+    : { index: number, jsFileName: string }
 ) => `
 <!DOCTYPE html>
 <html>
@@ -18,7 +18,8 @@ export const appIndexTemplate = (
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width">
 
-    <title>Demo: ${index}</title>${hasData ? `<script src="./data-${index}.js"></script>` : ''}
+    <title>Demo: ${index}</title>
+    <script src="./data-${index}.js"></script>
 </head>
 <body>
   <div id="root"></div>
@@ -215,7 +216,7 @@ export class Collector {
     /** Write the html */
     fse.outputFileSync(
       this.config.outputDir + `/${htmlFileName}`,
-      appIndexTemplate({ index, jsFileName, hasData: true })
+      appIndexTemplate({ index, jsFileName })
     );
 
     /** Bundle */
@@ -248,9 +249,9 @@ export class Collector {
     const jsFileName = `app-${this.entryPointIndex}.js`;
     const htmlFileName = `app-${this.entryPointIndex}.html`;
 
-    /** Collect */
-    this._data.contents.push({
+    const content: types.AppContent = {
       type: 'app',
+      index: this.entryPointIndex,
       htmlFileName,
       sources: [
         {
@@ -260,7 +261,14 @@ export class Collector {
       ],
       sourceUrl,
       height: height
-    });
+    };
+
+    /** Write out the data */
+    const data = JSON.stringify(content);
+    fse.outputFileSync(`${this.config.outputDir}/data-${this.entryPointIndex}.js`, `var data = ${JSON.stringify(content)}`);
+
+    /** Collect */
+    this._data.contents.push(content);
 
     /** Write the html */
     fse.outputFileSync(

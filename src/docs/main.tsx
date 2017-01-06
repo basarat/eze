@@ -76,8 +76,8 @@ render({
     height: '100px'
   });
   eze.md(`
-  Embedded applications are automatically showcased in the best height
-   to prevent a vertical scrollbar on initial load.
+  Embedded applications can use \`import {resize} from 'eze/lib/client';\` to 
+  request the containing iframe to be automatically resized.
   `);
   eze.app({
     entryPointPath: __dirname + '/app-2.tsx',

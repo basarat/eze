@@ -8,6 +8,7 @@ export type CodeContent = {
 }
 export type AppContent = {
   type: 'app',
+  index: number,
   htmlFileName: string,
   sources: { mode: SupportedMode, code: string }[],
 
