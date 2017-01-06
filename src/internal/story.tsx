@@ -105,7 +105,7 @@ export class Story {
 window.addEventListener('message', (e) => {
   const data: types.IframeP2CMessage = e.data;
 
-  if (data.type === 'IframeP2CScroll') {
+  if (data.type === 'IframeP2CGetScrollMore') {
     const child = document.getElementsByName(data.id)[0];
     const more = child.offsetTop;
     const message: types.IframeC2PScrollMore = {

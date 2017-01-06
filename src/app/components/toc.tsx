@@ -72,8 +72,8 @@ function navToChildInIframe(iframeId: string, childId: string) {
     window.scrollTo(0, child.offsetTop)
 
     /** Also request sub item scroll */
-    const p2cScroll: types.IframeP2CScroll = {
-      type: 'IframeP2CScroll',
+    const p2cScroll: types.IframeP2CGetScrollMore = {
+      type: 'IframeP2CGetScrollMore',
       id: childId
     };
     child.contentWindow.postMessage(p2cScroll, '*');

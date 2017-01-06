@@ -60,12 +60,12 @@ export function makeIframeId(index: number) {
  * http://stackoverflow.com/a/19503982/390330
  */
 /** Parent to child messages */
-export type IframeP2CScroll = {
-  type: 'IframeP2CScroll',
+export type IframeP2CGetScrollMore = {
+  type: 'IframeP2CGetScrollMore',
   id: string,
 }
 export type IframeP2CMessage =
-  | IframeP2CScroll
+  | IframeP2CGetScrollMore
 
 /** Child to parent messages */
 export type IframeC2PScrollMore = {
