@@ -44,7 +44,8 @@ Run it `npm install ts-node --save --save-exact` with `package.json`:
   }
 }
 ```
-This builds the demos out to the specified folder. HTML + JavaScript. You can push that folder to s3 or surge.sh or even github  🌹
+
+Now `npm run docs` builds the demos out to the specified folder. HTML + JavaScript. You can push that folder to s3 or surge.sh or even github  🌹
 
 > Ofcourse you can use js / raw node if you want to. But why would you.
 
