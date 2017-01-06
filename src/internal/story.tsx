@@ -108,13 +108,18 @@ export class Story {
     );
     typestyle.forceRenderStyles();
 
-    /** Tell the parent we are done */
-    const message: types.IframeC2PRenderComplete = {
-      type: 'IframeC2PRenderComplete',
-      iframeId: types.makeIframeId(data.index)
-    };
-    window.parent.postMessage(message, '*');
+    /** Tell parent that render is complete */
+    sendResizeRequest(types.makeIframeId(data.index));
   }
+}
+
+export function sendResizeRequest(iframeId: string) {
+  /** Tell the parent we are done */
+  const message: types.IframeC2PRenderComplete = {
+    type: 'IframeC2PRenderComplete',
+    iframeId
+  };
+  window.parent.postMessage(message, '*');
 }
 
 /**
