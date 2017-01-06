@@ -32,18 +32,7 @@ const renderTocEntry = (t: types.TableOfContentEntry) => [<a key={t.level + t.id
   TocStyles.tocAnchorClass,
 )} style={TocStyles.marginLeft(t.level)} href={"#" + t.id} onClick={() => {
   if (t.iframeId) {
-    const child = document.getElementById(t.iframeId) as HTMLIFrameElement;
-    if (child) {
-      /** Scroll to iframe */
-      window.scrollTo(0, child.offsetTop)
-
-      /** Also request sub item scroll */
-      const p2cScroll: types.IframeP2CScroll = {
-        type: 'IframeP2CScroll',
-        id: t.id
-      };
-      child.contentWindow.postMessage(p2cScroll, '*');
-    }
+    navToChildInIframe(t.iframeId, t.id);
   }
 }}>
   {t.text}
@@ -72,3 +61,27 @@ window.addEventListener('message', (e) => {
     window.scrollTo(0, window.scrollY + data.more);
   }
 });
+/** Utility: nav to child item in some iframe */
+function navToChildInIframe(iframeId: string, childId: string) {
+  const child = document.getElementById(iframeId) as HTMLIFrameElement;
+  if (child) {
+    /** Scroll to iframe */
+    window.scrollTo(0, child.offsetTop)
+
+    /** Also request sub item scroll */
+    const p2cScroll: types.IframeP2CScroll = {
+      type: 'IframeP2CScroll',
+      id: childId
+    };
+    child.contentWindow.postMessage(p2cScroll, '*');
+  }
+}
+/** Also nav to any child iframe on initial load */
+setTimeout(() => {
+  const hash = window.location.hash;
+  if (hash.startsWith('#' + types.iframeIdBeginsWith)) {
+    const [iframeId, ...others] = hash.substr(1).split('-');
+    const childId = iframeId + '-' + others.join('-');
+    navToChildInIframe(iframeId, childId);
+  }
+}, 500);
