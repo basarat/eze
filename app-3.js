@@ -55,6 +55,7 @@
 	    React.createElement("h2", null, "..."),
 	    React.createElement("h2", null, "..."),
 	    React.createElement("h2", null, "...")), document.getElementById('root'));
+	/** Request eze app parent to resize */
 	client_1.resize();
 
 
@@ -21530,9 +21531,6 @@
 	var txt = __webpack_require__(368);
 	var types = __webpack_require__(369);
 	var typestyle_1 = __webpack_require__(183);
-	/** Normalize and page setup */
-	csstips.normalize();
-	csstips.setupPage('#root');
 	var createdOnce = false;
 	var Story = (function () {
 	    function Story() {
@@ -21546,6 +21544,9 @@
 	            throw new Error(errorMessage);
 	        }
 	        createdOnce = true;
+	        /** Normalize and page setup only done for stories */
+	        csstips.normalize();
+	        csstips.setupPage('#root');
 	    }
 	    Story.prototype.md = function (md) {
 	        this.stories.push({ type: 'md', md: md });
