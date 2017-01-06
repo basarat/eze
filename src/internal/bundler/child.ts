@@ -1,11 +1,5 @@
 /**
  * @module wraps webpack in a nice api
- * 
- * TODO:
- * this should exec webpack in a seperate process.
- *  Otherwise its not really async.
- *  Create a process that internally uses the following bundle function.
- *  and simply calls exec.
  */
 import * as webpack from 'webpack';
 import * as fse from 'fs-extra';
@@ -22,7 +16,9 @@ export function bundle(args: {
 
     if (!fse.existsSync(args.entryPointName)) {
       /** Webpack ignores this siliently sadly so we need to catch it ourselves */
-      rej(new Error(`Entry point does not exist: ${args.entryPointName}`));
+      const error = `Entry point does not exist: ${args.entryPointName}`;
+      console.error(error);
+      rej(new Error(error));
     }
 
     const config = {
@@ -87,3 +83,6 @@ export function bundle(args: {
     });
   });
 }
+
+const [entryPointName, outputFileName, prod] = process.argv.slice(2);
+bundle({ entryPointName, outputFileName, prod: prod === 'true' ? true : false });
