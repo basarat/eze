@@ -12,7 +12,7 @@
 ## Install
 Install
 
-`npm install eze --save-dev`
+`npm install eze --save-dev --save-exact`
 
 Create a ts (tsx) file (e.g. `./src/docs/main.ts`)
 
