@@ -8,12 +8,13 @@ render({
   repoUrl: "http://github.com/basarat/eze",
   title: 'eze 🌹'
 }, eze => {
-
   /** Write some markdown */
   eze.md(`
   # Demo
-  Designed to make creating component styleguides / demoze eze.
+  Designed to make creating component styleguides / demos eze.
 
+  > [Don't forget to ⭐ on github](https://github.com/basarat/eze/stargazers)
+  
   Click on the below button to see how this demo was created:
   `);
 
@@ -22,7 +23,11 @@ render({
     mode: 'ts',
     code: require('fs').readFileSync(__filename).toString(),
     collapsed: true,
-  })
+  });
+
+  eze.md(`
+  > Yup, we just loaded the code for the demo in the demo ... with the power of *node* ✨🐢🚀✨
+  `);
 
   eze.md(`
   # Why?
