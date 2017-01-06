@@ -72,12 +72,7 @@ export class Story {
          **/
         code: `(${code})`
       });
-      /** Remove the leading and trailing `()` that we added */
-      const start = '<div style="display: inline-block">(';
-      const end = ')</div>';
-      const fixed = start.substr(0, start.length - 1) + highlighted.substr(start.length,
-        highlighted.length - start.length - end.length) + end.substr(1);
-      return fixed;
+      return highlighted;
     }
 
     ReactDOM.render(
