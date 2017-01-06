@@ -17,6 +17,29 @@ export class HtmlRenderer extends React.PureComponent<types.HTMLContent, {}> {
   }
 }
 
+export class CodeRenderer extends React.PureComponent<types.CodeContent, { viewCode: boolean }> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      viewCode: !props.collapsed
+    }
+  }
+  render() {
+    const { props } = this;
+    return <gls.VerticalMargined>
+      {
+        !!props.collapsed && <Toggle
+          label="Show Code"
+          value={this.state.viewCode}
+          onChange={() => this.setState({ viewCode: !this.state.viewCode })} />
+      }
+      <Expandible open={this.state.viewCode}>
+        <div dangerouslySetInnerHTML={{ __html: props.html }} />
+      </Expandible>
+    </gls.VerticalMargined>;
+  }
+}
+
 namespace AppRendererStyles {
   const borderColor = '#bbb'
   const topBorderHeight = 2;

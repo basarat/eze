@@ -159,10 +159,11 @@ export class Collector {
     });
   }
 
-  code({ mode, code }: { mode: SupportedMode, code: string }) {
+  code({ mode, code, collapsed }: { mode: SupportedMode, code: string, collapsed?: boolean }) {
     this._data.contents.push({
-      type: 'html',
-      html: `<div class=${MarkDownStyles.rootClass}><pre><code>${highlightCodeWithMode({ mode, code: code.trim() })}</code></pre></div>`
+      type: 'code',
+      html: `<div class=${MarkDownStyles.rootClass}><pre><code>${highlightCodeWithMode({ mode, code: code.trim() })}</code></pre></div>`,
+      collapsed: !!collapsed
     });
   }
 

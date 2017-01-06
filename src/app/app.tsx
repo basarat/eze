@@ -47,6 +47,12 @@ ReactDOM.render(
         else if (c.type === 'story') {
           return <renderers.StoryRenderer key={i} {...c} />
         }
+        else if (c.type === 'code') {
+          return <renderers.CodeRenderer key={i} {...c} />
+        }
+        else {
+          const _exhaustiveCheck: never = c;
+        }
       })}
       {/** Footer */}
       <div style={{ textAlign: 'center' }}>

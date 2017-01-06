@@ -12,13 +12,16 @@ render({
   /** Write some markdown */
   eze.md(`
   # Demo
-  To create demos like this you write code like this:
+  Designed to make creating component styleguides / demoze eze.
+
+  Click on the below button to see how this demo was created:
   `);
 
   /** Show this file */
   eze.code({
     mode: 'ts',
-    code: require('fs').readFileSync(__filename).toString()
+    code: require('fs').readFileSync(__filename).toString(),
+    collapsed: true,
   })
 
   eze.md(`

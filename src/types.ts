@@ -1,6 +1,11 @@
 export type SupportedMode = 'ts' | 'js' | 'tsx' | 'jsx' | 'javascript' | 'typescript' | 'html' | 'css';
 
 export type HTMLContent = { type: 'html', html: string }
+export type CodeContent = {
+  type: 'code',
+  html: string,
+  collapsed: boolean,
+}
 export type AppContent = {
   type: 'app',
   htmlFileName: string,
@@ -25,7 +30,9 @@ export type ContentItem =
   /** app */
   | AppContent
   /** story */
-  | StoryContent;
+  | StoryContent
+  /** special code content */
+  | CodeContent
 
 export type TableOfContentEntry = {
   text: string,
