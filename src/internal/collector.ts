@@ -4,6 +4,7 @@ import { bundle } from './bundler/master';
 import * as fse from 'fs-extra';
 import { getDemoCodes, getMds } from './tsMagic/astUtils';
 import * as types from '../types';
+import { mainIndex } from "../app/mainindex";
 
 export const appIndexTemplate = (
   { index, jsFileName, hasData }
@@ -286,7 +287,7 @@ export class Collector {
     /** Write the html + js */
     fse.outputFileSync(
       this.config.outputDir + '/index.html',
-      fse.readFileSync(__dirname + '/../app/index.html').toString().replace('TitleHere', this.config.title || "Docs")
+      mainIndex({ title: this.config.title || "Docs" })
     );
     this._buildCollector.push(bundle({
       entryPointName: __dirname + '/../app/app.tsx',
