@@ -137,7 +137,11 @@ namespace StoryRendererStyles {
   export const iframe = style({
     display: 'block',
     border: 'none',
-    width: '100%',
+
+    /** 100% width on ios http://stackoverflow.com/a/20142280/390330 */
+    width: 1,
+    minWidth: '100%',
+
     transition: 'height .2s',
     height: '10px',
   });
@@ -166,6 +170,8 @@ export class StoryRenderer extends React.PureComponent<types.StoryContent, { loa
       {/** iframe the html */}
       <iframe
         id={`story${props.index}`}
+        /** 100% width on ios http://stackoverflow.com/a/20142280/390330 */
+        scrolling="no"
         ref={(frame) => this.ctrls.frame = frame as any}
         className={classes(
           StoryRendererStyles.iframe,
