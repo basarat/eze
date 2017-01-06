@@ -35,6 +35,13 @@ render({
   And so many of the same advantages as [TypeStyle](http://typestyle.io/#/why).
   `);
 
+  eze.md(`
+  # Installation
+  Checkout the [README](https://github.com/basarat/eze#install). 
+  
+  Also see our package.json to see us use light-server + ts-node ⚡
+  `);
+
   /** Show some complete application demos */
   eze.md(`
   # Embed applications
