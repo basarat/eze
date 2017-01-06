@@ -63,6 +63,20 @@ export class Story {
 
   /** Client side rendering of a story */
   render() {
+    const highlight = (code: string): string => {
+      const highlighted = highlightCodeWithMode({
+        mode: 'tsx',
+        /**
+         * Wrap in brackets and remove
+         * to fix highlightjs not working okay for stuff that starts with `<`
+         **/
+        code: `(${code})`
+      });
+      /** Remove the leading and trailing `()` that we added */
+      return '<div style="display: inline-block">' + highlighted.substr('<div style="display: inline-block">('.length,
+          highlighted.length - ')</div>'.length) + '</div>';
+    }
+
     ReactDOM.render(
       <div>
         <div className={typestyle.style(
@@ -81,10 +95,7 @@ export class Story {
                     </div>
                     {/** Padded code extra to give visual association with what was on top */}
                     <div style={{ paddingLeft: '20px', paddingRight: '20px' }} dangerouslySetInnerHTML={{
-                      __html: `<div class=${MarkDownStyles.rootClass}><pre><code>${highlightCodeWithMode({
-                        mode: 'tsx',
-                        code: `/** Code for above demo */\n${s.code}`
-                      })}</code></pre></div>`
+                      __html: `<div class=${MarkDownStyles.rootClass}><pre><code>/** Code for above demo */\n${highlight(s.code)}</code></pre></div>`
                     }} />
                   </div>
                   : undefined
@@ -123,6 +134,6 @@ window.addEventListener("hashchange", () => {
     hash
   };
   if (window.parent) {
-    window.parent.postMessage(message, '*');  
+    window.parent.postMessage(message, '*');
   }
 }, false);
