@@ -11,7 +11,7 @@ story()
     ### Link for Twitter
   `)
   .demo(<Anchor href="https://twitter.com/basarat" target="_blank">
-    As an example click here to open google.
+    As an example click here to open twitter
   </Anchor>)
   .md(`
     ### Link for Github
