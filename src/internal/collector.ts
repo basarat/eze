@@ -4,7 +4,7 @@ import { bundle } from './bundler/master';
 import * as fse from 'fs-extra';
 import { getDemoCodes, getMds } from './tsMagic/astUtils';
 import * as types from '../types';
-import { mainIndex } from "../app/mainindex";
+import { mainIndex } from "../app/mainIndex";
 
 export const appIndexTemplate = (
   { index, jsFileName, hasData }
