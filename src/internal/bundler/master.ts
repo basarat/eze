@@ -19,7 +19,7 @@ let bundleCmd = (...args: string[]): Promise<string> => {
       compiledOnceInThisRun = true;
     }
 
-    cp.exec(`${process.execPath} ${__dirname}/child.js ${args.join(' ')}`, { cwd: cwd }, (err, stdout, stderr) => {
+    cp.execFile(process.execPath, [`${__dirname}/child.js`].concat(args), { cwd: cwd }, (err, stdout, stderr) => {
       if (stderr.toString().trim().length) {
         return reject(stderr.toString());
       }
