@@ -73,8 +73,11 @@ export class Story {
         code: `(${code})`
       });
       /** Remove the leading and trailing `()` that we added */
-      return '<div style="display: inline-block">' + highlighted.substr('<div style="display: inline-block">('.length,
-          highlighted.length - ')</div>'.length - 1) + '</div>';
+      const start = '<div style="display: inline-block">(';
+      const end = ')</div>';
+      const fixed = start.substr(0, start.length - 1) + highlighted.substr(start.length,
+        highlighted.length - start.length - end.length) + end.substr(1);
+      return fixed;
     }
 
     ReactDOM.render(
@@ -93,10 +96,13 @@ export class Story {
                     <div>
                       {s.demo}
                     </div>
-                    {/** Padded code extra to give visual association with what was on top */}
-                    <div style={{ paddingLeft: '20px', paddingRight: '20px' }} dangerouslySetInnerHTML={{
-                      __html: `<div class=${MarkDownStyles.rootClass}><pre><code>/** Code for above demo */\n${highlight(s.code)}</code></pre></div>`
-                    }} />
+                    <div className={style(csstips.verticallySpaced(5))}>
+                      <div style={{ textAlign: 'center', color: styles.colors.text, fontSize: '12px', opacity: .7 }}>code for above demo</div>
+                      {/** Padded code extra to give visual association with what was on top */}
+                      <div style={{ paddingLeft: '20px', paddingRight: '20px' }} dangerouslySetInnerHTML={{
+                        __html: `<div class=${MarkDownStyles.rootClass}><pre style="margin:0"><code>${highlight(s.code)}</code></pre></div>`
+                      }} />
+                    </div>
                   </div>
                   : undefined
             })
