@@ -71,7 +71,6 @@ starts({
     dir: './docs',
     port: 4000
   },
-  initialRun: true,
   run: [
     { cmd: 'npm run docs', watch: ['src/**'] },
   ]

@@ -5,7 +5,6 @@ starts({
     dir: './docs',
     port: 4000
   },
-  initialRun: true,
   run: [
     { cmd: 'npm run builddocs', watch: ['src/**', '!src/**/child.js'] },
     { cmd: 'npm run buildtsc -- -w', watch: ['src/**/*.ts', '!src/**/child.js'] }

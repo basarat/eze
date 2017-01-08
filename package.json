@@ -42,7 +42,7 @@
     "react": "15.3.2",
     "react-dom": "15.3.2",
     "react-toggle": "2.2.0",
-    "starts": "^0.2.3",
+    "starts": "^0.3.0",
     "typestyle": "0.19.0"
   }
 }
