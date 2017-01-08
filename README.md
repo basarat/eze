@@ -51,7 +51,7 @@ Now `npm run docs` builds the demos out to the specified folder. HTML + JavaScri
 
 ## Live Preview
 
-For live development just use `npm install starts --save-dev --save-exact`: 
+For live development just use `npm install starts --save-dev`: 
 
 ```json
 {
