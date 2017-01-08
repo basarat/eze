@@ -15,7 +15,7 @@ render({
 
   > [Don't forget to ⭐ on github](https://github.com/basarat/eze/stargazers)
   
-  Click on the below button to see how this demo was created:
+  Click on the below button to see how this demo was created
   `);
 
   /** Show this file */

@@ -40,7 +40,7 @@ Run it `npm install ts-node --save --save-exact` with `package.json`:
 ```json
 {
   "scripts": {
-    "docs": "ts-node ./src/docs/main.ts"  
+    "docs": "ts-node ./src/docs/main"  
   }
 }
 ```
@@ -51,18 +51,34 @@ Now `npm run docs` builds the demos out to the specified folder. HTML + JavaScri
 
 ## Live Preview
 
-For live development just use `npm install light-server --save-dev --save-exact`: 
+For live development just use `npm install starts --save-dev --save-exact`: 
 
 ```json
 {
   "scripts": {
-    "docs": "ts-node ./src/docs/main.ts",
-    "serve": "npm run docs && light-server -q -b 0.0.0.0 -s docs -w 'src/** # npm run docs'", 
+    "docs": "ts-node ./src/docs/main",
+    "start": "ts-node ./src/starts", 
   }
 }
 ```
+`starts.ts`:
 
-`npm run serve` 🌹
+```ts
+import { starts } from 'starts';
+
+starts({
+  serve: {
+    dir: './docs',
+    port: 4000
+  },
+  initialRun: true,
+  run: [
+    { cmd: 'npm run docs', watch: ['src/**'] },
+  ]
+})
+```
+
+`npm start` 🌹
 
 # Demo
 
