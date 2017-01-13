@@ -12,6 +12,8 @@ import * as styles from './styles';
 import * as txt from '../app/components/txt';
 import * as types from '../types';
 import { style } from "typestyle";
+import * as icons from '../app/components/icons';
+import { Anchor } from '../app/components/anchor';
 
 /** Data has been loaded for us using index.html */
 declare const data: types.StoryContent | types.AppContent;
@@ -83,6 +85,9 @@ export class Story {
           csstips.maxWidth(900),
           csstips.verticallySpaced(10)
         )}>
+          <div style={{ textAlign: 'right' }}>
+            <a target="_blank" href={window.location.href} title="Open story in a new window"><icons.OpenExternal /></a>
+          </div>
           {
             this.stories.map((s, i) => {
               return s.type === 'md'
