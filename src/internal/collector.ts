@@ -181,7 +181,15 @@ export class Collector {
 
   story({
     entryPointPath,
-  }: { entryPointPath: string }) {
+    initialHeight,
+  }: {
+      entryPointPath: string,
+      /** 
+       * Provides a more smooth UX
+       * Don't worry, we automatically resize once the story render is called
+       */
+      initialHeight: number
+    }) {
     this.entryPointIndex++;
 
     const index = this.entryPointIndex;
@@ -195,6 +203,7 @@ export class Collector {
       index: this.entryPointIndex,
       htmlFileName,
       code: code,
+      initialHeight,
       demoCodes: getDemoCodes(code).map(
         /** 
          * Don't remove this lambda.
