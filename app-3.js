@@ -21531,6 +21531,7 @@
 	var txt = __webpack_require__(368);
 	var types = __webpack_require__(369);
 	var typestyle_1 = __webpack_require__(183);
+	var icons = __webpack_require__(370);
 	var createdOnce = false;
 	var Story = (function () {
 	    function Story() {
@@ -21571,19 +21572,23 @@
 	            return highlighted;
 	        };
 	        ReactDOM.render(React.createElement("div", null,
-	            React.createElement("div", { className: typestyle.style(csstips.horizontallyCenterSelf, csstips.maxWidth(900), csstips.verticallySpaced(10)) }, this.stories.map(function (s, i) {
-	                return s.type === 'md'
-	                    ? React.createElement(markdown_1.MarkDown, { key: i, markdown: markdown_1.dedent(s.md), iframeId: types.makeIframeId(data.index) })
-	                    : s.type === 'demo'
-	                        ? React.createElement("div", { key: i, className: typestyle_1.style(csstips.verticallySpaced(10)) },
-	                            React.createElement("div", null, s.demo),
-	                            React.createElement("div", { className: typestyle_1.style(csstips.verticallySpaced(5)) },
-	                                React.createElement("div", { style: { textAlign: 'center', color: styles.colors.text, fontSize: '12px', opacity: .7 } }, "code for above demo"),
-	                                React.createElement("div", { style: { paddingLeft: '20px', paddingRight: '20px' }, dangerouslySetInnerHTML: {
-	                                        __html: "<div class=" + markdown_1.MarkDownStyles.rootClass + "><pre style=\"margin:0\"><code>" + highlight(s.code) + "</code></pre></div>"
-	                                    } })))
-	                        : undefined;
-	            }))), document.getElementById('root'));
+	            React.createElement("div", { className: typestyle.style(csstips.horizontallyCenterSelf, csstips.maxWidth(900), csstips.verticallySpaced(10)) },
+	                React.createElement("div", { style: { textAlign: 'right' } },
+	                    React.createElement("a", { target: "_blank", href: window.location.href, title: "Open story in a new window" },
+	                        React.createElement(icons.OpenExternal, null))),
+	                this.stories.map(function (s, i) {
+	                    return s.type === 'md'
+	                        ? React.createElement(markdown_1.MarkDown, { key: i, markdown: markdown_1.dedent(s.md), iframeId: types.makeIframeId(data.index) })
+	                        : s.type === 'demo'
+	                            ? React.createElement("div", { key: i, className: typestyle_1.style(csstips.verticallySpaced(10)) },
+	                                React.createElement("div", null, s.demo),
+	                                React.createElement("div", { className: typestyle_1.style(csstips.verticallySpaced(5)) },
+	                                    React.createElement("div", { style: { textAlign: 'center', color: styles.colors.text, fontSize: '12px', opacity: .7 } }, "code for above demo"),
+	                                    React.createElement("div", { style: { paddingLeft: '20px', paddingRight: '20px' }, dangerouslySetInnerHTML: {
+	                                            __html: "<div class=" + markdown_1.MarkDownStyles.rootClass + "><pre style=\"margin:0\"><code>" + highlight(s.code) + "</code></pre></div>"
+	                                        } })))
+	                            : undefined;
+	                }))), document.getElementById('root'));
 	        typestyle.forceRenderStyles();
 	        /** Tell parent that render is complete */
 	        sendResizeRequest();
@@ -41243,6 +41248,45 @@
 	    return exports.iframeIdBeginsWith + index;
 	}
 	exports.makeIframeId = makeIframeId;
+
+
+/***/ },
+/* 370 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var React = __webpack_require__(1);
+	var styles = __webpack_require__(178);
+	/**
+	 * Icon size defaults
+	 * This is the size that the icons should be created with and matches the viewBox setting
+	 */
+	var defaultSize = 24;
+	var defaultColor = styles.colors.text;
+	var File = (function (_super) {
+	    __extends(File, _super);
+	    function File() {
+	        return _super.apply(this, arguments) || this;
+	    }
+	    File.prototype.render = function () {
+	        var color = this.props.color || defaultColor;
+	        var size = this.props.size || defaultSize;
+	        return (React.createElement("svg", { viewBox: "0 0 17 20", width: size, height: size, style: { fill: color } },
+	            React.createElement("g", null,
+	                React.createElement("path", { d: "M11.9615385,13.375 L5.03846154,13.375 C4.72,13.375 4.46153846,13.6272812 4.46153846,13.9375 C4.46153846,14.2482813 4.72,14.5 5.03846154,14.5 L11.9615385,14.5 C12.28,14.5 12.5384615,14.2482813 12.5384615,13.9375 C12.5384615,13.6272812 12.28,13.375 11.9615385,13.375 L11.9615385,13.375 Z M4.46153846,10.5630625 C4.46153846,10.8732813 4.72,11.1255625 5.03846154,11.1255625 L11.9615385,11.1255625 C12.28,11.1255625 12.5384615,10.8732813 12.5384615,10.5630625 C12.5384615,10.2517188 12.28,10 11.9615385,10 L5.03846154,10 C4.72,10 4.46153846,10.2517188 4.46153846,10.5630625 L4.46153846,10.5630625 Z M14.8461538,17.3125 C14.8461538,17.6232813 14.5876923,17.875 14.2692308,17.875 L2.73076923,17.875 C2.41230769,17.875 2.15384615,17.6232813 2.15384615,17.3125 L2.15384615,2.68778125 C2.15384615,2.377 2.41230769,2.1255625 2.73076923,2.1255625 L10.2307692,2.1255625 L10.2307692,5.5 L10.2307692,6.6255625 L11.3846154,6.6255625 L14.8461538,6.6255625 L14.8461538,17.3125 Z M11.3846154,2.3865625 L14.5784615,5.5 L11.3846154,5.5 L11.3846154,2.3865625 Z M15.9982692,5.5 L11.3846154,1.0016875 L11.3846154,1 L1.57692308,1 C1.25817308,1 1,1.252 1,1.5625 L1,18.4377813 C1,18.7482813 1.25817308,19 1.57692308,19 L15.4230769,19 C15.7415385,19 16,18.7482813 16,18.4377813 L16,5.5 L15.9982692,5.5 Z", id: "Page-1" }))));
+	    };
+	    return File;
+	}(React.Component));
+	exports.File = File;
+	exports.OpenExternal = function () {
+	    return (React.createElement("svg", { width: defaultSize, height: defaultSize, viewBox: "5 5 30 30", style: { fill: defaultColor } },
+	        React.createElement("path", { d: "M8,15.5h22v-7H6v23h24v-2H8V15.5z M12,10.5h1v1h-1V10.5z   M10,10.5h1v1h-1V10.5z M8,10.5h1v1H8V10.5z M20,24.5v-4h-2v4H20z M34,22.5l-7-5v3h-6v4h6v3L34,22.5z M17,24.5v-4h-2v4H17z" })));
+	};
 
 
 /***/ }
