@@ -25,7 +25,8 @@
     "ts-loader": "1.2.0",
     "ts-node": "1.5.2",
     "typescript": "2.2.0-dev.20161130",
-    "webpack": "1.14.0"
+    "webpack": "1.14.0",
+    "typestyle": "0.19.0"    
   },
   "devDependencies": {
     "@types/escape-html": "0.0.19",
@@ -42,7 +43,6 @@
     "react": "15.3.2",
     "react-dom": "15.3.2",
     "react-toggle": "2.2.0",
-    "starts": "^0.3.0",
-    "typestyle": "0.19.0"
+    "starts": "^0.3.0"
   }
 }
