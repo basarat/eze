@@ -1,6 +1,6 @@
 {
   "name": "eze",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Ez demos / docs for Component / Styleguide authors",
   "main": "lib/index.js",
   "typings": "lib/index",
@@ -26,7 +26,7 @@
     "ts-node": "1.5.2",
     "typescript": "2.2.0-dev.20161130",
     "webpack": "1.14.0",
-    "typestyle": "0.19.0"    
+    "typestyle": "0.19.0"
   },
   "devDependencies": {
     "@types/escape-html": "0.0.19",
