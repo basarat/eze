@@ -77,5 +77,5 @@ function bundle(args) {
     });
 }
 exports.bundle = bundle;
-var _a = process.argv.slice(2), entryPointName = _a[0], outputFileName = _a[1], prod = _a[2];
-bundle({ entryPointName: entryPointName, outputFileName: outputFileName, prod: prod === 'true' ? true : false });
+var args = JSON.parse(process.argv[2]);
+bundle(args);
