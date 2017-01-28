@@ -3,23 +3,16 @@
  * @module wraps webpack in a nice api
  */
 var webpack = require("webpack");
-var fse = require("fs-extra");
 /**
  * Creates a webpack bundle
  */
 function bundle(args) {
     return new Promise(function (res, rej) {
-        if (!fse.existsSync(args.entryPointName)) {
-            /** Webpack ignores this siliently sadly so we need to catch it ourselves */
-            var error = "Entry point does not exist: " + args.entryPointName;
-            console.error(error);
-            rej(new Error(error));
-        }
         var config = {
             devtool: 'source-map',
-            entry: args.entryPointName,
+            entry: args.entryMap,
             output: {
-                filename: args.outputFileName
+                filename: args.outputDirName + '/[name].js'
             },
             resolve: {
                 extensions: ['', '.ts', '.tsx', '.js']
@@ -29,15 +22,6 @@ function bundle(args) {
                     { test: /\.tsx?$/, loader: 'ts-loader' }
                 ]
             },
-            /** minify */
-            plugins: args.prod ? [
-                new webpack.DefinePlugin({
-                    'process.env': {
-                        NODE_ENV: "'production'",
-                    },
-                }),
-                new webpack.optimize.UglifyJsPlugin(),
-            ] : [],
             /** Decrease noise */
             stats: {
                 hash: false, version: false, timings: false, assets: false,

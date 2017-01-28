@@ -48,8 +48,8 @@ export class Collector {
     tableOfContents: []
   }
 
-  /** We collect all async things in here */
-  _buildCollector: Promise<any>[] = [];
+  /** We collect all bundle things in here */
+  _bundleCollector: { [key: string]: string } = {};
 
   html(html: string) {
     this._data.contents.push({ type: 'html', html });
@@ -194,6 +194,7 @@ export class Collector {
 
     const index = this.entryPointIndex;
     const jsFileName = `story-${this.entryPointIndex}.js`;
+    const jsFileNameNoExt = `story-${this.entryPointIndex}`;
     const htmlFileName = `story-${this.entryPointIndex}.html`;
 
     /** Collect */
@@ -229,12 +230,7 @@ export class Collector {
     );
 
     /** Bundle */
-    const outputFileName = `${this.config.outputDir}/${jsFileName}`;
-    this._buildCollector.push(bundle({
-      entryPointName: entryPointPath,
-      outputFileName: outputFileName,
-      prod: true
-    }));
+    this._bundleCollector[jsFileNameNoExt] = entryPointPath;
   }
 
   /** Adds a raw application demo */
@@ -256,6 +252,7 @@ export class Collector {
 
     const index = this.entryPointIndex;
     const jsFileName = `app-${this.entryPointIndex}.js`;
+    const jsFileNameNoExt = `app-${this.entryPointIndex}`;
     const htmlFileName = `app-${this.entryPointIndex}.html`;
 
     const content: types.AppContent = {
@@ -286,12 +283,7 @@ export class Collector {
     );
 
     /** Bundle */
-    const outputFileName = `${this.config.outputDir}/${jsFileName}`;
-    this._buildCollector.push(bundle({
-      entryPointName: entryPointPath,
-      outputFileName: outputFileName,
-      prod: false
-    }));
+    this._bundleCollector[jsFileNameNoExt] = entryPointPath;
   }
 
   /** The end */
@@ -316,9 +308,10 @@ export class Collector {
     /** If dev also write out the app */
     if (fse.existsSync(__dirname + '/../app/app.tsx')) {
       await bundle({
-        entryPointName: __dirname + '/../app/app.tsx',
-        outputFileName: __dirname + '/../../lib/app.js',
-        prod: true
+        entryMap: {
+          'app': __dirname + '/../app/app.tsx'
+        },
+        outputDirName: __dirname + '/../../lib',
       });
     }
     const outputFileName = fse.writeFileSync(
@@ -327,6 +320,9 @@ export class Collector {
     );
 
     /** Await all builds */
-    await Promise.all(this._buildCollector);
+    await bundle({
+      entryMap: this._bundleCollector,
+      outputDirName: this.config.outputDir
+    });
   }
 }

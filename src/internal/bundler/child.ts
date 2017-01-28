@@ -3,29 +3,22 @@
  */
 import * as webpack from 'webpack';
 import * as fse from 'fs-extra';
+import * as path from 'path';
 
 /**
  * Creates a webpack bundle
  */
 export function bundle(args: {
-  entryPointName: string,
-  outputFileName: string,
-  prod: boolean
+  entryMap: {[key:string]: string},
+  outputDirName: string,
 }) {
   return new Promise((res, rej) => {
 
-    if (!fse.existsSync(args.entryPointName)) {
-      /** Webpack ignores this siliently sadly so we need to catch it ourselves */
-      const error = `Entry point does not exist: ${args.entryPointName}`;
-      console.error(error);
-      rej(new Error(error));
-    }
-
     const config = {
       devtool: 'source-map',
-      entry: args.entryPointName,
+      entry: args.entryMap,
       output: {
-        filename: args.outputFileName
+        filename: args.outputDirName + '/[name].js'
       },
       resolve: {
         extensions: ['', '.ts', '.tsx', '.js']
@@ -35,15 +28,6 @@ export function bundle(args: {
           { test: /\.tsx?$/, loader: 'ts-loader' }
         ]
       },
-      /** minify */
-      plugins: args.prod ? [
-        new webpack.DefinePlugin({
-          'process.env': {
-            NODE_ENV: "'production'",
-          },
-        }),
-        new webpack.optimize.UglifyJsPlugin(),
-      ] : [],
       /** Decrease noise */
       stats: {
         hash: false, version: false, timings: false, assets: false,
