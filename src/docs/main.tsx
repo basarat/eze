@@ -63,7 +63,6 @@ render({
   `);
   eze.story({
     entryPointPath: __dirname + '/story-1.tsx',
-    initialHeight: 466
   });
 
   /** Show some complete application demos */

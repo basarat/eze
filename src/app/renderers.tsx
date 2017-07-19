@@ -229,7 +229,6 @@ export class StoryRenderer extends React.PureComponent<types.StoryContent, { loa
         ref={(frame) => this.ctrls.frame = frame as HTMLIFrameElement}
         className={classes(
           StoryRendererStyles.iframe,
-          style({ height: props.initialHeight })
         )}
         src={`./${props.htmlFileName}`}
         onLoad={e => {

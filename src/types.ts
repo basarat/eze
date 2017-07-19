@@ -20,7 +20,6 @@ export type StoryContent = {
   index: number,
   htmlFileName: string,
   code: string,
-  initialHeight: number,
 
   /** Each demo call has its code collected here */
   demoCodes: string[];
