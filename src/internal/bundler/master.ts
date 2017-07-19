@@ -5,6 +5,7 @@ import * as webpack from 'webpack';
 import * as fse from 'fs-extra';
 import * as cp from 'child_process';
 import * as ts from 'typescript';
+import * as ora from 'ora';
 
 let compiledOnceInThisRun = false;
 
@@ -19,7 +20,10 @@ let bundleCmd = (args): Promise<string> => {
       compiledOnceInThisRun = true;
     }
 
+    const spinner = ora('Running webpack builds').start();
+
     cp.execFile(process.execPath, [`${__dirname}/child.js`, JSON.stringify(args)], { cwd: cwd }, (err, stdout, stderr) => {
+      spinner.stop();
       if (stderr.toString().trim().length) {
         return reject(stderr.toString());
       }
