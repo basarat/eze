@@ -128,7 +128,7 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
       <Expandible open={this.state.viewDemo}>
         <gls.VerticalMargined>
           {/** iframe the html */}
-          <iframe
+          {this.state.viewDemo && <iframe
             ref={(frame) => this.ctrls.frame = frame as HTMLIFrameElement}
             className={classes(
               AppRendererStyles.iframe,
@@ -138,7 +138,7 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
             src={`./${props.htmlFileName}`}
             onLoad={e => {
               if (!props.height) AppRendererStyles.resizeIframe(this.ctrls.frame);
-            }} />
+            }} />}
 
           { /** Controls */}
           <gls.ResponsiveGridParent breakpoint={650}>
