@@ -19,11 +19,7 @@ import { Anchor } from '../app/components/anchor';
 declare const data: types.StoryContent | types.AppContent;
 
 export type StoryEntry =
-  | {
-    type: 'md';
-    md: string;
-  }
-  | {
+  {
     type: 'demo';
     demo: JSX.Element;
     code: string;
@@ -51,11 +47,6 @@ export class Story {
   }
 
   private stories: StoryEntry[] = [];
-
-  md(md: string) {
-    this.stories.push({ type: 'md', md });
-    return this;
-  }
 
   private demoIndex = 0;
   demo(demo: JSX.Element) {
@@ -90,22 +81,20 @@ export class Story {
           </div>
           {
             this.stories.map((s, i) => {
-              return s.type === 'md'
-                ? <MarkDown key={i} markdown={dedent(s.md)} iframeId={types.makeIframeId(data.index)} />
-                : s.type === 'demo'
-                  ? <div key={i} className={style(csstips.verticallySpaced(10))}>
-                    <div>
-                      {s.demo}
-                    </div>
-                    <div className={style(csstips.verticallySpaced(5))}>
-                      <div style={{ textAlign: 'center', color: styles.colors.text, fontSize: '12px', opacity: .7 }}>code for above demo</div>
-                      {/** Padded code extra to give visual association with what was on top */}
-                      <div style={{ paddingLeft: '20px', paddingRight: '20px' }} dangerouslySetInnerHTML={{
-                        __html: `<div class=${MarkDownStyles.rootClass}><pre style="margin:0"><code>${highlight(s.code)}</code></pre></div>`
-                      }} />
-                    </div>
+              return s.type === 'demo'
+                ? <div key={i} className={style(csstips.verticallySpaced(10))}>
+                  <div>
+                    {s.demo}
                   </div>
-                  : undefined
+                  <div className={style(csstips.verticallySpaced(5))}>
+                    <div style={{ textAlign: 'center', color: styles.colors.text, fontSize: '12px', opacity: .7 }}>code for above demo</div>
+                    {/** Padded code extra to give visual association with what was on top */}
+                    <div style={{ paddingLeft: '20px', paddingRight: '20px' }} dangerouslySetInnerHTML={{
+                      __html: `<div class=${MarkDownStyles.rootClass}><pre style="margin:0"><code>${highlight(s.code)}</code></pre></div>`
+                    }} />
+                  </div>
+                </div>
+                : undefined
             })
           }
         </div>
