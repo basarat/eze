@@ -97,12 +97,12 @@ namespace AppRendererStyles {
 }
 
 export type AppMode = 'auto' | 'desktop' | 'tablet' | 'mobile';
-export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: AppMode, viewCode?: boolean }> {
+export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: AppMode, viewDemo?: boolean }> {
   constructor(props) {
     super(props);
     this.state = {
       mode: 'auto',
-      viewCode: false
+      viewDemo: false
     }
   }
   componentDidMount() {
@@ -118,47 +118,48 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
   render() {
     const { props } = this;
     return <gls.VerticalMargined>
-      {/** iframe the html */}
-      <iframe
-        ref={(frame) => this.ctrls.frame = frame as HTMLIFrameElement}
-        className={classes(
-          AppRendererStyles.iframe,
-          AppRendererStyles[this.state.mode],
-          !!props.height && style({ height: props.height }),
-        )}
-        src={`./${props.htmlFileName}`}
-        onLoad={e => {
-          if (!props.height) AppRendererStyles.resizeIframe(this.ctrls.frame);
-        }} />
 
-      { /** Controls */}
-      <gls.ResponsiveGridParent breakpoint={650}>
-        <Toggle
-          label="Show Code"
-          value={this.state.viewCode}
-          onChange={() => this.setState({ viewCode: !this.state.viewCode })} />
-        <div className={style(media({ minWidth: 650 }, { textAlign: 'center' }))}>
-          <BreakpointButtons mode={this.state.mode} onModeChange={mode => {
-            this.setState({ mode });
-            setTimeout(() => {
+      <Toggle
+        label="Show Demo"
+        value={this.state.viewDemo}
+        onChange={() => this.setState({ viewDemo: !this.state.viewDemo })} />
+
+      {/** Demo + Code */}
+      <Expandible open={this.state.viewDemo}>
+        <gls.VerticalMargined>
+          {/** iframe the html */}
+          <iframe
+            ref={(frame) => this.ctrls.frame = frame as HTMLIFrameElement}
+            className={classes(
+              AppRendererStyles.iframe,
+              AppRendererStyles[this.state.mode],
+              !!props.height && style({ height: props.height }),
+            )}
+            src={`./${props.htmlFileName}`}
+            onLoad={e => {
               if (!props.height) AppRendererStyles.resizeIframe(this.ctrls.frame);
-            }, 500);
-          }} />
-        </div>
-        <gls.ContentHorizontalMargined className={style(media({ minWidth: 650 }, csstips.endJustified))}>
-          {!!props.sourceUrl && <a target="_blank" href={props.sourceUrl} title="View Source"><icons.File /></a>}
-          <a target="_blank" href={`./${props.htmlFileName}`} title="Open demo in a new window"><icons.OpenExternal /></a>
-        </gls.ContentHorizontalMargined>
-      </gls.ResponsiveGridParent>
+            }} />
 
-      {/** Code */}
-      <Expandible open={this.state.viewCode}>
-        {/** Render code in same dom structure as markdown would. To reuse styles */}
-        <div className={MarkDownStyles.rootClass}>
-          <pre className={style({ margin: '0px' })}>
-            <code dangerouslySetInnerHTML={{ __html: highlightCodeWithMode(props.sources[0]) }} />
-          </pre>
-        </div>
+          { /** Controls */}
+          <gls.ResponsiveGridParent breakpoint={650}>
+            <BreakpointButtons mode={this.state.mode} onModeChange={mode => {
+              this.setState({ mode });
+              setTimeout(() => {
+                if (!props.height) AppRendererStyles.resizeIframe(this.ctrls.frame);
+              }, 500);
+            }} />
+            <gls.ContentHorizontalMargined className={style(media({ minWidth: 650 }, csstips.endJustified))}>
+              {!!props.sourceUrl && <a target="_blank" href={props.sourceUrl} title="View Source"><icons.File /></a>}
+              <a target="_blank" href={`./${props.htmlFileName}`} title="Open demo in a new window"><icons.OpenExternal /></a>
+            </gls.ContentHorizontalMargined>
+          </gls.ResponsiveGridParent>
+          {/** Render code in same dom structure as markdown would. To reuse styles */}
+          <div className={MarkDownStyles.rootClass}>
+            <pre className={style({ margin: '0px' })}>
+              <code dangerouslySetInnerHTML={{ __html: highlightCodeWithMode(props.sources[0]) }} />
+            </pre>
+          </div>
+        </gls.VerticalMargined>
       </Expandible>
 
     </gls.VerticalMargined>;
