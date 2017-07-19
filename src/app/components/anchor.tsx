@@ -34,7 +34,7 @@ export interface AnchorProps {
   id?: string;
   href?: string;
   target?: "_blank";
-  children?: JSX.Element;
+  children?: React.ReactNode;
   download?: boolean;
   onClick?: React.EventHandler<React.MouseEvent<any>>;
   className?: string;

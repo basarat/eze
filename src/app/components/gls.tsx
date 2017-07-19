@@ -228,13 +228,13 @@ export interface MarginedProps extends PrimitiveProps {
  * - Children: get the Height : sized by content
  * - ThisComponent: Puts a horizontal margin between each item
  */
-export const ContentHorizontalMargined = (props: MarginedProps & {horizontalAlign?: 'left' /** default */ | 'right'}) => {
-  const {margin, horizontalAlign, ...otherProps} = props;
+export const ContentHorizontalMargined = (props: MarginedProps & { horizontalAlign?: 'left' /** default */ | 'right' }) => {
+  const { margin, horizontalAlign, ...otherProps } = props;
 
   const spacing = (margin == null ? defaultValues.spacing : margin);
   const className = typestyle.classes(props.className,
     typestyle.style(csstips.horizontallySpaced(spacing)),
-    horizontalAlign == 'right' &&  typestyle.style(csstips.endJustified)
+    horizontalAlign == 'right' && typestyle.style(csstips.endJustified)
   );
 
   return (
@@ -244,7 +244,7 @@ export const ContentHorizontalMargined = (props: MarginedProps & {horizontalAlig
 ContentHorizontalMargined.displayName = "ContentHorizontalMargined";
 
 export const ContentHorizontalMarginedCentered = (props: MarginedProps) => {
-  const {margin, ...otherProps} = props;
+  const { margin, ...otherProps } = props;
 
   const spacing = (margin == null ? defaultValues.spacing : margin);
   const className = typestyle.classes(props.className, typestyle.style(csstips.center, csstips.horizontallySpaced(spacing)));
@@ -264,7 +264,7 @@ ContentHorizontalMarginedCentered.displayName = "ContentHorizontalMarginedCenter
  * - ThisComponent: Puts a horizontal margin between each item
  */
 export const FlexHorizontalMargined = (props: MarginedProps) => {
-  const {margin, ...otherProps} = props;
+  const { margin, ...otherProps } = props;
 
   const spacing = (margin == null ? defaultValues.spacing : margin);
   const className = typestyle.classes(props.className, typestyle.style(csstips.horizontallySpaced(spacing)));
@@ -276,7 +276,7 @@ export const FlexHorizontalMargined = (props: MarginedProps) => {
 FlexHorizontalMargined.displayName = "FlexHorizontalMargined";
 
 export const FlexVerticalMargined = (props: MarginedProps) => {
-  const {margin, ...otherProps} = props;
+  const { margin, ...otherProps } = props;
 
   const spacing = (margin == null ? defaultValues.spacing : margin);
   const className = typestyle.classes(props.className, typestyle.style(csstips.verticallySpaced(spacing)));
@@ -291,7 +291,7 @@ FlexHorizontalMargined.displayName = "FlexVerticalMargined";
  * Could be ContentVerticalMargined but also wraps each child in Content to auto fix IE vertical layout issues
  */
 export const ContentVerticalContentMargined = (props: MarginedProps) => {
-  const {margin, children, ...otherProps} = props;
+  const { margin, children, ...otherProps } = props;
 
   const spacing = (margin == null ? defaultValues.spacing : margin);
   const className = typestyle.classes(props.className, typestyle.style(csstips.verticallySpaced(spacing)));
@@ -316,10 +316,10 @@ ContentVerticalContentMargined.displayName = "ContentVerticalContentMargined";
  * - ThisComponent: Puts a negative margin on itself to offset the margins of the children (prevents them from leaking out)
  */
 export const GridMargined = (props: MarginedProps) => {
-  const {margin, children, ...otherProps} = props;
+  const { margin, children, ...otherProps } = props;
   const spacing = (margin == null ? defaultValues.spacing : margin) + 'px';
 
-  const className = typestyle.style(csstips.wrap, { marginTop: '-' + spacing, marginLeft: '-' + spacing }, props.style || {});
+  const className = typestyle.style(csstips.wrap, { marginTop: '-' + spacing, marginLeft: '-' + spacing }, props.style || {} as any);
 
   return (
     <ContentHorizontal {...otherProps} className={className}>
@@ -346,7 +346,7 @@ export interface ResponsiveGridParentProps extends PrimitiveProps {
   horizontalAlign?: 'top' /** Default */ | 'center';
 }
 export const ResponsiveGridParent = (props: ResponsiveGridParentProps) => {
-  const {margin, breakpoint, horizontalAlign, ...otherProps} = props;
+  const { margin, breakpoint, horizontalAlign, ...otherProps } = props;
 
   const spacing = (margin == null ? defaultValues.spacing : margin);
   const breakpointNum = (breakpoint || defaultValues.breakpoints.phone)
@@ -394,7 +394,7 @@ ResponsiveGridParent.displayName = "ResponsiveGridParent";
  * Just a display:block with vertical spacing between each child
  */
 export const VerticalMargined = (props: MarginedProps) => {
-  const {margin, ...otherProps} = props;
+  const { margin, ...otherProps } = props;
 
   const spacing = (margin == null ? defaultValues.spacing : margin);
   const className = typestyle.classes(props.className, typestyle.style(csstips.verticallySpaced(spacing)));
