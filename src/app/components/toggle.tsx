@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ReactToggle from 'react-toggle';
-import { cssRaw } from 'typestyle';
+import { cssRaw, style } from 'typestyle';
 import * as styles from '../../internal/styles';
 
 
@@ -151,9 +151,9 @@ cssRaw(`
 export const Toggle = (props: { label, value, onChange }) =>
   <label style={{ display: 'inline-block' }}>
     <ReactToggle
-      value={props.value}
+      value={props.value.toString()}
       onChange={props.onChange} />
-    <span style={{
+    <span className={style({
       color: styles.colors.text,
       fontSize: '16px',
       fontWeight: 'bold',
@@ -164,5 +164,5 @@ export const Toggle = (props: { label, value, onChange }) =>
       top: '-5px',
       userSelect: 'none',
       '-webkit-user-select': 'none',
-    }}>{props.label}</span>
+    })}>{props.label}</span>
   </label>

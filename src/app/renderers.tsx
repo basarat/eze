@@ -185,11 +185,12 @@ export namespace StoryRendererStyles {
   }
 }
 
-export class StoryRenderer extends React.PureComponent<types.StoryContent, { loading: boolean }> {
+export class StoryRenderer extends React.PureComponent<types.StoryContent, { loading: boolean, viewStory }> {
   constructor(props) {
     super(props);
     this.state = {
       loading: true,
+      viewStory: false,
     }
   }
   componentDidMount() {
@@ -206,7 +207,14 @@ export class StoryRenderer extends React.PureComponent<types.StoryContent, { loa
   render() {
     const { props } = this;
     return <gls.VerticalMargined>
-      {this.state.loading && <gls.ContentHorizontalMarginedCentered>
+
+      <Toggle
+        label="Show Story"
+        value={this.state.viewStory}
+        onChange={() => this.setState({ viewStory: !this.state.viewStory })} />
+
+
+      {this.state.viewStory && this.state.loading && <gls.ContentHorizontalMarginedCentered>
         <Loader />
         <P>
           Waiting for story render to complete
@@ -214,7 +222,7 @@ export class StoryRenderer extends React.PureComponent<types.StoryContent, { loa
       </gls.ContentHorizontalMarginedCentered>}
 
       {/** iframe the html */}
-      <iframe
+      {this.state.viewStory && <iframe
         id={types.makeIframeId(props.index)}
         /** 100% width on ios http://stackoverflow.com/a/20142280/390330 */
         scrolling="no"
@@ -226,6 +234,7 @@ export class StoryRenderer extends React.PureComponent<types.StoryContent, { loa
         src={`./${props.htmlFileName}`}
         onLoad={e => {
         }} />
+      }
     </gls.VerticalMargined>;
   }
 }
