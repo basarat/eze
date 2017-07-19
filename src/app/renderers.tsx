@@ -97,12 +97,13 @@ namespace AppRendererStyles {
 }
 
 export type AppMode = 'auto' | 'desktop' | 'tablet' | 'mobile';
-export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: AppMode, viewDemo?: boolean }> {
+export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: AppMode, viewDemo?: boolean, loading?: boolean }> {
   constructor(props) {
     super(props);
     this.state = {
       mode: 'auto',
-      viewDemo: false
+      viewDemo: false,
+      loading: false,
     }
   }
   componentDidMount() {
@@ -119,10 +120,13 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
     const { props } = this;
     return <gls.VerticalMargined>
 
-      <Toggle
-        label="Show Demo"
-        value={this.state.viewDemo}
-        onChange={() => this.setState({ viewDemo: !this.state.viewDemo })} />
+      <gls.ContentHorizontalMargined>
+        <Toggle
+          label="Show Demo"
+          value={this.state.viewDemo}
+          onChange={() => this.setState({ viewDemo: !this.state.viewDemo, loading: !this.state.viewDemo })} />
+        {this.state.loading && <Loader />}
+      </gls.ContentHorizontalMargined>
 
       {/** Demo + Code */}
       <Expandible open={this.state.viewDemo}>
@@ -138,6 +142,7 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
             src={`./${props.htmlFileName}`}
             onLoad={e => {
               if (!props.height) AppRendererStyles.resizeIframe(this.ctrls.frame);
+              this.setState({ loading: false })
             }} />}
 
           { /** Controls */}
