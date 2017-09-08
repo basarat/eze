@@ -76,9 +76,6 @@ export class Story {
           csstips.maxWidth(900),
           csstips.verticallySpaced(10)
         )}>
-          <div style={{ textAlign: 'right' }}>
-            <a target="_blank" href={window.location.href} title="Open story in a new window"><icons.OpenExternal /></a>
-          </div>
           {
             this.stories.map((s, i) => {
               return s.type === 'demo'

@@ -213,11 +213,20 @@ export class StoryRenderer extends React.PureComponent<types.StoryContent, { loa
     const { props } = this;
     return <gls.VerticalMargined>
 
-      <Toggle
-        label="Show Story"
-        value={this.state.viewStory}
-        onChange={() => this.setState({ viewStory: !this.state.viewStory })} />
+      <gls.ContentHorizontal>
+        <Toggle
+          label="Show Story"
+          value={this.state.viewStory}
+          onChange={() => this.setState({ viewStory: !this.state.viewStory })} />
 
+        <gls.Flex />
+
+        <a target="_blank"
+          href={`./${props.htmlFileName}`}
+          title="Open story in a new window">
+          <icons.OpenExternal />
+        </a>
+      </gls.ContentHorizontal>
 
       {this.state.viewStory && this.state.loading && <gls.ContentHorizontalMarginedCentered>
         <Loader />
