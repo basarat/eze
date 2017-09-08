@@ -232,6 +232,9 @@ export class Collector {
     /** Bundle */
     this._bundleCollector[jsFileNameNoExt] = entryPointPath;
     if (only) {
+      if (this.only) {
+        throw new Error(`We already have an only: "${this.only}" and you just passed in a one one: "${only}"`)
+      }
       this.only = jsFileNameNoExt;
     }
   }
@@ -292,6 +295,9 @@ export class Collector {
     this._bundleCollector[jsFileNameNoExt] = entryPointPath;
 
     if (only) {
+      if (this.only) {
+        throw new Error(`We already have an only: "${this.only}" and you just passed in a one one: "${only}"`)
+      }
       this.only = jsFileNameNoExt;
     }
   }
@@ -336,6 +342,7 @@ export class Collector {
           delete this._bundleCollector[jsFileNameNoExt];
         }
       })
+      console.log(`Will *only* compile the following using webpack: ${this._bundleCollector[this.only]}`);
     }
 
     /** Await all builds */
