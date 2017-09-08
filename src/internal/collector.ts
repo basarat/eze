@@ -189,7 +189,7 @@ export class Collector {
     only,
   }: {
       entryPointPath: string,
-      only?: true
+      only?: boolean
     }) {
     this.entryPointIndex++;
 
@@ -252,7 +252,7 @@ export class Collector {
        **/
       height?: string
 
-      only?: true
+      only?: boolean
     }) {
     this.entryPointIndex++;
 

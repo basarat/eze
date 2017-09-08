@@ -82,7 +82,6 @@ render({
   eze.app({
     entryPointPath: __dirname + '/app-2.tsx',
     sourceUrl: 'https://github.com/basarat/eze/blob/master/src/docs/app-2.tsx',
-    only: true
   });
   eze.md(`
   All applications can target the \`root\` element. The following is the HTML that is used:
