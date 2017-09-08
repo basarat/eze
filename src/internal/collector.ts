@@ -49,7 +49,7 @@ export class Collector {
   }
 
   /** We collect all bundle things in here */
-  _bundleCollector: { [key: string]: string } = {};
+  _bundleCollector: { [jsFileNameNoExt: string]: /** Entry path */ string } = {};
 
   html(html: string) {
     this._data.contents.push({ type: 'html', html });
@@ -176,13 +176,20 @@ export class Collector {
     });
   }
 
-  /** Each demo gets its index. This drives the JS / HTML files names */
+  /** Each demo and story gets its index. This drives the JS / HTML files names */
   private entryPointIndex = 0;
+
+  /**
+   * If only is set on only `story | demo` only that `story | demo` gets rendered
+   **/
+  private only: string = '';
 
   story({
     entryPointPath,
+    only,
   }: {
       entryPointPath: string,
+      only?: true
     }) {
     this.entryPointIndex++;
 
@@ -224,13 +231,17 @@ export class Collector {
 
     /** Bundle */
     this._bundleCollector[jsFileNameNoExt] = entryPointPath;
+    if (only) {
+      this.only = jsFileNameNoExt;
+    }
   }
 
   /** Adds a raw application demo */
   app({
     entryPointPath,
     sourceUrl,
-    height
+    height,
+    only
   }: {
       entryPointPath: string,
       sourceUrl?: string,
@@ -240,6 +251,8 @@ export class Collector {
        * If not specified we default to the iframe content scroll height
        **/
       height?: string
+
+      only?: true
     }) {
     this.entryPointIndex++;
 
@@ -277,6 +290,10 @@ export class Collector {
 
     /** Bundle */
     this._bundleCollector[jsFileNameNoExt] = entryPointPath;
+
+    if (only) {
+      this.only = jsFileNameNoExt;
+    }
   }
 
   /** The end */
@@ -311,6 +328,15 @@ export class Collector {
       this.config.outputDir + '/app.js',
       fse.readFileSync(__dirname + '/../../lib/app.js')
     );
+
+    /** If only is set only leave that in for bundling */
+    if (this.only) {
+      Object.keys(this._bundleCollector).forEach(jsFileNameNoExt => {
+        if (jsFileNameNoExt !== this.only) {
+          delete this._bundleCollector[jsFileNameNoExt];
+        }
+      })
+    }
 
     /** Await all builds */
     await bundle({
