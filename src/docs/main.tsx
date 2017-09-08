@@ -73,7 +73,7 @@ render({
   eze.app({
     entryPointPath: __dirname + '/app-1.tsx',
     sourceUrl: 'https://github.com/basarat/eze/blob/master/src/docs/app-1.tsx',
-    height: '100px'
+    height: '100px',
   });
   eze.md(`
   Embedded applications can use \`import {resize} from 'eze/lib/client';\` to 

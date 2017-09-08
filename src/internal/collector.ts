@@ -233,7 +233,7 @@ export class Collector {
     this._bundleCollector[jsFileNameNoExt] = entryPointPath;
     if (only) {
       if (this.only) {
-        throw new Error(`We already have an only: "${this.only}" and you just passed in a one one: "${only}"`)
+        throw new Error(`We already have an only: "${this.only}" and you just passed in a one one: "${jsFileNameNoExt}"`)
       }
       this.only = jsFileNameNoExt;
     }
@@ -296,7 +296,7 @@ export class Collector {
 
     if (only) {
       if (this.only) {
-        throw new Error(`We already have an only: "${this.only}" and you just passed in a one one: "${only}"`)
+        throw new Error(`We already have an only: "${this.only}" and you just passed in a one one: "${jsFileNameNoExt}"`)
       }
       this.only = jsFileNameNoExt;
     }
