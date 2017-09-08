@@ -81,14 +81,15 @@ render({
   `);
   eze.app({
     entryPointPath: __dirname + '/app-2.tsx',
-    sourceUrl: 'https://github.com/basarat/eze/blob/master/src/docs/app-2.tsx'
+    sourceUrl: 'https://github.com/basarat/eze/blob/master/src/docs/app-2.tsx',
+    only: true
   });
   eze.md(`
   All applications can target the \`root\` element. The following is the HTML that is used:
   `);
   eze.code({
     mode: 'html',
-    code: appIndexTemplate({ index: 0, jsFileName: 'app-0.js' })
+    code: appIndexTemplate({ index: 0, jsFileName: 'app-0.js' }),
   })
 
   /** Table of contents */
@@ -97,6 +98,25 @@ render({
   Generated automatically based on the headings parsed from markdown.
   ## Sample subheading
   Yup. You guessed it. ^ It should be visible in the TOC.
+  `);
+
+  /** Development time */
+  eze.md(`
+  # Devtime
+  When working on a styleguide you normally only work on one \`story\` or \`app\` at the time. So both of these take an optional \`only\` argument. E.g.
+  `);
+  eze.code({
+    mode: 'js',
+    code: `
+eze.story({
+  entryPointPath: __dirname + '/story-1.tsx',
+  only: true
+});      
+    `
+  });
+  eze.md(`
+  * Ofcourse you shouldn't commit with 'only' set to true. But it can greatly speed up demo/story development.
+  * You can even open the app / story in a new window using the "open in a new window" link so you can work on it without distraction. 
   `);
 })
 
