@@ -126,6 +126,8 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
           value={this.state.viewDemo}
           onChange={() => this.setState({ viewDemo: !this.state.viewDemo, loading: !this.state.viewDemo })} />
         {this.state.loading && <Loader />}
+        <gls.Flex />
+        <a target="_blank" href={`./${props.htmlFileName}`} title="Open demo in a new window"><icons.OpenExternal /></a>
       </gls.ContentHorizontalMargined>
 
       {/** Demo + Code */}
@@ -155,7 +157,6 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
             }} />
             <gls.ContentHorizontalMargined className={style(media({ minWidth: 650 }, csstips.endJustified))}>
               {!!props.sourceUrl && <a target="_blank" href={props.sourceUrl} title="View Source"><icons.File /></a>}
-              <a target="_blank" href={`./${props.htmlFileName}`} title="Open demo in a new window"><icons.OpenExternal /></a>
             </gls.ContentHorizontalMargined>
           </gls.ResponsiveGridParent>
           {/** Render code in same dom structure as markdown would. To reuse styles */}
