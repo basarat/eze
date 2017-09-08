@@ -345,12 +345,17 @@ export class Collector {
       console.log(`Will *only* compile the following using webpack: ${this._bundleCollector[this.only]}`);
     }
 
-    /** Await all builds */
-    console.log("EZE [START] webpack builds.");
-    await bundle({
-      entryMap: this._bundleCollector,
-      outputDirName: this.config.outputDir
-    });
-    console.log("EZE [END] webpack builds.");
+    /** 
+     * Await all builds only if there are any builds
+     * e.g. the user might not have made any calls to `.app` | `.story`
+     **/
+    if (Object.keys(this._bundleCollector).length) {
+      console.log("EZE [START] webpack builds.");
+      await bundle({
+        entryMap: this._bundleCollector,
+        outputDirName: this.config.outputDir
+      });
+      console.log("EZE [END] webpack builds.");
+    }
   }
 }
