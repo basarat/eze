@@ -6,28 +6,71 @@ import * as fse from 'fs-extra';
 import * as cp from 'child_process';
 import * as ts from 'typescript';
 import * as ora from 'ora';
+import * as path from 'path';
 
-let compiledOnceInThisRun = false;
+/**
+ * Creates a webpack bundle
+ */
+export function bundleWebpack(args: {
+  entryMap: { [key: string]: string },
+  outputDirName: string,
+}) {
+  return new Promise((res, rej) => {
 
-/** Main utility function to execute a command */
-let bundleCmd = (args): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const cwd = __dirname;
+    const config: webpack.Configuration = {
+      devtool: 'source-map',
+      entry: args.entryMap,
+      output: {
+        path: args.outputDirName,
+        filename: '[name].js'
+      },
+      resolve: {
+        extensions: ['.ts', '.tsx', '.js']
+      },
+      module: {
+        loaders: [
+          {
+            test: /\.tsx?$/,
+            loader: 'ts-loader',
+            /**
+             * Custom compiler options for demo building.
+             * Effectively what would be in each app tsconfig.json
+             **/
+            options: {
+              compilerOptions: {
+                "jsx": "react",
+                "target": "es5",
+                "moduleResolution": "node",
+                "experimentalDecorators": true,
+                "lib": [
+                  "es6",
+                  "dom"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      /** Decrease noise */
+      stats: {
+        hash: false, version: false, timings: false, assets: false,
+        chunks: false, modules: false, reasons: false, children: false,
+        source: false, publicPath: false, warnings: true,
+        /** Errors only */
+        errors: true,
+        errorDetails: true,
+      },
+    };
 
-    /** Create child.js for dev */
-    if (fse.existsSync(`${__dirname}/child.ts`) && !compiledOnceInThisRun) {
-      fse.writeFileSync(`${__dirname}/child.js`, ts.transpile(fse.readFileSync(`${__dirname}/child.ts`).toString()));
-      compiledOnceInThisRun = true;
-    }
-
-    const spinner = ora('Running webpack builds').start();
-
-    cp.execFile(process.execPath, [`${__dirname}/child.js`, JSON.stringify(args)], { cwd: cwd }, (err, stdout, stderr) => {
-      spinner.stop();
-      if (stderr.toString().trim().length) {
-        return reject(stderr.toString());
+    const compiler = webpack(config);
+    compiler.run(function(err, stats) {
+      if (err) {
+        console.error("BUNDLING FAILED:", args);
+        console.error(err);
+        rej(err);
+        return;
       }
-      return resolve(stdout);
+      res();
     });
   });
 }
@@ -45,5 +88,5 @@ export function bundle(args: {
     console.error(error, args.entryMap);
     return Promise.reject(new Error(error));
   }
-  return bundleCmd(args);
+  return bundleWebpack(args);
 }
