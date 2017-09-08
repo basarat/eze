@@ -13,14 +13,34 @@ function bundle(args) {
             devtool: 'source-map',
             entry: args.entryMap,
             output: {
-                filename: args.outputDirName + '/[name].js'
+                path: args.outputDirName,
+                filename: '[name].js'
             },
             resolve: {
-                extensions: ['', '.ts', '.tsx', '.js']
+                extensions: ['.ts', '.tsx', '.js']
             },
             module: {
                 loaders: [
-                    { test: /\.tsx?$/, loader: 'ts-loader' }
+                    {
+                        test: /\.tsx?$/,
+                        loader: 'ts-loader',
+                        /**
+                         * Custom compiler options for demo building.
+                         * Effectively what would be in each app tsconfig.json
+                         **/
+                        options: {
+                            compilerOptions: {
+                                "jsx": "react",
+                                "target": "es5",
+                                "moduleResolution": "node",
+                                "experimentalDecorators": true,
+                                "lib": [
+                                    "es6",
+                                    "dom"
+                                ]
+                            }
+                        }
+                    }
                 ]
             },
             /** Decrease noise */
@@ -32,22 +52,6 @@ function bundle(args) {
                 errors: true,
                 errorDetails: true,
             },
-            /**
-             * Custom compiler options for demo building.
-             * Effectively what would be in each app tsconfig.json
-             **/
-            ts: {
-                compilerOptions: {
-                    "jsx": "react",
-                    "target": "es5",
-                    "moduleResolution": "node",
-                    "experimentalDecorators": true,
-                    "lib": [
-                        "es6",
-                        "dom"
-                    ]
-                }
-            }
         };
         var compiler = webpack(config);
         compiler.run(function (err, stats) {

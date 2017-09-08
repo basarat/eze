@@ -9,23 +9,43 @@ import * as path from 'path';
  * Creates a webpack bundle
  */
 export function bundle(args: {
-  entryMap: {[key:string]: string},
+  entryMap: { [key: string]: string },
   outputDirName: string,
 }) {
   return new Promise((res, rej) => {
 
-    const config = {
+    const config: webpack.Configuration = {
       devtool: 'source-map',
       entry: args.entryMap,
       output: {
-        filename: args.outputDirName + '/[name].js'
+        path: args.outputDirName,
+        filename: '[name].js'
       },
       resolve: {
-        extensions: ['', '.ts', '.tsx', '.js']
+        extensions: ['.ts', '.tsx', '.js']
       },
       module: {
         loaders: [
-          { test: /\.tsx?$/, loader: 'ts-loader' }
+          {
+            test: /\.tsx?$/,
+            loader: 'ts-loader',
+            /**
+             * Custom compiler options for demo building.
+             * Effectively what would be in each app tsconfig.json
+             **/
+            options: {
+              compilerOptions: {
+                "jsx": "react",
+                "target": "es5",
+                "moduleResolution": "node",
+                "experimentalDecorators": true,
+                "lib": [
+                  "es6",
+                  "dom"
+                ]
+              }
+            }
+          }
         ]
       },
       /** Decrease noise */
@@ -37,22 +57,6 @@ export function bundle(args: {
         errors: true,
         errorDetails: true,
       },
-      /**
-       * Custom compiler options for demo building.
-       * Effectively what would be in each app tsconfig.json
-       **/
-      ts: {
-        compilerOptions: {
-          "jsx": "react",
-          "target": "es5",
-          "moduleResolution": "node",
-          "experimentalDecorators": true,
-          "lib": [
-            "es6",
-            "dom"
-          ]
-        }
-      }
     };
 
     const compiler = webpack(config);
