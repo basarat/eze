@@ -346,9 +346,11 @@ export class Collector {
     }
 
     /** Await all builds */
+    console.log("EZE [START] webpack builds.");
     await bundle({
       entryMap: this._bundleCollector,
       outputDirName: this.config.outputDir
     });
+    console.log("EZE [END] webpack builds.");
   }
 }
