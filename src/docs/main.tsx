@@ -117,5 +117,4 @@ eze.story({
   * Ofcourse you shouldn't commit with 'only' set to true. Use it only locally to speed up demo/story development.
   * You can even open the app / story in a new window using the "open in a new window" link so you can work on it without distraction. 
   `);
-})
-
+});
