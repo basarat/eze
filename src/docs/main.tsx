@@ -37,7 +37,7 @@ render({
 
   e.g. the color of this text is ${colors.text} 🌹
 
-  And so many of the same advantages as [TypeStyle](http://typestyle.io/#/why).
+  Docs in JS/TS have so many of the same advantages as [TypeStyle / CSS in JS](http://typestyle.io/#/why).
   `);
 
   eze.md(`
@@ -57,7 +57,7 @@ render({
   eze.code({
     mode: 'ts',
     code: require('fs').readFileSync(__dirname + '/story-1.tsx').toString()
-  })
+  });
   eze.md(`
   Produces the following story:
   `);
