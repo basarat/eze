@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@types/escape-html": "0.0.19",
-    "@types/fs-extra": "0.0.35",
+    "@types/fs-extra": "5.0.1",
     "@types/highlight.js": "9.1.9",
     "@types/react": "15.0.33",
     "@types/react-dom": "15.5.1",
