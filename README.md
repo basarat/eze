@@ -10,7 +10,7 @@
 ## Install
 Install
 
-`npm install eze --save-dev --save-exact`
+`npm install eze -D`
 
 Create a ts (tsx) file (e.g. `./src/docs/main.ts`)
 
@@ -33,46 +33,31 @@ render({
 });
 ```
 
-Run it `npm install ts-node --save --save-exact` with `package.json`: 
+Run it: 
 
 ```json
 {
   "scripts": {
-    "docs": "ts-node ./src/docs/main"  
+    "docs": "eze ./src/docs/main.ts"  
   }
 }
 ```
 
-Now `npm run docs` builds the demos out to the specified folder. HTML + JavaScript. You can push that folder to s3 or surge.sh or even github  🌹
+Now `npm run docs` builds the demos out to the specified folder. HTML + JavaScript. 
 
-> Ofcourse you can use js / raw node if you want to. But why would you.
+> You can push the output folder to github, s3 or surge.sh or anywhere else you want  🌹
 
 ## Live Preview
 
-For live development just use `npm install starts --save-dev`: 
+For live development just use `--serve` with a specfied folder:
 
 ```json
 {
   "scripts": {
-    "docs": "ts-node ./src/docs/main",
-    "start": "ts-node ./src/starts", 
+    "docs": "eze ./src/docs/main.ts",
+    "start": "npm run docs -- --serve ./docs", 
   }
 }
-```
-`starts.ts`:
-
-```ts
-import { starts } from 'starts';
-
-starts({
-  serve: {
-    dir: './docs',
-    port: 4000
-  },
-  run: [
-    { cmd: 'npm run docs', watch: ['src/**'] },
-  ]
-})
 ```
 
 `npm start` 🌹
