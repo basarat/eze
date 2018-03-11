@@ -4,6 +4,9 @@
   "description": "Eze demos / docs for Component / Styleguide authors",
   "main": "lib/index.js",
   "types": "lib/index",
+  "bin": {
+    "eze": "./bin/eze"
+  },
   "scripts": {
     "docs": "eze ./src/docs/main.tsx",
     "docs:live": "npm run docs -- --serve",
