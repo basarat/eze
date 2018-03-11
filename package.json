@@ -1,17 +1,18 @@
 {
   "name": "eze",
   "version": "0.9.2",
-  "description": "Ez demos / docs for Component / Styleguide authors",
+  "description": "Eze demos / docs for Component / Styleguide authors",
   "main": "lib/index.js",
-  "typings": "lib/index",
+  "types": "lib/index",
   "scripts": {
-    "buildtsc": "tsc -p .",
-    "builddocs": "ts-node ./src/docs/main.tsx",
-    "test": "npm run buildtsc && npm run builddocs",
-    "start": "ts-node ./src/starts",
+    "docs": "eze ./src/docs/main.tsx",
+    "docs:live": "npm run docs -- --serve",
+    "start": "npm run docs:live",
     "publishdocs": "ts-node ./scripts/publishdocs.ts",
-    "preversion": "npm run test",
-    "postversion": "git push --follow-tags && npm publish"
+    "buildtsc": "tsc -p .",
+    "preversion": "npm run buildtsc",
+    "postversion": "git push --follow-tags && npm publish",
+    "test": "npm run buildtsc && npm run docs"
   },
   "author": "",
   "license": "MIT",
