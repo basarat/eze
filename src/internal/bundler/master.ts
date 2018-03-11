@@ -82,8 +82,8 @@ export function bundle(args: {
   entryMap: { [key: string]: string },
   outputDirName: string,
 }) {
+  /** Webpack ignores this siliently sadly so we need to catch it ourselves */
   if (Object.keys(args.entryMap).map(key => args.entryMap[key]).some(e => !fse.existsSync(e))) {
-    /** Webpack ignores this siliently sadly so we need to catch it ourselves */
     const error = `At least one entry point does not exist`;
     console.error(error, args.entryMap);
     return Promise.reject(new Error(error));
