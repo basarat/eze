@@ -39,7 +39,6 @@
     "react": "16.2.0",
     "react-dom": "16.2.0",
     "react-toggle": "4.0.2",
-    "starts": "0.7.0",
     "typestyle": "1.7.2"
   }
 }
