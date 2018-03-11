@@ -1,4 +1,3 @@
-import * as fse from 'fs-extra';
 import { Data, RenderConfig } from './types';
 import { Collector } from './internal/collector';
 import { toHtml } from './internal/markdown';
