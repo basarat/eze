@@ -13,8 +13,10 @@ export function createSourceFile(code: string): ts.SourceFile {
 }
 
 /**
- * Given some code
- * collects the functionName(firstArgument).something.functionName(secondArgument) < `firstAgument`s
+ * Given some code:
+ * - `functionName(firstArgument).something.functionName(secondArgument)`
+ * Collects and returns: 
+ * - [`firstAgument`, `secondArgument`] and so on
  **/
 function collectFunctionArguments(code: string, functionName: string): string[] {
   const functionArguments: string[] = [];
