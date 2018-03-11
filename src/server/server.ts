@@ -9,6 +9,11 @@ const serveIndex = process.argv.indexOf('--serve');
 if (serveIndex !== -1) {
   const serveFolder = process.argv[serveIndex + 1];
 
+  // cleanup argv
+  const origArgv = process.argv.slice();
+  process.argv = origArgv
+    .map((x, i) => ((i === serveIndex) || (i === serveIndex + 1)) ? null : x)
+    .filter(x => x != null);
 }
 // Non serve mode
 else {
@@ -16,4 +21,4 @@ else {
 }
 
 // DJ - spin that s***
-require('ts-node');
+require('ts-node/dist/bin.js');
