@@ -30,7 +30,7 @@
     "@types/highlight.js": "9.1.9",
     "@types/react": "16.0.40",
     "@types/react-dom": "16.0.4",
-    "@types/webpack": "3.0.10",
+    "@types/webpack": "3.8.10",
     "csstips": "0.2.2",
     "escape-html": "1.0.3",
     "expandible": "0.1.3",
