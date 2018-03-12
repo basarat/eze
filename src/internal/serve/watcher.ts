@@ -3,10 +3,10 @@ import { debounce } from '../utils';
 
 const watchers: { [pattern: string]: chokidar.FSWatcher } = Object.create(null);
 function getWatcher(pattern: string): chokidar.FSWatcher {
-  if (!this.watchers[pattern]) {
-    this.watchers[pattern] = chokidar.watch(pattern, { ignoreInitial: true });
+  if (!watchers[pattern]) {
+    watchers[pattern] = chokidar.watch(pattern, { ignoreInitial: true });
   }
-  return this.watchers[pattern];
+  return watchers[pattern];
 }
 
 export class WatchManager {

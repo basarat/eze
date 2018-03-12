@@ -1,3 +1,9 @@
+export interface FilePathPosition {
+  filePath: string;
+  line: number;
+  ch: number;
+}
+
 export interface Listener<T> {
   (event: T): any;
 }
@@ -78,3 +84,56 @@ export function debounce<T extends Function>(func: T, milliseconds: number, imme
     return result;
   };
 };
+
+/**
+ * Converts the following raw stack string to a FilePathPosition array: 
+Error: Fail
+  at Context.<anonymous> (D:\REPOS\alm\src\tests\testedTest.ts:21:15)
+  at callFn (D:\REPOS\alm\node_modules\mocha\lib\runnable.js:334:21)
+  at Test.Runnable.run (D:\REPOS\alm\node_modules\mocha\lib\runnable.js:327:7)
+  at Runner.runTest (D:\REPOS\alm\node_modules\mocha\lib\runner.js:429:10)
+  at D:\REPOS\alm\node_modules\mocha\lib\runner.js:535:12
+  at next (D:\REPOS\alm\node_modules\mocha\lib\runner.js:349:14)
+  at D:\REPOS\alm\node_modules\mocha\lib\runner.js:359:7
+  at next (D:\REPOS\alm\node_modules\mocha\lib\runner.js:285:14)
+  at Immediate._onImmediate (D:\REPOS\alm\node_modules\mocha\lib\runner.js:327:5)
+*/
+export const makeStack = (raw: string): FilePathPosition[] => {
+  let lines = raw.split(/\r\n?|\n/);
+  /** First line is just the error message. Don't need it */
+  lines = lines.slice(1);
+
+  /** Remove each leading `at ` */
+  lines = lines.map(l => l.trim().substr(3));
+
+  /** For lines that have function name, they end with `)`. So detect and remove leading `(` for them */
+  lines = lines.map(l => {
+    if (l.endsWith(')')) {
+      const withStartRemoved = l.substr(l.indexOf('(') + 1);
+      const withEndRemoved = withStartRemoved.substr(0, withStartRemoved.length - 1);
+      return withEndRemoved;
+    }
+    else {
+      return l;
+    }
+  });
+
+  const stack = lines.map(l => {
+    let parts = l.split(':');
+
+    const chStr = parts[parts.length - 1];
+    const lineStr = parts[parts.length - 2];
+    /** NOTE: file path on windows will contain `:` in the beginning as well. Hence the join */
+    const filePath = parts.slice(0, parts.length - 2).join(':');
+
+    /**
+     * The chrome ones are 1 based. We want 0 based
+     */
+    const line = parseInt(lineStr) - 1;
+    const ch = parseInt(chStr) - 1;
+
+    return { filePath, line, ch };
+  })
+
+  return stack;
+}
