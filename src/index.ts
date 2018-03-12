@@ -54,12 +54,13 @@ export async function render(config: RenderConfig, cb: (eze: Collector) => void)
   }
   else {
     try {
+      /** Create */
       const eze = new Collector(config);
 
       /** Collect */
       cb(eze);
 
-      /** Final render */
+      /** Render */
       await eze._done();
     }
     catch (err) {
