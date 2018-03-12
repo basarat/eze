@@ -5,16 +5,21 @@ import { Server } from './internal/serve/serve';
 import { WatchManager } from './internal/serve/watcher';
 import { makeStack } from './internal/utils';
 import { mkdirp, existsSync } from 'fs-extra';
+import { resolve } from 'path';
 
 const isServeMode = process.argv.indexOf('--serve') !== -1;
 
 export async function render(config: RenderConfig, cb: (eze: Collector) => void) {
-  const callStack = makeStack((new Error() as any).stack);
-  const usIndex = callStack.map(s => s.filePath).lastIndexOf(__filename);
-  const callerIndex = usIndex + 1;
-  const callers = callStack.slice(callerIndex).map(x => x.filePath);
+  /** Kill all wierdness */
+  config.outputDir = resolve(config.outputDir);
 
   if (isServeMode) {
+    /** Find out who is calling us so we can reload for changes if required */
+    const callStack = makeStack((new Error() as any).stack);
+    const usIndex = callStack.map(s => s.filePath).lastIndexOf(__filename);
+    const callerIndex = usIndex + 1;
+    const callers = callStack.slice(callerIndex).map(x => x.filePath);
+
     try {
       /** Setup server */
       let server = new Server();
