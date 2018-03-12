@@ -3,7 +3,7 @@ import * as ts from 'typescript';
 let fileId = 0;
 export function createSourceFile(code: string): ts.SourceFile {
   let sourceFile = ts.createSourceFile(
-    `${fileId++}.js`,
+    `${fileId++}.jsx`,
     code,
     ts.ScriptTarget.ES2015,
     /* setParentNodes */ true,
@@ -16,7 +16,7 @@ export function createSourceFile(code: string): ts.SourceFile {
  * Given some code:
  * - `functionName(firstArgument).something.functionName(secondArgument)`
  * Collects and returns: 
- * - [`firstAgument`, `secondArgument`] and so on
+ * - [`firstAgument`.getFullText(), `secondArgument`.getFullText()] and so on
  **/
 function collectFunctionArguments(code: string, functionName: string): string[] {
   const functionArguments: string[] = [];

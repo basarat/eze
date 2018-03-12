@@ -2,7 +2,7 @@ import { RenderConfig, Data, SupportedMode, TableOfContentEntry } from '../types
 import { toHtml, dedent, highlightCodeWithMode, MarkDownStyles } from './markdown';
 import { bundle } from './bundler/master';
 import * as fse from 'fs-extra';
-import { getDemoCodes, getMds } from './tsMagic/astUtils';
+import { getDemoCodes, getMds } from './tsMagic/argumentCollector';
 import * as types from '../types';
 import { mainIndex } from "../app/mainIndex";
 
