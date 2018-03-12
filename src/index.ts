@@ -3,34 +3,44 @@ import { Collector } from './internal/collector';
 import { toHtml } from './internal/markdown';
 import { Server } from './internal/serve/serve';
 
-const serveIndex = process.argv.indexOf('--serve');
-const isServeMode = serveIndex !== -1;
+const isServeMode = process.argv.indexOf('--serve') !== -1;
 
 export async function render(config: RenderConfig, cb: (eze: Collector) => void) {
-  try {
-    const eze = new Collector(config);
+  if (isServeMode) {
+    try {
+      const eze = new Collector(config);
 
-    /** Setup server */
-    let server = new Server();
-    if (isServeMode) {
+      /** Setup server */
+      let server = new Server();
       await server.serve(config.outputDir);
-    }
 
-    /** Collect */
-    cb(eze);
+      /** Collect */
+      cb(eze);
 
-    /** Final render */
-    await eze._done();
+      /** Final render */
+      await eze._done();
 
-    /** Reload server */
-    if (isServeMode) {
+      /** Reload server */
       server.triggerReload();
     }
+    catch (err) {
+      console.error("BUILD FAILED:", config);
+      console.error(err);
+    }
   }
-  catch (err) {
-    console.error("BUILD FAILED:", config);
-    console.error(err);
-    if (!isServeMode) {
+  else {
+    try {
+      const eze = new Collector(config);
+
+      /** Collect */
+      cb(eze);
+
+      /** Final render */
+      await eze._done();
+    }
+    catch (err) {
+      console.error("BUILD FAILED:", config);
+      console.error(err);
       process.exit(1);
     }
   }
