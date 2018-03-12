@@ -7,7 +7,7 @@ if (process.argv.indexOf('--serve') !== -1) {
   onchange(
     [rootToExec],
     process.execPath,
-    [require.resolve('ts-node/dist/bin.js'), rootToExec],
+    [require.resolve('ts-node/dist/bin.js'), rootToExec, '--serve'],
     {
       initial: true,
     }
