@@ -53,6 +53,11 @@ export class Collector {
     [jsFileNameNoExt: string]: /** Entry path */ string
   } = {};
 
+  /** Returns the collected entry points for watching */
+  get _watchFilePaths() {
+    return Object.keys(this._bundleCollector).map(key => (this._bundleCollector[key]));
+  }
+
   html(html: string) {
     this._data.contents.push({ type: 'html', html });
   }

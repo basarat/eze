@@ -14,28 +14,38 @@ export async function render(config: RenderConfig, cb: (eze: Collector) => void)
   config.outputDir = resolve(config.outputDir);
 
   if (isServeMode) {
-    
+
     try {
       /** Setup server */
       let server = new Server();
       if (!existsSync(config.outputDir)) await mkdirp(config.outputDir);
       await server.serve(config.outputDir);
 
-      const redo = async () => {
-        watcher.dispose();
+      /** Setup watcher */
+      const watcher = new WatchManager();
 
-        /** trinity */
-        const eze = new Collector(config);
-        cb(eze);
+      /** trinity */
+      const eze = new Collector(config);
+      cb(eze);
+      await eze._done();
+
+      const rebundle = async () => {
+        /** Rebundle */
         await eze._done();
 
-        /** TODO: For each file that is entry point for bundling, we watch and re-render  */
-
+        /** Refresh */
         server.triggerReload();
       };
 
-      const watcher = new WatchManager();
-      redo();
+      /** For each file that is entry point for bundling, we watch and re-render  */
+      eze._watchFilePaths.forEach(fp => watcher.addWatcher(fp, rebundle));
+
+      /** 
+       * Trigger reload on build always 
+       * so already connected clients refresh between process restarts 
+       **/
+      server.triggerReload();
+
     }
     catch (err) {
       console.error("BUILD FAILED:", config);
