@@ -40,7 +40,7 @@ export class Server {
     /** create http server */
     this.server = http.createServer(this.app);
     this.server.listen(port, host, () => {
-      console.log('# listening at http://' + host + ':' + port);
+      console.log(`EZE serving DIR ${dir} AT http://${host}:${port}`);
       this.client.startWS(this.server); // websocket shares same as our server
     });
 
