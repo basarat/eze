@@ -1,4 +1,5 @@
 import { Livereload, clientJsPath } from './client';
+import { getPort } from './getPort';
 
 import * as connect from 'connect';
 import * as serveStatic from 'serve-static';
@@ -11,12 +12,10 @@ export class Server {
   private server: http.Server;
 
   constructor(private config: {
-    verbose: boolean,
     dir: string,
-    port: number,
   }) {
     this.app = connect();
-    this.client = new Livereload(config);
+    this.client = new Livereload();
 
     /** use our client's middlware */
     this.app.use(this.client.middleware);
@@ -38,30 +37,21 @@ export class Server {
     );
 
     const host = '0.0.0.0';
-    const port = this.config.port || 4000;
+    const port = getPort(4000).then(port => {
+      /** create http server */
+      this.server = http.createServer(this.app);
+      this.server.listen(port, host, () => {
+        console.log('# listening at http://' + host + ':' + port);
+        this.client.startWS(this.server); // websocket shares same as our server
+      });
 
-    /** create http server */
-    this.server = http.createServer(this.app);
-    this.server.listen(port, host, () => {
-      console.log('# listening at http://' + host + ':' + port);
-      this.client.startWS(this.server); // websocket shares same as our server
-    });
-
-    /** Handle server errors */
-    this.server.on('error', (err: any) => {
-      if (err.errno === 'EADDRINUSE') {
-        console.log('## ERROR: port ' + port + ' is already in use')
-        process.exit(2)
-      } else {
+      /** Handle server errors */
+      this.server.on('error', (err: any) => {
         console.log(err)
-      }
-    })
+      });
+    });
   }
 
   triggerReload = () => this.client.triggerReload();
   triggerReloadCss = () => this.client.triggerReloadCss();
-
-  private writeLog(logLine: any) {
-    this.config.verbose && console.log(logLine);
-  }
 }

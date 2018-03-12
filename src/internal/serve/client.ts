@@ -69,13 +69,6 @@ setInterval(function () {
 `;
 
 export class Livereload {
-  constructor(public options: { verbose: boolean }) {
-  }
-
-  writeLog(logLine: any) {
-    this.options.verbose && console.log(logLine);
-  }
-
   /** Register this as a connect middleware */
   middleware = (req, res, next) => {
     var pathname = parseUrl(req).pathname
@@ -129,33 +122,19 @@ export class Livereload {
     });
   }
 
-  triggerReload = (delayMs?: number) => {
-    if (delayMs) {
-      this.writeLog('## delay reload for ' + delayMs + ' ms')
-    }
-
-    setTimeout(() => {
-      this.writeLog('## send reload event via websocket to browser')
-      this.wsArray.forEach((w) => {
-        w.send(JSON.stringify({ [reloadKey]: Date.now().toString() }), function(e) {
-          if (e) { console.log('websocket send error: ' + e) }
-        })
-      });
-    }, delayMs);
+  triggerReload = () => {
+    this.wsArray.forEach((w) => {
+      w.send(JSON.stringify({ [reloadKey]: Date.now().toString() }), function(e) {
+        if (e) { console.log('websocket send error: ' + e) }
+      })
+    });
   }
 
-  triggerReloadCss = (delayMs?: number) => {
-    if (delayMs) {
-      this.writeLog('## delay reloadcss for ' + delayMs + ' ms')
-    }
-
-    setTimeout(function() {
-      this.writeLog('## send reloadcss event via websocket to browser')
-      this.wsArray.forEach((w) => {
-        w.send(JSON.stringify({ [reloadCssKey]: Date.now().toString() }), function(e) {
-          if (e) { console.log('websocket send error: ' + e) }
-        })
-      });
-    }, delayMs);
+  triggerReloadCss = () => {
+    this.wsArray.forEach((w) => {
+      w.send(JSON.stringify({ [reloadCssKey]: Date.now().toString() }), function(e) {
+        if (e) { console.log('websocket send error: ' + e) }
+      })
+    });
   }
 }

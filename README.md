@@ -46,7 +46,7 @@ Add a few npm scripts:
 ```
 
 * `npm run docs` builds the demos out to the specified folder. HTML + JavaScript. You can push the output `docs` folder to github, s3 or surge.sh or anywhere else you want  🌹.
-* `npm run docs:live` will build out the demos, serve the output folder, and reload any connected browsers whenever the demo changes 🌹.
+* `npm run docs:live` will build out the demos, serve the output folder (on port `4000` or whatever is available in ascending order), and reload any connected browsers whenever the demo changes 🌹.
 
 # Documentation
 
