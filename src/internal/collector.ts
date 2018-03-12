@@ -49,7 +49,9 @@ export class Collector {
   }
 
   /** We collect all bundle things in here */
-  _bundleCollector: { [jsFileNameNoExt: string]: /** Entry path */ string } = {};
+  _bundleCollector: {
+    [jsFileNameNoExt: string]: /** Entry path */ string
+  } = {};
 
   html(html: string) {
     this._data.contents.push({ type: 'html', html });

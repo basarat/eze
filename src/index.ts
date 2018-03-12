@@ -18,6 +18,8 @@ export async function render(config: RenderConfig, cb: (eze: Collector) => void)
       /** Collect */
       cb(eze);
 
+      /** TODO: For each file that is entry point for bundling, we watch and re-render  */
+
       /** Final render */
       await eze._done();
 
