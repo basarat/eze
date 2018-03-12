@@ -323,14 +323,14 @@ export class Collector {
     );
     /** If dev also write out the app */
     if (!__dirname.includes('node_modules')) {
-      console.log('[START] BUNDLING frontend for eze');
+      console.log('DEV [START] BUNDLING frontend for eze');
       await bundle({
         entryMap: {
           'app': __dirname + '/../app/app.tsx'
         },
         outputDirName: __dirname + '/../../lib',
       });
-      console.log('[END] BUNDLING frontend for eze');
+      console.log('DEV [END] BUNDLING frontend for eze');
     }
     // Always write our client `app.js` to the output folder
     fse.writeFileSync(
