@@ -13,7 +13,7 @@ export async function render(config: RenderConfig, cb: (eze: Collector) => void)
       const redo = async () => {
         watcher.dispose();
         watcher.addWatcher(callerFilePath, redo);
-        
+
         const eze = new Collector(config);
         await server.serve(config.outputDir);
         cb(eze);
@@ -66,4 +66,3 @@ export async function render(config: RenderConfig, cb: (eze: Collector) => void)
     }
   }
 }
-
