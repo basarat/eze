@@ -35,22 +35,13 @@ export async function render(config: RenderConfig, cb: (eze: Collector) => void)
         cb(eze);
         await eze._done();
 
+        /** TODO: For each file that is entry point for bundling, we watch and re-render  */
+
         server.triggerReload();
       };
 
       const watcher = new WatchManager();
-      callers.forEach(fp => watcher.addWatcher(fp, redo));
-
-      /** trinity */
-      const eze = new Collector(config);
-      cb(eze);
-      await eze._done();
-
-      /** TODO: For each file that is entry point for bundling, we watch and re-render  */
-
-
-      /** Reload server */
-      server.triggerReload();
+      redo();
     }
     catch (err) {
       console.error("BUILD FAILED:", config);
