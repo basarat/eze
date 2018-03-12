@@ -322,15 +322,18 @@ export class Collector {
       mainIndex({ title: this.config.title || "Docs" })
     );
     /** If dev also write out the app */
-    if (fse.existsSync(__dirname + '/../app/app.tsx')) {
+    if (!__dirname.includes('node_modules')) {
+      console.log('[START] BUNDLING frontend for eze');
       await bundle({
         entryMap: {
           'app': __dirname + '/../app/app.tsx'
         },
         outputDirName: __dirname + '/../../lib',
       });
+      console.log('[END] BUNDLING frontend for eze');
     }
-    const outputFileName = fse.writeFileSync(
+    // Always write our client `app.js` to the output folder
+    fse.writeFileSync(
       this.config.outputDir + '/app.js',
       fse.readFileSync(__dirname + '/../../lib/app.js')
     );
