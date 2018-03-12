@@ -4,8 +4,16 @@ if (process.argv.indexOf('--serve') !== -1) {
   const rootToExec = nonServeArgs[nonServeArgs.length - 1];
 
   const onchange = require('onchange');
-  onchange([rootToExec], process.execPath, [require.resolve('ts-node/dist/bin.js')].concat(nonServeArgs));
-} else {
+  onchange(
+    [rootToExec],
+    process.execPath,
+    [require.resolve('ts-node/dist/bin.js'), rootToExec],
+    {
+      initial: true,
+    }
+  );
+}
+else {
   // DJ - spin that s***
   require('ts-node/dist/bin.js');
 }
