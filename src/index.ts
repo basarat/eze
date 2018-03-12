@@ -2,6 +2,7 @@ import { Data, RenderConfig } from './types';
 import { Collector } from './internal/collector';
 import { toHtml } from './internal/markdown';
 import { Server } from './internal/serve/serve';
+import { WatchManager } from './internal/serve/watcher';
 
 const isServeMode = process.argv.indexOf('--serve') !== -1;
 
