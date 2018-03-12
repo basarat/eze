@@ -15,7 +15,7 @@ npm install eze -D
 
 Create a ts (tsx) file (e.g. `./src/docs/main.ts`)
 
-```ts
+```js
 import { render } from "eze";
 
 /** Render documentation */
@@ -40,15 +40,13 @@ Add a few npm scripts:
 {
   "scripts": {
     "docs": "eze ./src/docs/main.ts",
-    "start": "npm run docs -- --serve"
+    "docs:live": "npm run docs -- --serve"
   }
 }
 ```
 
-* Now `npm run docs` builds the demos out to the specified folder. HTML + JavaScript. 
-* For live development you can run `npm start` 🌹.
-
-> You can push the output `docs` folder to github, s3 or surge.sh or anywhere else you want  🌹
+* `npm run docs` builds the demos out to the specified folder. HTML + JavaScript. You can push the output `docs` folder to github, s3 or surge.sh or anywhere else you want  🌹.
+* `npm run docs:live` will build out the demos, serve the output folder, and reload any connected browsers whenever the demo changes 🌹.
 
 # Documentation
 
