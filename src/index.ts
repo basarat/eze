@@ -5,10 +5,14 @@ import { toHtml } from './internal/markdown';
 const serveIndex = process.argv.indexOf('--serve');
 const isServeMode = serveIndex !== -1;
 let reloadServer = () => undefined;
+let addServeFolderIfNotAlreadyServed = (folderPath: string) => undefined;
 if (isServeMode) {
-  const serveFolder = process.argv[serveIndex + 1];
-
-  // TODO: serve folder 
+  // TODO: Start server
+  
+  addServeFolderIfNotAlreadyServed = (folderPath: string) => {
+    // TODO
+    console.log(`TODO: serve folder ${folderPath}`);
+  }
 
   reloadServer = () => {
     // TODO
@@ -20,6 +24,9 @@ if (isServeMode) {
 export async function render(config: RenderConfig, cb: (eze: Collector) => void) {
   try {
     const eze = new Collector(config);
+    if (isServeMode) {
+      addServeFolderIfNotAlreadyServed(config.outputDir);
+    }
     cb(eze);
 
     /** Final render */

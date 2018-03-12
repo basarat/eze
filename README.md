@@ -8,14 +8,15 @@
 > [Powered by your github ⭐s](https://github.com/basarat/eze/stargazers)
 
 ## Install
-Install
 
-`npm install eze -D`
+```bash
+npm install eze -D
+```
 
 Create a ts (tsx) file (e.g. `./src/docs/main.ts`)
 
 ```ts
-import { render } from "../index";
+import { render } from "eze";
 
 /** Render documentation */
 render({
@@ -33,32 +34,21 @@ render({
 });
 ```
 
-Run it: 
-
-```json
-{
-  "scripts": {
-    "docs": "eze ./src/docs/main.ts"  
-  }
-}
-```
-
-Now `npm run docs` builds the demos out to the specified folder. HTML + JavaScript. 
-
-> You can push the output folder to github, s3 or surge.sh or anywhere else you want  🌹
-
-For live development just use `--serve` with a specfied folder:
+Add a few npm scripts:
 
 ```json
 {
   "scripts": {
     "docs": "eze ./src/docs/main.ts",
-    "start": "npm run docs -- --serve ./docs", 
+    "start": "npm run docs -- --serve"
   }
 }
 ```
 
-`npm start` 🌹
+* Now `npm run docs` builds the demos out to the specified folder. HTML + JavaScript. 
+* For live development you can run `npm start` 🌹.
+
+> You can push the output `docs` folder to github, s3 or surge.sh or anywhere else you want  🌹
 
 # Documentation
 
