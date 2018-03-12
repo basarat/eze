@@ -3,6 +3,11 @@
 * `npm install`
 * `npm start`
 
+# Basic design overview 
+There is a nodejs `collector.ts`. Each call to `eze` (e.g. md, html) results in a `data.js` (and possibly html) files being put into the output dir. 
+
+Then the UI (`app.js`) uses this `data` (loaded automatically by frontend index.html) to render the whole thing into a react UI. 
+
 # Notes 
 
 Some obscure portions are mentioned below: 
