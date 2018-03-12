@@ -14,12 +14,7 @@ export async function render(config: RenderConfig, cb: (eze: Collector) => void)
   config.outputDir = resolve(config.outputDir);
 
   if (isServeMode) {
-    /** Find out who is calling us so we can reload for changes if required */
-    const callStack = makeStack((new Error() as any).stack);
-    const usIndex = callStack.map(s => s.filePath).lastIndexOf(__filename);
-    const callerIndex = usIndex + 1;
-    const callers = callStack.slice(callerIndex).map(x => x.filePath);
-
+    
     try {
       /** Setup server */
       let server = new Server();
@@ -28,7 +23,6 @@ export async function render(config: RenderConfig, cb: (eze: Collector) => void)
 
       const redo = async () => {
         watcher.dispose();
-        callers.forEach(fp => watcher.addWatcher(fp, redo));
 
         /** trinity */
         const eze = new Collector(config);
