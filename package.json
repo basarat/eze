@@ -9,7 +9,7 @@
   },
   "repository": "https://github.com/basarat/eze.git",
   "scripts": {
-    "eze": "node ./src/server/server.ts",
+    "eze": "node ./src/eze.ts",
     "docs": "npm run eze -- ./src/docs/main.tsx",
     "docs:live": "npm run docs -- --serve",
     "start": "npm run docs:live",
