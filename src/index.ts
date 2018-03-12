@@ -8,11 +8,16 @@ import { makeStack } from './internal/utils';
 const isServeMode = process.argv.indexOf('--serve') !== -1;
 
 export async function render(config: RenderConfig, cb: (eze: Collector) => void) {
+  const callStack = makeStack((new Error() as any).stack);
+  const usIndex = callStack.map(s => s.filePath).lastIndexOf(__filename);
+  const callerIndex = usIndex + 1;
+  const callers = callStack.slice(callerIndex).map(x => x.filePath);
+
   if (isServeMode) {
     try {
       const redo = async () => {
         watcher.dispose();
-        watcher.addWatcher(callerFilePath, redo);
+        callers.forEach(fp => watcher.addWatcher(fp, redo));
 
         const eze = new Collector(config);
         await server.serve(config.outputDir);
@@ -22,10 +27,7 @@ export async function render(config: RenderConfig, cb: (eze: Collector) => void)
       };
 
       const watcher = new WatchManager();
-
-      /** 0 is us, 1 is caller, 2 is callers caller, and so on */
-      const callerFilePath = makeStack((new Error() as any).stack)[1].filePath;
-      watcher.addWatcher(callerFilePath, redo);
+      callers.forEach(fp => watcher.addWatcher(fp, redo));
 
       const eze = new Collector(config);
 
