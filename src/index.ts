@@ -2,7 +2,6 @@ import { Data, RenderConfig } from './types';
 import { Collector } from './internal/collector';
 import { toHtml } from './internal/markdown';
 import { Server } from './internal/serve/serve';
-import { WatchManager } from './internal/serve/watcher';
 import { makeStack } from './internal/utils';
 import { mkdirp, existsSync } from 'fs-extra';
 import { resolve } from 'path';
@@ -20,9 +19,6 @@ export async function render(config: RenderConfig, cb: (eze: Collector) => void)
       let server = new Server();
       if (!existsSync(config.outputDir)) await mkdirp(config.outputDir);
       await server.serve(config.outputDir);
-
-      /** Setup watcher */
-      const watcher = new WatchManager();
 
       /** trinity */
       const eze = new Collector(config, () => server.triggerReload());
