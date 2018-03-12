@@ -11,9 +11,7 @@ export class Server {
   private client: Livereload;
   private server: http.Server;
 
-  constructor(private config: {
-    dir: string,
-  }) {
+  async serve(dir: string) {
     this.app = connect();
     this.client = new Livereload();
 
@@ -33,22 +31,22 @@ export class Server {
 
     /** Also serve the directory */
     this.app.use(
-      serveStatic(config.dir || '.')
+      serveStatic(dir || '.')
     );
 
     const host = '0.0.0.0';
-    const port = getPort(4000).then(port => {
-      /** create http server */
-      this.server = http.createServer(this.app);
-      this.server.listen(port, host, () => {
-        console.log('# listening at http://' + host + ':' + port);
-        this.client.startWS(this.server); // websocket shares same as our server
-      });
+    const port = await getPort(4000);
 
-      /** Handle server errors */
-      this.server.on('error', (err: any) => {
-        console.log(err)
-      });
+    /** create http server */
+    this.server = http.createServer(this.app);
+    this.server.listen(port, host, () => {
+      console.log('# listening at http://' + host + ':' + port);
+      this.client.startWS(this.server); // websocket shares same as our server
+    });
+
+    /** Handle server errors */
+    this.server.on('error', (err: any) => {
+      console.log(err)
     });
   }
 

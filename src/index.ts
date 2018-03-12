@@ -1,39 +1,30 @@
 import { Data, RenderConfig } from './types';
 import { Collector } from './internal/collector';
 import { toHtml } from './internal/markdown';
+import { Server } from './internal/serve/serve';
 
 const serveIndex = process.argv.indexOf('--serve');
 const isServeMode = serveIndex !== -1;
-let reloadServer = () => undefined;
-let addServeFolderIfNotAlreadyServed = (folderPath: string) => undefined;
-if (isServeMode) {
-  // TODO: Start server
-  
-  addServeFolderIfNotAlreadyServed = (folderPath: string) => {
-    // TODO
-    console.log(`TODO: serve folder ${folderPath}`);
-  }
-
-  reloadServer = () => {
-    // TODO
-    console.log('TODO: reload server');
-  }
-}
-
 
 export async function render(config: RenderConfig, cb: (eze: Collector) => void) {
   try {
     const eze = new Collector(config);
+
+    /** Setup server */
+    let server = new Server();
     if (isServeMode) {
-      addServeFolderIfNotAlreadyServed(config.outputDir);
+      await server.serve(config.outputDir);
     }
+
+    /** Collect */
     cb(eze);
 
     /** Final render */
     await eze._done();
 
+    /** Reload server */
     if (isServeMode) {
-      reloadServer();
+      server.triggerReload();
     }
   }
   catch (err) {
