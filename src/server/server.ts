@@ -14,6 +14,11 @@ if (serveIndex !== -1) {
   process.argv = origArgv
     .map((x, i) => ((i === serveIndex) || (i === serveIndex + 1)) ? null : x)
     .filter(x => x != null);
+
+  // TODO: 
+  // Run the code 
+  // + dev server 
+  // + live reload dev server on every code exist
 }
 // Non serve mode
 else {
