@@ -25,20 +25,9 @@ export async function render(config: RenderConfig, cb: (eze: Collector) => void)
       const watcher = new WatchManager();
 
       /** trinity */
-      const eze = new Collector(config);
+      const eze = new Collector(config, () => server.triggerReload());
       cb(eze);
       await eze._done();
-
-      const rebundle = async () => {
-        /** Rebundle */
-        await eze._done();
-
-        /** Refresh */
-        server.triggerReload();
-      };
-
-      /** For each file that is entry point for bundling, we watch and re-render  */
-      eze._watchFilePaths.forEach(fp => watcher.addWatcher(fp, rebundle));
 
       /** 
        * Trigger reload on build always 
