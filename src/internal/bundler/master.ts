@@ -12,7 +12,7 @@ import * as fs from 'fs';
 export function bundleWebpack(args: {
   entryMap: { [key: string]: string },
   outputDirName: string,
-  watch: () => void,
+  watch?: () => void,
 }) {
   return new Promise((res, rej) => {
     try {
@@ -74,15 +74,17 @@ export function bundleWebpack(args: {
       });
 
       /** Built in watch support  */
-      let firstWatchCall = true;
-      compiler.watch({}, () => {
-        if (firstWatchCall) {
-          firstWatchCall = false;
-        }
-        else {
-          args.watch();
-        }
-      });
+      if (args.watch) {
+        let firstWatchCall = true;
+        compiler.watch({}, () => {
+          if (firstWatchCall) {
+            firstWatchCall = false;
+          }
+          else {
+            args.watch();
+          }
+        });
+      }
     }
     catch (err) {
       console.error("BUNDLING FAILED TO EXECUTE:", args);
@@ -98,7 +100,7 @@ export function bundleWebpack(args: {
 export function bundle(args: {
   entryMap: { [key: string]: string },
   outputDirName: string,
-  watch: () => void,
+  watch?: () => void,
 }) {
   /** Webpack ignores this siliently sadly so we need to catch it ourselves */
   if (Object.keys(args.entryMap).map(key => args.entryMap[key]).some(e => !fs.existsSync(e))) {
