@@ -47,8 +47,6 @@ Now `npm run docs` builds the demos out to the specified folder. HTML + JavaScri
 
 > You can push the output folder to github, s3 or surge.sh or anywhere else you want  🌹
 
-## Live Preview
-
 For live development just use `--serve` with a specfied folder:
 
 ```json
@@ -62,7 +60,7 @@ For live development just use `--serve` with a specfied folder:
 
 `npm start` 🌹
 
-# Demo
+# Documentation
 
 [Jump to the demo for eze built with eze 📝](http://basarat.com/eze)
 
