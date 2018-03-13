@@ -50,12 +50,6 @@ export interface Data {
   tableOfContents: TableOfContentEntry[]
 }
 
-export interface RenderConfig {
-  outputDir: string,
-  title?: string,
-  repoUrl?: string,
-}
-
 export type Heading = { level: 1 | 2 | 3 | 4 | 5 | 6, text: string, id: string };
 
 export const iframeIdBeginsWith = 'iframe';
@@ -92,3 +86,33 @@ export type IframeC2PMessage =
   | IframeC2PScrollMore
   | IframeC2PSetHash
   | IframeC2PRenderComplete
+
+/**
+ * Watch mode configuration
+ */
+export type Watch = {
+  watch?: () => void
+}
+
+
+/** 
+ * Config for render
+ */
+export type RenderConfig = {
+  /** Relative or absolute path to the folder where the documentation will be generated */
+  outputDir: string,
+  /** Page title */
+  title?: string,
+  repoUrl?: string,
+}
+
+
+/** 
+ * Config for page 
+ */
+export type PageConfig = {
+  /** Used in TOC */
+  heading: string,
+  /** Just the name of a sub folder e.g. 'foo' */
+  subDirName: string,
+}

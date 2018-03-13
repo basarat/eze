@@ -21,7 +21,10 @@ export async function render(config: RenderConfig, cb: (eze: Collector) => void)
       await server.serve(config.outputDir);
 
       /** trinity */
-      const eze = new Collector(config, () => server.triggerReload());
+      const eze = new Collector({
+        watch: () => server.triggerReload(),
+        ...config,
+      });
       cb(eze);
       await eze._done();
 
