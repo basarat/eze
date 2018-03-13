@@ -321,13 +321,11 @@ export class Page {
      * - an application `app.js` that loads uses data.js to render the application
      */
 
-    /** Write the html + js */
+    /** Write the app html + js */
     fse.outputFileSync(
       `${this.config.outputDir}/${this.config.subDirName}/index.html`,
       mainIndex({ title: this.config.title || "Docs" })
     );
-
-    // Always write our client `app.js` to the output folder
     fse.writeFileSync(
       `${this.config.outputDir}/${this.config.subDirName}/app.js`,
       fse.readFileSync(__dirname + '/../../lib/app.js')
