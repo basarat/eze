@@ -116,3 +116,10 @@ export type PageConfig = {
   /** Just the name of a sub folder e.g. 'foo' */
   subDirName: string,
 }
+
+/** 
+ * Page talking to Collector
+ */
+export type PageTalkingToCollector = {
+  
+}
