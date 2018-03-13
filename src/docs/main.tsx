@@ -1,6 +1,6 @@
 import { render } from "../index";
 import { colors } from '../internal/styles';
-import { appIndexTemplate } from '../internal/collector';
+import { pageIndexTemplate } from '../internal/page';
 
 /** Render */
 render({
@@ -9,7 +9,10 @@ render({
   title: 'eze 🌹'
 }, eze => {
   eze
-    .page({ heading: 'Welcome', subDirName: 'welcome' })
+    .page({
+      heading: 'Welcome',
+      subDirName: 'welcome'
+    })
 
     /** Write some markdown */
     .md(`
@@ -91,7 +94,7 @@ render({
   `)
     .code({
       mode: 'html',
-      code: appIndexTemplate({ index: 0, jsFileName: 'app-0.js' }),
+      code: pageIndexTemplate({ index: 0, jsFileName: 'app-0.js' }),
     })
 
     /** Table of contents */

@@ -6,7 +6,7 @@ import { getDemoCodes, getMds } from './tsMagic/argumentCollector';
 import * as types from '../types';
 import { mainIndex } from "../app/mainIndex";
 
-export const appIndexTemplate = (
+export const pageIndexTemplate = (
   { index, jsFileName }
     : { index: number, jsFileName: string }
 ) => `
@@ -19,7 +19,6 @@ export const appIndexTemplate = (
     <meta name="viewport" content="width=device-width">
 
     <title>Demo: ${index}</title>
-    <script src="./data-${index}.js"></script>
 </head>
 <body>
   <div id="root"></div>
@@ -230,8 +229,8 @@ export class Page {
 
     /** Write the html */
     fse.outputFileSync(
-      this.config.outputDir + `/${htmlFileName}`,
-      appIndexTemplate({ index, jsFileName })
+      `${this.config.outputDir}/${this.config.subDirName}/${htmlFileName}`,
+      pageIndexTemplate({ index, jsFileName })
     );
 
     /** Bundle */
@@ -295,7 +294,7 @@ export class Page {
     /** Write the html */
     fse.outputFileSync(
       this.config.outputDir + `/${htmlFileName}`,
-      appIndexTemplate({ index, jsFileName })
+      pageIndexTemplate({ index, jsFileName })
     );
 
     /** Bundle */
@@ -321,19 +320,15 @@ export class Page {
      * - an application `app.js` that loads uses data.js to render the application
      */
 
-    /** Write out the data */
-    const data = JSON.stringify(this._data);
-    fse.outputFileSync(this.config.outputDir + '/data.js', `var data = ${data}`);
-
     /** Write the html + js */
     fse.outputFileSync(
-      this.config.outputDir + '/index.html',
+      `${this.config.outputDir}/${this.config.subDirName}/index.html`,
       mainIndex({ title: this.config.title || "Docs" })
     );
-    
+
     // Always write our client `app.js` to the output folder
     fse.writeFileSync(
-      this.config.outputDir + '/app.js',
+      `${this.config.outputDir}/${this.config.subDirName}/app.js`,
       fse.readFileSync(__dirname + '/../../lib/app.js')
     );
 
@@ -355,7 +350,7 @@ export class Page {
       console.log("EZE [START] webpack builds.");
       await bundle({
         entryMap: this._bundleCollector,
-        outputDirName: this.config.outputDir,
+        outputDirName: this.config.outputDir + '/' + this.config.subDirName,
         ...(this.config.watch ? { watch: this.config.watch } : {})
       });
       console.log("EZE [END] webpack builds.");

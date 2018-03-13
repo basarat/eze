@@ -8,8 +8,8 @@ import * as types from '../types';
 import { mainIndex } from "../app/mainIndex";
 
 export const appIndexTemplate = (
-  { index, jsFileName }
-    : { index: number, jsFileName: string }
+  { firstPageDir }
+    : { firstPageDir: string }
 ) => `
 <!DOCTYPE html>
 <html>
@@ -18,13 +18,10 @@ export const appIndexTemplate = (
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width">
-
-    <title>Demo: ${index}</title>
-    <script src="./data-${index}.js"></script>
 </head>
 <body>
   <div id="root"></div>
-  <script type="text/javascript" src="./${jsFileName}"></script>
+  <script type="text/javascript">window.location.href = window.location.href[window.location.href.length - 1] === '/' ? (window.location.href + '${firstPageDir}/') : (window.location.href + '/${firstPageDir}/') </script>
 </body>
 </html>
 `;
@@ -34,18 +31,23 @@ export const appIndexTemplate = (
  */
 export class Collector {
   private pages: Page[] = [];
+  private firstPageDir: string;
 
   constructor(private config: RenderConfig & Watch) {
   }
 
   page(config: PageConfig) {
+    if (!this.pages.length) {
+      this.firstPageDir = config.subDirName;
+    }
+
     const page = new Page({ ...this.config, ...config });
     this.pages.push(page);
     return page;
   }
 
   public async _done() {
-    /** If dev also write out the app */
+    /** If dev also write out the app to our local copy */
     if (!__dirname.includes('node_modules')) {
       console.log('DEV [START] BUNDLING frontend for eze');
       await bundle({
@@ -57,6 +59,27 @@ export class Collector {
       });
       console.log('DEV [END] BUNDLING frontend for eze');
     }
+
+    /** Write the root application html */
+    fse.outputFileSync(
+      this.config.outputDir + `/index.html`,
+      appIndexTemplate({ firstPageDir: this.firstPageDir })
+    );
+
+    /** Write out the data */
+    const dataRaw: Data = {
+      contents: [],
+      tableOfContents: [],
+    }
+    this.pages.forEach(p => {
+      p._data.contents.forEach(c => dataRaw.contents.push(c));
+      p._data.tableOfContents.forEach(c => dataRaw.tableOfContents.push(c));
+    })
+
+    const data = JSON.stringify(dataRaw);
+    fse.outputFileSync(`${this.config.outputDir}/data.js`, `var data = ${data}`);
+
+    /** Bundle all the rest */
     return Promise.all(this.pages.map(x => x._done()));
   }
 }
