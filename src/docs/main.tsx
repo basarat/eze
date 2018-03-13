@@ -1,6 +1,6 @@
 import { render } from "../index";
 import { colors } from '../internal/styles';
-import { pageIndexTemplate } from '../internal/page';
+import { storyAndAppIndexTemplate } from '../internal/page';
 
 /** Render */
 render({
@@ -94,7 +94,7 @@ render({
   `)
     .code({
       mode: 'html',
-      code: pageIndexTemplate({ index: 0, jsFileName: 'app-0.js' }),
+      code: storyAndAppIndexTemplate({ index: 0, jsFileName: 'app-0.js' }),
     })
 
     /** Table of contents */

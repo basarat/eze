@@ -6,7 +6,7 @@ import { getDemoCodes, getMds } from './tsMagic/argumentCollector';
 import * as types from '../types';
 import { mainIndex } from "../app/mainIndex";
 
-export const pageIndexTemplate = (
+export const storyAndAppIndexTemplate = (
   { index, jsFileName }
     : { index: number, jsFileName: string }
 ) => `
@@ -19,6 +19,7 @@ export const pageIndexTemplate = (
     <meta name="viewport" content="width=device-width">
 
     <title>Demo: ${index}</title>
+    <script src="./data-${index}.js"></script>
 </head>
 <body>
   <div id="root"></div>
@@ -225,12 +226,12 @@ export class Page {
 
     /** Write out the data */
     const data = JSON.stringify(content);
-    fse.outputFileSync(`${this.config.outputDir}/data-${this.entryPointIndex}.js`, `var data = ${JSON.stringify(content)}`);
+    fse.outputFileSync(`${this.config.outputDir}/${this.config.subDirName}/data-${this.entryPointIndex}.js`, `var data = ${JSON.stringify(content)}`);
 
     /** Write the html */
     fse.outputFileSync(
       `${this.config.outputDir}/${this.config.subDirName}/${htmlFileName}`,
-      pageIndexTemplate({ index, jsFileName })
+      storyAndAppIndexTemplate({ index, jsFileName })
     );
 
     /** Bundle */
@@ -293,8 +294,8 @@ export class Page {
 
     /** Write the html */
     fse.outputFileSync(
-      this.config.outputDir + `/${htmlFileName}`,
-      pageIndexTemplate({ index, jsFileName })
+      `${this.config.outputDir}/${this.config.subDirName}/${htmlFileName}`,
+      storyAndAppIndexTemplate({ index, jsFileName })
     );
 
     /** Bundle */
