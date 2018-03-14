@@ -4,6 +4,7 @@
 
 [![Build Status][travis-image]][travis-url]
 [![NPM version][npm-image]][npm-url]
+[![Donate][paypal-image]][paypal-url]
 
 > [Powered by your github ⭐s](https://github.com/basarat/eze/stargazers)
 
@@ -57,3 +58,5 @@ Add a few npm scripts:
 [travis-url]:https://travis-ci.org/basarat/eze
 [npm-image]:https://img.shields.io/npm/v/eze.svg?style=flat
 [npm-url]:https://npmjs.org/package/eze
+[paypal-image]:https://img.shields.io/badge/Donate-PayPal-green.svg
+[paypal-url]:https://www.paypal.me/basaratali
