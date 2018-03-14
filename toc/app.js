@@ -2441,7 +2441,9 @@ csstips.normalize();
 csstips.setupPage('#eze-application-root');
 /** Detect our pageSubDirName from the url */
 var pageSubDirName = (function () {
-    var portions = window.location.href.split('/')
+    var portions = window.location.href
+        .split('#')[0]
+        .split('/')
         .filter(function (x) { return !!x; });
     var last = portions[portions.length - 1];
     return last;
