@@ -21,5 +21,6 @@ ghpages.publish(path.resolve(__dirname + '/../docs'), {
     console.log('--publish failed!--', err)
     return;
   }
+  
   console.log("--publish done--");
 });
