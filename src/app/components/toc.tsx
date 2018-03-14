@@ -35,7 +35,7 @@ namespace TocStyles {
   })
 }
 
-const renderTocEntry = (t: types.TableOfContentEntry, pageSubDirName: string) => [
+const renderTocEntry = (t: types.TableOfContentEntry, pageSubDirName: string) => (
   <a key={t.level + t.id} className={classes(
     TocStyles.tocAnchorClass,
     style(TocStyles.marginLeft(t.level)),
@@ -54,7 +54,7 @@ const renderTocEntry = (t: types.TableOfContentEntry, pageSubDirName: string) =>
     }}>
     {t.text}
   </a>
-].concat(t.subItems.map((t) => renderTocEntry(t, pageSubDirName)));
+);
 
 export const Toc = ({
   toc,

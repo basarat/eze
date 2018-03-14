@@ -86,94 +86,14 @@ export class Page {
     * Collect headings in table of contents
     **/
     const tableOfContents = this._data.tableOfContents;
-
-    /** Keep track of the last heading */
-    let _lastHeading: TableOfContentEntry | undefined = undefined;
-    if (tableOfContents.length) {
-      _lastHeading = tableOfContents[tableOfContents.length - 1];
-      while (_lastHeading.subItems.length) {
-        _lastHeading = _lastHeading.subItems[_lastHeading.subItems.length - 1];
-      }
-    }
-
-    /** 
-     * Utility to get parent of heading
-     * Note: we don't store parent references otherwise we need a special JSON serializer.
-     * Not worried about this graph search hit for now
-     */
-    const getParentHeadingIfAny = (tocEntry: TableOfContentEntry) => {
-      if (!tocEntry) return undefined;
-      let foundParent: typeof tocEntry = undefined;
-
-      const subItemMatches = (subItem: typeof tocEntry) => {
-        if (subItem.text === tocEntry.text
-          && subItem.level === tocEntry.level) {
-          return true;
-        }
-      }
-
-      const visitAllChildren = (item: typeof tocEntry) => {
-        if (foundParent) return;
-
-        if (item.subItems.some(subItem => subItemMatches(subItem))) {
-          foundParent = item;
-          return;
-        }
-
-        item.subItems.forEach(visitAllChildren);
-      }
-
-      tableOfContents.forEach(visitAllChildren);
-
-      return foundParent;
-    }
-
-    /** Loop them headings and add to TOC */
     headings.forEach(heading => {
-      const newHeading = {
-        level: heading.level,
-        text: heading.text,
+      tableOfContents.push({
         id: heading.id,
-        subItems: [],
-        iframeId,
+        iframeId: iframeId,
+        level: heading.level,
         pageSubDirName: this.config.subDirName,
-      };
-
-      /** No current heading */
-      if (!_lastHeading) {
-        tableOfContents.push(newHeading);
-      }
-      /** new heading is peer or new level */
-      else if (heading.level <= _lastHeading.level) {
-        /** Travel up till we find something that will accept it ... or we arrive at root */
-        let parent = getParentHeadingIfAny(_lastHeading);
-        /** No parent */
-        if (!parent) {
-          tableOfContents.push(newHeading);
-        }
-        else {
-          /** Parent found. Keep going up to check viability */
-          while (parent) {
-            if (parent.level < heading.level) { // viable parent
-              parent.subItems.push(newHeading);
-              break;
-            }
-            else {
-              parent = getParentHeadingIfAny(parent);
-              /** No viable parent found */
-              if (!parent) {
-                tableOfContents.push(newHeading);
-                break;
-              }
-            }
-          }
-        }
-      }
-      /** a sub of last */
-      else {
-        _lastHeading.subItems.push(newHeading);
-      }
-      _lastHeading = newHeading;
+        text: heading.text
+      })
     });
   }
 
