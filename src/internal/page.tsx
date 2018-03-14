@@ -7,8 +7,8 @@ import * as types from '../types';
 import { mainIndex } from "../app/mainIndex";
 
 export const storyAndAppIndexTemplate = (
-  { index, jsFileName }
-    : { index: number, jsFileName: string }
+  { index, jsFileName, isStory }
+    : { index: number, jsFileName: string, isStory: boolean }
 ) => `
 <!DOCTYPE html>
 <html>
@@ -19,7 +19,7 @@ export const storyAndAppIndexTemplate = (
     <meta name="viewport" content="width=device-width">
 
     <title>Demo: ${index}</title>
-    <script src="./data-${index}.js"></script>
+    ${isStory ? `<script src="./data-${index}.js"></script>` : ''}
 </head>
 <body>
   <div id="root"></div>
@@ -173,7 +173,7 @@ export class Page {
     /** Write the html */
     fse.outputFileSync(
       `${this.config.outputDir}/${this.config.subDirName}/${htmlFileName}`,
-      storyAndAppIndexTemplate({ index, jsFileName })
+      storyAndAppIndexTemplate({ index, jsFileName, isStory: true })
     );
 
     /** Bundle */
@@ -228,7 +228,7 @@ export class Page {
     /** Write the html */
     fse.outputFileSync(
       `${this.config.outputDir}/${this.config.subDirName}/${htmlFileName}`,
-      storyAndAppIndexTemplate({ index, jsFileName })
+      storyAndAppIndexTemplate({ index, jsFileName, isStory: false })
     );
 
     /** Bundle */

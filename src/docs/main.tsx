@@ -88,7 +88,7 @@ render({
   `)
     .code({
       mode: 'html',
-      code: storyAndAppIndexTemplate({ index: 0, jsFileName: 'app-0.js' }),
+      code: storyAndAppIndexTemplate({ index: 0, jsFileName: 'app-0.js', isStory: false }),
     });
 
   /** Table of contents */
