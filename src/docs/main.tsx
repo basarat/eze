@@ -101,23 +101,4 @@ render({
   ## Sample subheading
   Yup. You guessed it. ^ It should be visible in the TOC.
   `);
-
-  /** Development time */
-  eze.page({ heading: 'DevTime convinience', subDirName: 'devtime' })
-    .md(`
-  When working on a styleguide you normally only work on one \`story\` or \`app\` at the time. So both of these take an optional \`only\` argument. E.g.
-  `)
-    .code({
-      mode: 'js',
-      code: `
-page.story({
-  entryPointPath: __dirname + '/story-1.tsx',
-  only: true
-})      
-    `
-    })
-    .md(`
-  * Ofcourse you shouldn't commit with 'only' set to true. Use it only locally to speed up demo/story development.
-  * You can even open the app / story in a new window using the "open in a new window" link so you can work on it without distraction. 
-  `)
 });

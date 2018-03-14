@@ -191,17 +191,10 @@ export class Page {
   /** Each demo and story gets its index. This drives the JS / HTML files names */
   private entryPointIndex = 0;
 
-  /**
-   * If only is set on only `story | demo` only that `story | demo` gets rendered
-   **/
-  private onlyJsFileNameNoExt: string = '';
-
   story({
     entryPointPath,
-    only,
   }: {
       entryPointPath: string,
-      only?: boolean
     }) {
     this.entryPointIndex++;
 
@@ -244,13 +237,6 @@ export class Page {
 
     /** Bundle */
     this._bundleCollector[jsFileNameNoExt] = entryPointPath;
-    if (only) {
-      if (this.onlyJsFileNameNoExt) {
-        throw new Error(`We already have an only: "${this.onlyJsFileNameNoExt}" and you just passed in another: "${jsFileNameNoExt}"`);
-      }
-      this.onlyJsFileNameNoExt = jsFileNameNoExt;
-    }
-
     return this;
   }
 
@@ -259,7 +245,6 @@ export class Page {
     entryPointPath,
     sourceUrl,
     height,
-    only
   }: {
       entryPointPath: string,
       sourceUrl?: string,
@@ -269,8 +254,6 @@ export class Page {
        * If not specified we default to the iframe content scroll height
        **/
       height?: string
-
-      only?: boolean
     }) {
     this.entryPointIndex++;
 
@@ -310,13 +293,6 @@ export class Page {
     /** Bundle */
     this._bundleCollector[jsFileNameNoExt] = entryPointPath;
 
-    if (only) {
-      if (this.onlyJsFileNameNoExt) {
-        throw new Error(`We already have an only: "${this.onlyJsFileNameNoExt}" and you just passed in another: "${jsFileNameNoExt}"`);
-      }
-      this.onlyJsFileNameNoExt = jsFileNameNoExt;
-    }
-
     return this;
   }
 
@@ -339,16 +315,6 @@ export class Page {
       `${this.config.outputDir}/${this.config.subDirName}/app.js`,
       fse.readFileSync(__dirname + '/../../lib/app.js')
     );
-
-    /** If only is set only leave that in for bundling */
-    if (this.onlyJsFileNameNoExt) {
-      Object.keys(this._bundleCollector).forEach(jsFileNameNoExt => {
-        if (jsFileNameNoExt !== this.onlyJsFileNameNoExt) {
-          delete this._bundleCollector[jsFileNameNoExt];
-        }
-      })
-      console.log(`Will *only* compile the following using webpack: ${this._bundleCollector[this.onlyJsFileNameNoExt]}`);
-    }
 
     /** 
      * Await all builds only if there are any builds
