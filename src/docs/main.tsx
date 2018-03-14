@@ -81,6 +81,7 @@ render({
     .app({
       entryPointPath: __dirname + '/app-2.tsx',
       sourceUrl: 'https://github.com/basarat/eze/blob/master/src/docs/app-2.tsx',
+      height: '300px',
     })
     .md(`
   All applications can target the \`root\` element. The following is the HTML that is used:
