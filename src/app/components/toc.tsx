@@ -35,17 +35,16 @@ namespace TocStyles {
   })
 }
 
-const renderTocEntry = (t: types.TableOfContentEntry, pageSubDirName: string) => (
+const renderTocPageSub = (t: types.TableOfContentPageSub, isCurrent: boolean) => (
   <a key={t.level + t.id} className={classes(
     TocStyles.tocAnchorClass,
     style(TocStyles.marginLeft(t.level)),
-    pageSubDirName === t.pageSubDirName && TocStyles.currentPage
+    isCurrent && TocStyles.currentPage
   )}
     href={(() => {
-      if (pageSubDirName === t.pageSubDirName)
-        return "#" + t.id;
-      else
-        return '../' + t.pageSubDirName + '/#' + t.id;
+      return (isCurrent)
+        ? "#" + t.id
+        : '../' + t.pageSubDirName + '/#' + t.id;
     })()}
     onClick={() => {
       if (t.iframeId) {
@@ -53,6 +52,20 @@ const renderTocEntry = (t: types.TableOfContentEntry, pageSubDirName: string) =>
       }
     }}>
     {t.text}
+  </a>
+);
+
+const renderTocPageRoot = (t: types.TableOfContentPageRoot, isCurrent: boolean) => (
+  <a key={t.pageSubDirName} className={classes(
+    TocStyles.tocAnchorClass,
+    isCurrent && TocStyles.currentPage
+  )}
+    href={(() => {
+      return (isCurrent)
+        ? "#" + t.pageSubDirName
+        : '../' + t.pageSubDirName + '/#' + t.pageSubDirName;
+    })()}>
+    {t.heading}
   </a>
 );
 
@@ -67,7 +80,10 @@ export const Toc = ({
     <gls.ContentVertical>
       {
         toc.map((t) => {
-          return renderTocEntry(t, pageSubDirName)
+          const isCurrent = t.pageSubDirName === pageSubDirName;
+          return t.type == 'pageSub'
+            ? renderTocPageSub(t, isCurrent)
+            : renderTocPageRoot(t, isCurrent)
         })
       }
     </gls.ContentVertical>

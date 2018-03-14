@@ -3,7 +3,7 @@ export type SupportedMode = 'ts' | 'js' | 'tsx' | 'jsx' | 'javascript' | 'typesc
 export type HTMLContent = {
   type: 'html',
   pageSubDirName: string,
-  
+
   html: string,
 }
 export type CodeContent = {
@@ -16,7 +16,7 @@ export type CodeContent = {
 export type AppContent = {
   type: 'app',
   pageSubDirName: string,
-  
+
   index: number,
   htmlFileName: string,
   sources: { mode: SupportedMode, code: string }[],
@@ -27,7 +27,7 @@ export type AppContent = {
 export type StoryContent = {
   type: 'story',
   pageSubDirName: string,
-  
+
   index: number,
   htmlFileName: string,
   code: string,
@@ -46,7 +46,14 @@ export type ContentItem =
   /** special code content */
   | CodeContent
 
-export type TableOfContentEntry = {
+export type TableOfContentPageRoot = {
+  type: 'pageRoot',
+  heading: string,
+  pageSubDirName: string,
+}
+
+export type TableOfContentPageSub = {
+  type: 'pageSub',
   pageSubDirName: string,
   text: string,
   id: string,
@@ -55,6 +62,10 @@ export type TableOfContentEntry = {
   /** If the heading is in an iframe */
   iframeId: string,
 }
+
+export type TableOfContentEntry =
+  | TableOfContentPageRoot
+  | TableOfContentPageSub
 
 export interface Data {
   /** The data used to render the table on contents */
@@ -135,5 +146,5 @@ export type PageConfig = {
  * Page talking to Collector
  */
 export type PageTalkingToCollector = {
-  
+
 }

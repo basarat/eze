@@ -12,19 +12,17 @@ render({
 
     /** Write some markdown */
     .md(`
-  # Demo
   Designed to make creating component styleguides / demos eze.
 
   > [Don't forget to ⭐ on github](https://github.com/basarat/eze/stargazers)
   
-  Click on the below button to see how this demo was created
+  The following code shows how the demo you are looking at was created.
   `)
 
     /** Show this file */
     .code({
       mode: 'ts',
       code: require('fs').readFileSync(__filename).toString(),
-      collapsed: true,
     })
 
     .md(`
