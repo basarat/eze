@@ -35,17 +35,19 @@ namespace TocStyles {
   })
 }
 
-const renderTocEntry = (t: types.TableOfContentEntry, pageSubDirName: string) => [<a key={t.level + t.id} className={classes(
-  TocStyles.tocAnchorClass,
-  style(TocStyles.marginLeft(t.level)),
-  pageSubDirName === t.pageSubDirName && TocStyles.currentPage
-)} href={"#" + t.id} onClick={() => {
-  if (t.iframeId) {
-    navToChildInIframe(t.iframeId, t.id);
-  }
-}}>
-  {t.text}
-</a>].concat(t.subItems.map((t) => renderTocEntry(t, pageSubDirName)));
+const renderTocEntry = (t: types.TableOfContentEntry, pageSubDirName: string) => [
+  <a key={t.level + t.id} className={classes(
+    TocStyles.tocAnchorClass,
+    style(TocStyles.marginLeft(t.level)),
+    pageSubDirName === t.pageSubDirName && TocStyles.currentPage
+  )} href={"#" + t.id} onClick={() => {
+    if (t.iframeId) {
+      navToChildInIframe(t.iframeId, t.id);
+    }
+  }}>
+    {t.text}
+  </a>
+].concat(t.subItems.map((t) => renderTocEntry(t, pageSubDirName)));
 
 export const Toc = ({
   toc,
