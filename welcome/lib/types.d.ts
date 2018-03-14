@@ -7,6 +7,7 @@ export declare type CodeContent = {
     type: 'code';
     html: string;
     collapsed: boolean;
+    pageSubDirName: string;
 };
 export declare type AppContent = {
     type: 'app';
@@ -18,6 +19,7 @@ export declare type AppContent = {
     }[];
     sourceUrl?: string;
     height?: string;
+    pageSubDirName: string;
 };
 export declare type StoryContent = {
     type: 'story';
@@ -26,9 +28,11 @@ export declare type StoryContent = {
     code: string;
     /** Each demo call has its code collected here */
     demoCodes: string[];
+    pageSubDirName: string;
 };
 export declare type ContentItem = HTMLContent | AppContent | StoryContent | CodeContent;
 export declare type TableOfContentEntry = {
+    pageSubDirName: string;
     text: string;
     id: string;
     level: 1 | 2 | 3 | 4 | 5 | 6;
