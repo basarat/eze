@@ -28,7 +28,9 @@ declare const data: Data;
 
 /** Detect our pageSubDirName from the url */
 const pageSubDirName = (() => {
-  const portions = window.location.href.split('/');
+  const portions = window.location.href.split('/')
+    // for trailing /
+    .filter(x => !!x);
   const last = portions[portions.length - 1];
   return last;
 })();
