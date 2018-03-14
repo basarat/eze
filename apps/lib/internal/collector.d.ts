@@ -12,5 +12,5 @@ export declare class Collector {
     private firstPageDir;
     constructor(config: RenderConfig & Watch);
     page(config: PageConfig): Page;
-    _done(): Promise<void[]>;
+    _done(): Promise<void>;
 }
