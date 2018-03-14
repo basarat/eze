@@ -29,11 +29,16 @@ namespace TocStyles {
       marginLeft: (level * 10) + 'px'
     };
   }
+
+  export const currentPage = style({
+    color: '#42b983 !important'
+  })
 }
 
 const renderTocEntry = (t: types.TableOfContentEntry, pageSubDirName: string) => [<a key={t.level + t.id} className={classes(
   TocStyles.tocAnchorClass,
   style(TocStyles.marginLeft(t.level)),
+  pageSubDirName === t.pageSubDirName && TocStyles.currentPage
 )} href={"#" + t.id} onClick={() => {
   if (t.iframeId) {
     navToChildInIframe(t.iframeId, t.id);
