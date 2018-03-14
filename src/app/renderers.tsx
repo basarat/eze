@@ -96,8 +96,8 @@ namespace AppRendererStyles {
   }
 }
 
-export type AppMode = 'auto' | 'desktop' | 'tablet' | 'mobile';
-export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: AppMode, viewDemo?: boolean, loading?: boolean }> {
+export type AppRensponsiveMode = 'auto' | 'desktop' | 'tablet' | 'mobile';
+export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: AppRensponsiveMode, viewDemo?: boolean, loading?: boolean }> {
   constructor(props) {
     super(props);
     this.state = {
@@ -254,7 +254,7 @@ export class StoryRenderer extends React.PureComponent<types.StoryContent, { loa
 }
 
 
-class BreakpointButtons extends React.PureComponent<{ mode: AppMode, onModeChange: (mode: AppMode) => void }, {}>{
+class BreakpointButtons extends React.PureComponent<{ mode: AppRensponsiveMode, onModeChange: (mode: AppRensponsiveMode) => void }, {}>{
   render() {
 
     const containerClass = style({
