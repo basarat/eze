@@ -7,6 +7,7 @@ import * as ReactDOM from 'react-dom';
 import * as csstips from 'csstips';
 import * as typestyle from 'typestyle';
 import { Data } from '../types';
+import { ContentHorizontal, Flex } from './components/gls';
 
 /** Ensure loading the markdown styles */
 import { toHtml } from '../internal/markdown';
@@ -16,7 +17,7 @@ const ensureUsage = toHtml;
 import * as renderers from './renderers';
 
 /** Components */
-import { Anchor } from "./components/anchor";
+import { Anchor, AnchorButton } from "./components/anchor";
 import { Toc } from "./components/toc";
 
 /** Normalize and page setup */
@@ -36,6 +37,20 @@ const pageSubDirName = (() => {
     .filter(x => !!x);
   const last = portions[portions.length - 1];
   return last;
+})();
+
+const prevPageIfAny = (() => {
+  const firstCurrentIndex = data.tableOfContents.findIndex(t => t.pageSubDirName == pageSubDirName);
+  if (firstCurrentIndex !== 0) {
+    return data.tableOfContents[firstCurrentIndex - 1].pageSubDirName;
+  }
+})();
+
+const nextPageIfAny = (() => {
+  const lastCurrentIndex = data.tableOfContents.map(t => t.pageSubDirName).lastIndexOf(pageSubDirName);
+  if (lastCurrentIndex !== (data.tableOfContents.length - 1)) {
+    return data.tableOfContents[lastCurrentIndex + 1].pageSubDirName;
+  }
 })();
 
 ReactDOM.render(
@@ -68,6 +83,13 @@ ReactDOM.render(
             const _exhaustiveCheck: never = c;
           }
         })}
+      {/** Next / Prev */}
+      <ContentHorizontal>
+        {prevPageIfAny && <AnchorButton href={`../${prevPageIfAny}`}>Previous</AnchorButton>}
+        <Flex />
+        {nextPageIfAny && <AnchorButton href={`../${nextPageIfAny}`}>Next</AnchorButton>}
+      </ContentHorizontal>
+
       {/** Footer */}
       <div style={{ textAlign: 'center' }}>
         <Anchor href={'https://npmjs.org/package/eze'} className={typestyle.style({ fontSize: '15px' })} target="_blank">Built with eze ❤️</Anchor>
