@@ -30,7 +30,6 @@ export declare namespace StoryRendererStyles {
 }
 export declare class StoryRenderer extends React.PureComponent<types.StoryContent, {
     loading: boolean;
-    viewStory;
 }> {
     constructor(props: any);
     componentDidMount(): void;

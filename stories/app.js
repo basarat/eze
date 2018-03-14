@@ -39621,7 +39621,6 @@ var StoryRenderer = /** @class */ (function (_super) {
         _this.ctrls = {};
         _this.state = {
             loading: true,
-            viewStory: false,
         };
         return _this;
     }
@@ -39640,14 +39639,13 @@ var StoryRenderer = /** @class */ (function (_super) {
         var props = this.props;
         return React.createElement(gls.VerticalMargined, null,
             React.createElement(gls.ContentHorizontal, null,
-                React.createElement(toggle_1.Toggle, { label: "Show Story", value: this.state.viewStory, onChange: function () { return _this.setState({ viewStory: !_this.state.viewStory }); } }),
                 React.createElement(gls.Flex, null),
                 React.createElement("a", { target: "_blank", href: "./" + props.htmlFileName, title: "Open story in a new window" },
                     React.createElement(icons.OpenExternal, null))),
-            this.state.viewStory && this.state.loading && React.createElement(gls.ContentHorizontalMarginedCentered, null,
+            this.state.loading && React.createElement(gls.ContentHorizontalMarginedCentered, null,
                 React.createElement(loader_1.Loader, null),
                 React.createElement(txt_1.P, null, "Waiting for story render to complete")),
-            this.state.viewStory && React.createElement("iframe", { id: types.makeIframeId(props.index), 
+            React.createElement("iframe", { id: types.makeIframeId(props.index), 
                 /** 100% width on ios http://stackoverflow.com/a/20142280/390330 */
                 scrolling: "no", ref: function (frame) { return _this.ctrls.frame = frame; }, className: typestyle_1.classes(StoryRendererStyles.iframe), src: "./" + props.htmlFileName, onLoad: function (e) {
                 } }));
