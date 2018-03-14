@@ -100,7 +100,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__types__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__types__);
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "types", function() { return __WEBPACK_IMPORTED_MODULE_1__types__; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_utilities__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_utilities__ = __webpack_require__(20);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "extend", function() { return __WEBPACK_IMPORTED_MODULE_2__internal_utilities__["b"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "classes", function() { return __WEBPACK_IMPORTED_MODULE_2__internal_utilities__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "media", function() { return __WEBPACK_IMPORTED_MODULE_2__internal_utilities__["c"]; });
@@ -612,7 +612,7 @@ exports.__esModule = true;
 __export(__webpack_require__(38));
 __export(__webpack_require__(39));
 __export(__webpack_require__(43));
-__export(__webpack_require__(20));
+__export(__webpack_require__(21));
 __export(__webpack_require__(44));
 __export(__webpack_require__(45));
 __export(__webpack_require__(46));
@@ -803,6 +803,296 @@ module.exports = ReactPropTypesSecret;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
+            t[p[i]] = s[p[i]];
+    return t;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * This is a level above csstips
+ *  - It wraps up the csstips primitives into components
+ */
+var csstips = __webpack_require__(7);
+var typestyle = __webpack_require__(1);
+var React = __webpack_require__(0);
+/**
+ * Defaults used in layout
+ */
+exports.defaultValues = {
+    spacing: 10,
+    breakpoints: {
+        phone: 480,
+    }
+};
+function setDefaults(defaults) {
+    exports.defaultValues = defaults;
+}
+exports.setDefaults = setDefaults;
+/********
+ *
+ * Primitives
+ *
+ ********/
+/**
+* For that time you just need a visual vertical seperation
+*/
+exports.SmallVerticalSpace = function (props) {
+    return React.createElement("div", { style: { height: props.space || exports.defaultValues.spacing } });
+};
+exports.SmallVerticalSpace.displayName = "SmallVerticalSpace";
+/**
+ * For that time you just need a visual horizontal seperation
+ */
+exports.SmallHorizontalSpace = function (props) {
+    return React.createElement("div", { style: { width: props.space || exports.defaultValues.spacing, display: 'inline-block' } });
+};
+exports.SmallVerticalSpace.displayName = "SmallHorizontalSpace";
+;
+var ClassNames;
+(function (ClassNames) {
+    ClassNames.content = typestyle.style(csstips.content);
+    ClassNames.flex = typestyle.style(csstips.pass, csstips.flex);
+    ClassNames.flexScrollY = typestyle.style(csstips.pass, csstips.flex, csstips.vertical, { overflowY: 'auto' });
+    ClassNames.pass = typestyle.style(csstips.pass);
+    ClassNames.contentVertical = typestyle.style(csstips.content, csstips.vertical);
+    ClassNames.contentVerticalCentered = typestyle.style(csstips.content, csstips.vertical, csstips.center);
+    ClassNames.flexVerticalCentered = typestyle.style(csstips.flex, csstips.vertical, csstips.center);
+    ClassNames.contentHorizontal = typestyle.style(csstips.content, csstips.horizontal);
+    ClassNames.contentHorizontalCentered = typestyle.style(csstips.content, csstips.horizontal, csstips.center);
+    ClassNames.flexHorizontalCentered = typestyle.style(csstips.flex, csstips.horizontal, csstips.center);
+    ClassNames.flexVertical = typestyle.style(csstips.flex, csstips.vertical, { maxWidth: '100%' /*normalizing browser bugs*/ });
+    ClassNames.flexHorizontal = typestyle.style(csstips.flex, csstips.horizontal);
+})(ClassNames || (ClassNames = {}));
+/**
+ * Generally prefer an inline block (as that will wrap).
+ * Use this for critical `content` driven *vertical* height
+ *
+ * Takes as much space as it needs, no more, no less
+ */
+exports.Content = function (props) {
+    var className = typestyle.classes(ClassNames.content, props.className);
+    return (React.createElement("div", __assign({ "data-comment": "Content" }, props, { className: className })));
+};
+exports.Content.displayName = "Content";
+/**
+ * Takes as much space as it needs, no more, no less
+ */
+exports.InlineBlock = function (props) {
+    var className = typestyle.classes(typestyle.style({ display: 'inline-block' }), props.className);
+    return (React.createElement("div", __assign({ "data-comment": "InlineBlock" }, props, { className: className })));
+};
+exports.InlineBlock.displayName = "InlineBlock";
+/**
+ * Takes up all the parent space, no more, no less
+ */
+exports.Flex = function (props) {
+    var className = typestyle.classes(ClassNames.flex, props.className);
+    return (React.createElement("div", __assign({ "data-comment": "Flex" }, props, { className: className })));
+};
+exports.Flex.displayName = "Flex";
+/**
+ * Takes up all the parent space, no more, no less and scrolls the children in Y if needed
+ */
+exports.FlexScrollY = function (props) {
+    var className = typestyle.classes(ClassNames.flexScrollY, props.className);
+    return (React.createElement("div", __assign({ "data-comment": "FlexScrollY" }, props, { className: className })));
+};
+exports.FlexScrollY.displayName = "FlexScrollY";
+/**
+ * When you need a general purpose container. Use this instead of a `div`
+ */
+exports.Pass = function (props) {
+    var className = typestyle.classes(ClassNames.pass, props.className);
+    return (React.createElement("div", __assign({ "data-comment": "Pass" }, props, { className: className })));
+};
+exports.Pass.displayName = "Pass";
+/**
+ * Provides a Vertical Container. For the parent it behaves like content.
+ */
+exports.ContentVertical = function (props) {
+    var className = typestyle.classes(ClassNames.contentVertical, props.className);
+    return (React.createElement("div", __assign({ "data-comment": "ContentVertical" }, props, { className: className })));
+};
+exports.ContentVertical.displayName = "ContentVertical";
+/**
+ * Quite commonly need horizontally centered text
+ */
+exports.ContentVerticalCentered = function (props) {
+    var className = typestyle.classes(ClassNames.contentVerticalCentered, props.className);
+    return (React.createElement("div", __assign({ "data-comment": "ContentVerticalCentered" }, props, { className: className })));
+};
+exports.ContentVerticalCentered.displayName = "ContentVerticalCentered";
+/**
+ * Quite commonly need horizontally centered text
+ */
+exports.FlexVerticalCentered = function (props) {
+    var className = typestyle.classes(ClassNames.flexVerticalCentered, props.className);
+    return (React.createElement("div", __assign({ "data-comment": "FlexVerticalCentered" }, props, { className: className })));
+};
+exports.FlexVerticalCentered.displayName = "FlexVerticalCentered";
+/**
+ * Provides a Horizontal Container. For the parent it behaves like content.
+ */
+exports.ContentHorizontal = function (props) {
+    var className = typestyle.classes(ClassNames.contentHorizontal, props.className);
+    return (React.createElement("div", __assign({ "data-comment": "ContentHorizontal" }, props, { className: className })));
+};
+exports.ContentHorizontal.displayName = "ContentHorizontal";
+/**
+ * Provides a Horizontal Container and centers its children in the cross dimension
+ */
+exports.ContentHorizontalCentered = function (props) {
+    var className = typestyle.classes(ClassNames.contentHorizontalCentered, props.className);
+    return (React.createElement("div", __assign({ "data-comment": "ContentHorizontalCentered" }, props, { className: className })));
+};
+exports.ContentHorizontalCentered.displayName = "ContentHorizontalCentered";
+/**
+ * Provides a Vertical Container. For the parent it behaves like flex.
+ */
+exports.FlexVertical = function (props) {
+    var className = typestyle.classes(ClassNames.flexVertical, props.className);
+    return (React.createElement("div", __assign({ "data-comment": "FlexVertical" }, props, { className: className })));
+};
+exports.FlexVertical.displayName = "FlexVertical";
+/**
+ * Provides a Horizontal Container. For the parent it behaves like flex.
+ */
+exports.FlexHorizontal = function (props) {
+    var className = typestyle.classes(ClassNames.flexHorizontal, props.className);
+    return (React.createElement("div", __assign({ "data-comment": "FlexHorizontal" }, props, { className: className })));
+};
+exports.FlexHorizontal.displayName = "FlexHorizontal";
+/**
+ * Provides a Horizontal Container and centers its children in the cross dimension
+ */
+exports.FlexHorizontalCentered = function (props) {
+    var className = typestyle.classes(ClassNames.flexHorizontalCentered, props.className);
+    return (React.createElement("div", __assign({ "data-comment": "FlexHorizontalCentered" }, props, { className: className })));
+};
+exports.ContentHorizontalCentered.displayName = "FlexHorizontalCentered";
+/**
+ * Lays out the children horizontally with
+ * - ThisComponent: gets the overall Height (by max) of the children
+ * - Children: get the Width : equally distributed from the parent Width
+ * - Children: get the Height : sized by content
+ * - ThisComponent: Puts a horizontal margin between each item
+ */
+exports.ContentHorizontalMargined = function (props) {
+    var margin = props.margin, horizontalAlign = props.horizontalAlign, otherProps = __rest(props, ["margin", "horizontalAlign"]);
+    var spacing = (margin == null ? exports.defaultValues.spacing : margin);
+    var className = typestyle.classes(props.className, typestyle.style(csstips.horizontallySpaced(spacing)), horizontalAlign == 'right' && typestyle.style(csstips.endJustified));
+    return (React.createElement(exports.ContentHorizontal, __assign({}, otherProps, { className: className, "data-comment": "ContentHorizontalMargined" })));
+};
+exports.ContentHorizontalMargined.displayName = "ContentHorizontalMargined";
+exports.ContentHorizontalMarginedCentered = function (props) {
+    var margin = props.margin, otherProps = __rest(props, ["margin"]);
+    var spacing = (margin == null ? exports.defaultValues.spacing : margin);
+    var className = typestyle.classes(props.className, typestyle.style(csstips.center, csstips.horizontallySpaced(spacing)));
+    return (React.createElement(exports.ContentHorizontal, __assign({}, otherProps, { className: className, "data-comment": "ContentHorizontalMarginedCentered" })));
+};
+exports.ContentHorizontalMarginedCentered.displayName = "ContentHorizontalMarginedCentered";
+/**
+ * Lays out the children horizontally with
+ * - Parent: gets to chose the Width
+ * - ThisComponent: gets the overall Height (by max) of the children
+ * - Children: get the Width : equally distributed from the parent Width
+ * - Children: get the Height : sized by content
+ * - ThisComponent: Puts a horizontal margin between each item
+ */
+exports.FlexHorizontalMargined = function (props) {
+    var margin = props.margin, otherProps = __rest(props, ["margin"]);
+    var spacing = (margin == null ? exports.defaultValues.spacing : margin);
+    var className = typestyle.classes(props.className, typestyle.style(csstips.horizontallySpaced(spacing)));
+    return (React.createElement(exports.FlexHorizontal, __assign({}, otherProps, { className: className, "data-comment": "FlexHorizontalMargined" })));
+};
+exports.FlexHorizontalMargined.displayName = "FlexHorizontalMargined";
+exports.FlexVerticalMargined = function (props) {
+    var margin = props.margin, otherProps = __rest(props, ["margin"]);
+    var spacing = (margin == null ? exports.defaultValues.spacing : margin);
+    var className = typestyle.classes(props.className, typestyle.style(csstips.verticallySpaced(spacing)));
+    return (React.createElement(exports.FlexVertical, __assign({}, otherProps, { className: className, "data-comment": "FlexVerticalMargined" })));
+};
+exports.FlexHorizontalMargined.displayName = "FlexVerticalMargined";
+/**
+ * Could be ContentVerticalMargined but also wraps each child in Content to auto fix IE vertical layout issues
+ */
+exports.ContentVerticalContentMargined = function (props) {
+    var margin = props.margin, children = props.children, otherProps = __rest(props, ["margin", "children"]);
+    var spacing = (margin == null ? exports.defaultValues.spacing : margin);
+    var className = typestyle.classes(props.className, typestyle.style(csstips.verticallySpaced(spacing)));
+    return (React.createElement(exports.ContentVertical, __assign({}, otherProps, { className: className, "data-comment": "ContentVerticalContentMargined" }), React.Children.toArray(children).filter(function (c) { return !!c; }).map(function (child, i) { return React.createElement(exports.Content, { key: child.key || i }, child); })));
+};
+exports.ContentVerticalContentMargined.displayName = "ContentVerticalContentMargined";
+/**
+ * Lays out the children vertically with
+ * - Parent: gets to chose the overall Width
+ * - ThisComponent: gets the Height : (by sum) of the children
+ * - Children: get the Width : sized by content
+ * - Children: get the Height : sized by content
+ * - ThisComponent: Puts a margin between each item.
+ * - ThisComponent: Puts a negative margin on itself to offset the margins of the children (prevents them from leaking out)
+ */
+exports.GridMargined = function (props) {
+    var margin = props.margin, children = props.children, otherProps = __rest(props, ["margin", "children"]);
+    var spacing = (margin == null ? exports.defaultValues.spacing : margin) + 'px';
+    var className = typestyle.style(csstips.wrap, { marginTop: '-' + spacing, marginLeft: '-' + spacing }, props.style || {});
+    return (React.createElement(exports.ContentHorizontal, __assign({}, otherProps, { className: className }), React.Children.toArray(children).filter(function (c) { return !!c; }).map(function (child, i) { return React.createElement(exports.Content, { key: child.key || i, style: { marginLeft: spacing, marginTop: spacing } }, child); })));
+};
+exports.GridMargined.displayName = "GridMargined";
+exports.ResponsiveGridParent = function (props) {
+    var margin = props.margin, breakpoint = props.breakpoint, horizontalAlign = props.horizontalAlign, otherProps = __rest(props, ["margin", "breakpoint", "horizontalAlign"]);
+    var spacing = (margin == null ? exports.defaultValues.spacing : margin);
+    var breakpointNum = (breakpoint || exports.defaultValues.breakpoints.phone);
+    var breakpointPx = function (num) { return num + 'px'; };
+    var children = React.Children.toArray(props.children).filter(function (c) { return !!c; });
+    var alignment = horizontalAlign === 'center' ? [csstips.flexRoot, csstips.center]
+        : [csstips.flexRoot, csstips.start];
+    var parentClassName = typestyle.classes(props.className, typestyle.style(csstips.layerParent, 
+    /** Lower than breakpoint: Vertical Margined */
+    typestyle.media({ minWidth: 0, maxWidth: breakpointNum }, csstips.verticallySpaced(spacing)), 
+    /** Bigger than breakpoint: Horizontal Margined */
+    typestyle.media.apply(
+    /** Bigger than breakpoint: Horizontal Margined */
+    typestyle, [{ minWidth: breakpointNum + 1 }, csstips.horizontallySpaced(spacing)].concat(alignment))));
+    var childClassName = function (className) { return typestyle.classes(className, typestyle.style(csstips.inlineBlock, 
+    /** Lower than breakpoint: full sized */
+    typestyle.media({ minWidth: 0, maxWidth: breakpointNum }, { width: '100%' }), 
+    /** Bigger than breakpoint: percent sized */
+    typestyle.media({ minWidth: breakpointNum + 1 }, { width: "calc(" + (1 / children.length) * 100 + "% - " + (spacing - spacing / children.length) + "px)" }))); };
+    return (React.createElement("div", __assign({}, otherProps, { className: parentClassName, "data-comment": "ResponsiveGridParent" }), children.map(function (child, i) { return React.createElement("div", { "data-comment": "ResponsiveGridChild", key: child.key || i, className: childClassName(child.className) }, child); })));
+};
+exports.ResponsiveGridParent.displayName = "ResponsiveGridParent";
+/**
+ * Just a display:block with vertical spacing between each child
+ */
+exports.VerticalMargined = function (props) {
+    var margin = props.margin, otherProps = __rest(props, ["margin"]);
+    var spacing = (margin == null ? exports.defaultValues.spacing : margin);
+    var className = typestyle.classes(props.className, typestyle.style(csstips.verticallySpaced(spacing)));
+    return (React.createElement("div", __assign({}, otherProps, { className: className, "data-comment": "VerticalMargined" })));
+};
+exports.VerticalMargined.displayName = "VerticalMargined";
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -838,7 +1128,7 @@ var ExecutionEnvironment = {
 module.exports = ExecutionEnvironment;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -919,7 +1209,7 @@ module.exports = EventListener;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -961,7 +1251,7 @@ function getActiveElement(doc) /*?DOMElement*/{
 module.exports = getActiveElement;
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1032,7 +1322,7 @@ function shallowEqual(objA, objB) {
 module.exports = shallowEqual;
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1075,7 +1365,7 @@ function containsNode(outerNode, innerNode) {
 module.exports = containsNode;
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1105,7 +1395,7 @@ function focusNode(node) {
 module.exports = focusNode;
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1571,7 +1861,7 @@ exports.create = create;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1672,7 +1962,7 @@ var mediaLength = function (value) {
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1804,7 +2094,7 @@ exports.width = function (value) {
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1971,7 +2261,7 @@ exports.MarkDown = MarkDown;
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1982,296 +2272,6 @@ function makeIframeId(index) {
     return exports.iframeIdBeginsWith + index;
 }
 exports.makeIframeId = makeIframeId;
-
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
-            t[p[i]] = s[p[i]];
-    return t;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * This is a level above csstips
- *  - It wraps up the csstips primitives into components
- */
-var csstips = __webpack_require__(7);
-var typestyle = __webpack_require__(1);
-var React = __webpack_require__(0);
-/**
- * Defaults used in layout
- */
-exports.defaultValues = {
-    spacing: 10,
-    breakpoints: {
-        phone: 480,
-    }
-};
-function setDefaults(defaults) {
-    exports.defaultValues = defaults;
-}
-exports.setDefaults = setDefaults;
-/********
- *
- * Primitives
- *
- ********/
-/**
-* For that time you just need a visual vertical seperation
-*/
-exports.SmallVerticalSpace = function (props) {
-    return React.createElement("div", { style: { height: props.space || exports.defaultValues.spacing } });
-};
-exports.SmallVerticalSpace.displayName = "SmallVerticalSpace";
-/**
- * For that time you just need a visual horizontal seperation
- */
-exports.SmallHorizontalSpace = function (props) {
-    return React.createElement("div", { style: { width: props.space || exports.defaultValues.spacing, display: 'inline-block' } });
-};
-exports.SmallVerticalSpace.displayName = "SmallHorizontalSpace";
-;
-var ClassNames;
-(function (ClassNames) {
-    ClassNames.content = typestyle.style(csstips.content);
-    ClassNames.flex = typestyle.style(csstips.pass, csstips.flex);
-    ClassNames.flexScrollY = typestyle.style(csstips.pass, csstips.flex, csstips.vertical, { overflowY: 'auto' });
-    ClassNames.pass = typestyle.style(csstips.pass);
-    ClassNames.contentVertical = typestyle.style(csstips.content, csstips.vertical);
-    ClassNames.contentVerticalCentered = typestyle.style(csstips.content, csstips.vertical, csstips.center);
-    ClassNames.flexVerticalCentered = typestyle.style(csstips.flex, csstips.vertical, csstips.center);
-    ClassNames.contentHorizontal = typestyle.style(csstips.content, csstips.horizontal);
-    ClassNames.contentHorizontalCentered = typestyle.style(csstips.content, csstips.horizontal, csstips.center);
-    ClassNames.flexHorizontalCentered = typestyle.style(csstips.flex, csstips.horizontal, csstips.center);
-    ClassNames.flexVertical = typestyle.style(csstips.flex, csstips.vertical, { maxWidth: '100%' /*normalizing browser bugs*/ });
-    ClassNames.flexHorizontal = typestyle.style(csstips.flex, csstips.horizontal);
-})(ClassNames || (ClassNames = {}));
-/**
- * Generally prefer an inline block (as that will wrap).
- * Use this for critical `content` driven *vertical* height
- *
- * Takes as much space as it needs, no more, no less
- */
-exports.Content = function (props) {
-    var className = typestyle.classes(ClassNames.content, props.className);
-    return (React.createElement("div", __assign({ "data-comment": "Content" }, props, { className: className })));
-};
-exports.Content.displayName = "Content";
-/**
- * Takes as much space as it needs, no more, no less
- */
-exports.InlineBlock = function (props) {
-    var className = typestyle.classes(typestyle.style({ display: 'inline-block' }), props.className);
-    return (React.createElement("div", __assign({ "data-comment": "InlineBlock" }, props, { className: className })));
-};
-exports.InlineBlock.displayName = "InlineBlock";
-/**
- * Takes up all the parent space, no more, no less
- */
-exports.Flex = function (props) {
-    var className = typestyle.classes(ClassNames.flex, props.className);
-    return (React.createElement("div", __assign({ "data-comment": "Flex" }, props, { className: className })));
-};
-exports.Flex.displayName = "Flex";
-/**
- * Takes up all the parent space, no more, no less and scrolls the children in Y if needed
- */
-exports.FlexScrollY = function (props) {
-    var className = typestyle.classes(ClassNames.flexScrollY, props.className);
-    return (React.createElement("div", __assign({ "data-comment": "FlexScrollY" }, props, { className: className })));
-};
-exports.FlexScrollY.displayName = "FlexScrollY";
-/**
- * When you need a general purpose container. Use this instead of a `div`
- */
-exports.Pass = function (props) {
-    var className = typestyle.classes(ClassNames.pass, props.className);
-    return (React.createElement("div", __assign({ "data-comment": "Pass" }, props, { className: className })));
-};
-exports.Pass.displayName = "Pass";
-/**
- * Provides a Vertical Container. For the parent it behaves like content.
- */
-exports.ContentVertical = function (props) {
-    var className = typestyle.classes(ClassNames.contentVertical, props.className);
-    return (React.createElement("div", __assign({ "data-comment": "ContentVertical" }, props, { className: className })));
-};
-exports.ContentVertical.displayName = "ContentVertical";
-/**
- * Quite commonly need horizontally centered text
- */
-exports.ContentVerticalCentered = function (props) {
-    var className = typestyle.classes(ClassNames.contentVerticalCentered, props.className);
-    return (React.createElement("div", __assign({ "data-comment": "ContentVerticalCentered" }, props, { className: className })));
-};
-exports.ContentVerticalCentered.displayName = "ContentVerticalCentered";
-/**
- * Quite commonly need horizontally centered text
- */
-exports.FlexVerticalCentered = function (props) {
-    var className = typestyle.classes(ClassNames.flexVerticalCentered, props.className);
-    return (React.createElement("div", __assign({ "data-comment": "FlexVerticalCentered" }, props, { className: className })));
-};
-exports.FlexVerticalCentered.displayName = "FlexVerticalCentered";
-/**
- * Provides a Horizontal Container. For the parent it behaves like content.
- */
-exports.ContentHorizontal = function (props) {
-    var className = typestyle.classes(ClassNames.contentHorizontal, props.className);
-    return (React.createElement("div", __assign({ "data-comment": "ContentHorizontal" }, props, { className: className })));
-};
-exports.ContentHorizontal.displayName = "ContentHorizontal";
-/**
- * Provides a Horizontal Container and centers its children in the cross dimension
- */
-exports.ContentHorizontalCentered = function (props) {
-    var className = typestyle.classes(ClassNames.contentHorizontalCentered, props.className);
-    return (React.createElement("div", __assign({ "data-comment": "ContentHorizontalCentered" }, props, { className: className })));
-};
-exports.ContentHorizontalCentered.displayName = "ContentHorizontalCentered";
-/**
- * Provides a Vertical Container. For the parent it behaves like flex.
- */
-exports.FlexVertical = function (props) {
-    var className = typestyle.classes(ClassNames.flexVertical, props.className);
-    return (React.createElement("div", __assign({ "data-comment": "FlexVertical" }, props, { className: className })));
-};
-exports.FlexVertical.displayName = "FlexVertical";
-/**
- * Provides a Horizontal Container. For the parent it behaves like flex.
- */
-exports.FlexHorizontal = function (props) {
-    var className = typestyle.classes(ClassNames.flexHorizontal, props.className);
-    return (React.createElement("div", __assign({ "data-comment": "FlexHorizontal" }, props, { className: className })));
-};
-exports.FlexHorizontal.displayName = "FlexHorizontal";
-/**
- * Provides a Horizontal Container and centers its children in the cross dimension
- */
-exports.FlexHorizontalCentered = function (props) {
-    var className = typestyle.classes(ClassNames.flexHorizontalCentered, props.className);
-    return (React.createElement("div", __assign({ "data-comment": "FlexHorizontalCentered" }, props, { className: className })));
-};
-exports.ContentHorizontalCentered.displayName = "FlexHorizontalCentered";
-/**
- * Lays out the children horizontally with
- * - ThisComponent: gets the overall Height (by max) of the children
- * - Children: get the Width : equally distributed from the parent Width
- * - Children: get the Height : sized by content
- * - ThisComponent: Puts a horizontal margin between each item
- */
-exports.ContentHorizontalMargined = function (props) {
-    var margin = props.margin, horizontalAlign = props.horizontalAlign, otherProps = __rest(props, ["margin", "horizontalAlign"]);
-    var spacing = (margin == null ? exports.defaultValues.spacing : margin);
-    var className = typestyle.classes(props.className, typestyle.style(csstips.horizontallySpaced(spacing)), horizontalAlign == 'right' && typestyle.style(csstips.endJustified));
-    return (React.createElement(exports.ContentHorizontal, __assign({}, otherProps, { className: className, "data-comment": "ContentHorizontalMargined" })));
-};
-exports.ContentHorizontalMargined.displayName = "ContentHorizontalMargined";
-exports.ContentHorizontalMarginedCentered = function (props) {
-    var margin = props.margin, otherProps = __rest(props, ["margin"]);
-    var spacing = (margin == null ? exports.defaultValues.spacing : margin);
-    var className = typestyle.classes(props.className, typestyle.style(csstips.center, csstips.horizontallySpaced(spacing)));
-    return (React.createElement(exports.ContentHorizontal, __assign({}, otherProps, { className: className, "data-comment": "ContentHorizontalMarginedCentered" })));
-};
-exports.ContentHorizontalMarginedCentered.displayName = "ContentHorizontalMarginedCentered";
-/**
- * Lays out the children horizontally with
- * - Parent: gets to chose the Width
- * - ThisComponent: gets the overall Height (by max) of the children
- * - Children: get the Width : equally distributed from the parent Width
- * - Children: get the Height : sized by content
- * - ThisComponent: Puts a horizontal margin between each item
- */
-exports.FlexHorizontalMargined = function (props) {
-    var margin = props.margin, otherProps = __rest(props, ["margin"]);
-    var spacing = (margin == null ? exports.defaultValues.spacing : margin);
-    var className = typestyle.classes(props.className, typestyle.style(csstips.horizontallySpaced(spacing)));
-    return (React.createElement(exports.FlexHorizontal, __assign({}, otherProps, { className: className, "data-comment": "FlexHorizontalMargined" })));
-};
-exports.FlexHorizontalMargined.displayName = "FlexHorizontalMargined";
-exports.FlexVerticalMargined = function (props) {
-    var margin = props.margin, otherProps = __rest(props, ["margin"]);
-    var spacing = (margin == null ? exports.defaultValues.spacing : margin);
-    var className = typestyle.classes(props.className, typestyle.style(csstips.verticallySpaced(spacing)));
-    return (React.createElement(exports.FlexVertical, __assign({}, otherProps, { className: className, "data-comment": "FlexVerticalMargined" })));
-};
-exports.FlexHorizontalMargined.displayName = "FlexVerticalMargined";
-/**
- * Could be ContentVerticalMargined but also wraps each child in Content to auto fix IE vertical layout issues
- */
-exports.ContentVerticalContentMargined = function (props) {
-    var margin = props.margin, children = props.children, otherProps = __rest(props, ["margin", "children"]);
-    var spacing = (margin == null ? exports.defaultValues.spacing : margin);
-    var className = typestyle.classes(props.className, typestyle.style(csstips.verticallySpaced(spacing)));
-    return (React.createElement(exports.ContentVertical, __assign({}, otherProps, { className: className, "data-comment": "ContentVerticalContentMargined" }), React.Children.toArray(children).filter(function (c) { return !!c; }).map(function (child, i) { return React.createElement(exports.Content, { key: child.key || i }, child); })));
-};
-exports.ContentVerticalContentMargined.displayName = "ContentVerticalContentMargined";
-/**
- * Lays out the children vertically with
- * - Parent: gets to chose the overall Width
- * - ThisComponent: gets the Height : (by sum) of the children
- * - Children: get the Width : sized by content
- * - Children: get the Height : sized by content
- * - ThisComponent: Puts a margin between each item.
- * - ThisComponent: Puts a negative margin on itself to offset the margins of the children (prevents them from leaking out)
- */
-exports.GridMargined = function (props) {
-    var margin = props.margin, children = props.children, otherProps = __rest(props, ["margin", "children"]);
-    var spacing = (margin == null ? exports.defaultValues.spacing : margin) + 'px';
-    var className = typestyle.style(csstips.wrap, { marginTop: '-' + spacing, marginLeft: '-' + spacing }, props.style || {});
-    return (React.createElement(exports.ContentHorizontal, __assign({}, otherProps, { className: className }), React.Children.toArray(children).filter(function (c) { return !!c; }).map(function (child, i) { return React.createElement(exports.Content, { key: child.key || i, style: { marginLeft: spacing, marginTop: spacing } }, child); })));
-};
-exports.GridMargined.displayName = "GridMargined";
-exports.ResponsiveGridParent = function (props) {
-    var margin = props.margin, breakpoint = props.breakpoint, horizontalAlign = props.horizontalAlign, otherProps = __rest(props, ["margin", "breakpoint", "horizontalAlign"]);
-    var spacing = (margin == null ? exports.defaultValues.spacing : margin);
-    var breakpointNum = (breakpoint || exports.defaultValues.breakpoints.phone);
-    var breakpointPx = function (num) { return num + 'px'; };
-    var children = React.Children.toArray(props.children).filter(function (c) { return !!c; });
-    var alignment = horizontalAlign === 'center' ? [csstips.flexRoot, csstips.center]
-        : [csstips.flexRoot, csstips.start];
-    var parentClassName = typestyle.classes(props.className, typestyle.style(csstips.layerParent, 
-    /** Lower than breakpoint: Vertical Margined */
-    typestyle.media({ minWidth: 0, maxWidth: breakpointNum }, csstips.verticallySpaced(spacing)), 
-    /** Bigger than breakpoint: Horizontal Margined */
-    typestyle.media.apply(
-    /** Bigger than breakpoint: Horizontal Margined */
-    typestyle, [{ minWidth: breakpointNum + 1 }, csstips.horizontallySpaced(spacing)].concat(alignment))));
-    var childClassName = function (className) { return typestyle.classes(className, typestyle.style(csstips.inlineBlock, 
-    /** Lower than breakpoint: full sized */
-    typestyle.media({ minWidth: 0, maxWidth: breakpointNum }, { width: '100%' }), 
-    /** Bigger than breakpoint: percent sized */
-    typestyle.media({ minWidth: breakpointNum + 1 }, { width: "calc(" + (1 / children.length) * 100 + "% - " + (spacing - spacing / children.length) + "px)" }))); };
-    return (React.createElement("div", __assign({}, otherProps, { className: parentClassName, "data-comment": "ResponsiveGridParent" }), children.map(function (child, i) { return React.createElement("div", { "data-comment": "ResponsiveGridChild", key: child.key || i, className: childClassName(child.className) }, child); })));
-};
-exports.ResponsiveGridParent.displayName = "ResponsiveGridParent";
-/**
- * Just a display:block with vertical spacing between each child
- */
-exports.VerticalMargined = function (props) {
-    var margin = props.margin, otherProps = __rest(props, ["margin"]);
-    var spacing = (margin == null ? exports.defaultValues.spacing : margin);
-    var className = typestyle.classes(props.className, typestyle.style(csstips.verticallySpaced(spacing)));
-    return (React.createElement("div", __assign({}, otherProps, { className: className, "data-comment": "VerticalMargined" })));
-};
-exports.VerticalMargined.displayName = "VerticalMargined";
 
 
 /***/ }),
@@ -2317,10 +2317,10 @@ exports.H1 = function (_a) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types = __webpack_require__(22);
+var types = __webpack_require__(23);
 var React = __webpack_require__(0);
 var txt = __webpack_require__(24);
-var gls = __webpack_require__(23);
+var gls = __webpack_require__(12);
 var typestyle_1 = __webpack_require__(1);
 var csstips = __webpack_require__(7);
 var styles_1 = __webpack_require__(4);
@@ -2438,8 +2438,9 @@ var React = __webpack_require__(0);
 var ReactDOM = __webpack_require__(29);
 var csstips = __webpack_require__(7);
 var typestyle = __webpack_require__(1);
+var gls_1 = __webpack_require__(12);
 /** Ensure loading the markdown styles */
-var markdown_1 = __webpack_require__(21);
+var markdown_1 = __webpack_require__(22);
 var ensureUsage = markdown_1.toHtml;
 /** Renderers */
 var renderers = __webpack_require__(228);
@@ -2457,6 +2458,18 @@ var pageSubDirName = (function () {
         .filter(function (x) { return !!x; });
     var last = portions[portions.length - 1];
     return last;
+})();
+var prevPageIfAny = (function () {
+    var firstCurrentIndex = data.tableOfContents.findIndex(function (t) { return t.pageSubDirName == pageSubDirName; });
+    if (firstCurrentIndex !== 0) {
+        return data.tableOfContents[firstCurrentIndex - 1].pageSubDirName;
+    }
+})();
+var nextPageIfAny = (function () {
+    var lastCurrentIndex = data.tableOfContents.map(function (t) { return t.pageSubDirName; }).lastIndexOf(pageSubDirName);
+    if (lastCurrentIndex !== (data.tableOfContents.length - 1)) {
+        return data.tableOfContents[lastCurrentIndex + 1].pageSubDirName;
+    }
 })();
 ReactDOM.render(React.createElement("div", null,
     React.createElement("div", { className: typestyle.style(csstips.horizontallyCenterSelf, csstips.maxWidth(900), csstips.padding(20, 10), csstips.verticallySpaced(10)) },
@@ -2480,6 +2493,10 @@ ReactDOM.render(React.createElement("div", null,
                 var _exhaustiveCheck = c;
             }
         }),
+        React.createElement(gls_1.ContentHorizontal, null,
+            prevPageIfAny && React.createElement(anchor_1.AnchorButton, { href: "../" + prevPageIfAny }, "Previous"),
+            React.createElement(gls_1.Flex, null),
+            nextPageIfAny && React.createElement(anchor_1.AnchorButton, { href: "../" + nextPageIfAny }, "Next")),
         React.createElement("div", { style: { textAlign: 'center' } },
             React.createElement(anchor_1.Anchor, { href: 'https://npmjs.org/package/eze', className: typestyle.style({ fontSize: '15px' }), target: "_blank" }, "Built with eze \u2764\uFE0F")))), document.getElementById('eze-application-root'));
 typestyle.forceRenderStyles();
@@ -3941,7 +3958,7 @@ if (process.env.NODE_ENV === 'production') {
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(0),l=__webpack_require__(12),B=__webpack_require__(5),C=__webpack_require__(3),ba=__webpack_require__(13),da=__webpack_require__(14),ea=__webpack_require__(15),fa=__webpack_require__(16),ia=__webpack_require__(17),D=__webpack_require__(8);
+var aa=__webpack_require__(0),l=__webpack_require__(13),B=__webpack_require__(5),C=__webpack_require__(3),ba=__webpack_require__(14),da=__webpack_require__(15),ea=__webpack_require__(16),fa=__webpack_require__(17),ia=__webpack_require__(18),D=__webpack_require__(8);
 function E(a){for(var b=arguments.length-1,c="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,d=0;d<b;d++)c+="\x26args[]\x3d"+encodeURIComponent(arguments[d+1]);b=Error(c+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}aa?void 0:E("227");
 var oa={children:!0,dangerouslySetInnerHTML:!0,defaultValue:!0,defaultChecked:!0,innerHTML:!0,suppressContentEditableWarning:!0,suppressHydrationWarning:!0,style:!0};function pa(a,b){return(a&b)===b}
 var ta={MUST_USE_PROPERTY:1,HAS_BOOLEAN_VALUE:4,HAS_NUMERIC_VALUE:8,HAS_POSITIVE_NUMERIC_VALUE:24,HAS_OVERLOADED_BOOLEAN_VALUE:32,HAS_STRING_BOOLEAN_VALUE:64,injectDOMPropertyConfig:function(a){var b=ta,c=a.Properties||{},d=a.DOMAttributeNamespaces||{},e=a.DOMAttributeNames||{};a=a.DOMMutationMethods||{};for(var f in c){ua.hasOwnProperty(f)?E("48",f):void 0;var g=f.toLowerCase(),h=c[f];g={attributeName:g,attributeNamespace:null,propertyName:f,mutationMethod:null,mustUseProperty:pa(h,b.MUST_USE_PROPERTY),
@@ -4241,14 +4258,14 @@ if (process.env.NODE_ENV !== "production") {
 var React = __webpack_require__(0);
 var invariant = __webpack_require__(6);
 var warning = __webpack_require__(9);
-var ExecutionEnvironment = __webpack_require__(12);
+var ExecutionEnvironment = __webpack_require__(13);
 var _assign = __webpack_require__(5);
 var emptyFunction = __webpack_require__(3);
-var EventListener = __webpack_require__(13);
-var getActiveElement = __webpack_require__(14);
-var shallowEqual = __webpack_require__(15);
-var containsNode = __webpack_require__(16);
-var focusNode = __webpack_require__(17);
+var EventListener = __webpack_require__(14);
+var getActiveElement = __webpack_require__(15);
+var shallowEqual = __webpack_require__(16);
+var containsNode = __webpack_require__(17);
+var focusNode = __webpack_require__(18);
 var emptyObject = __webpack_require__(8);
 var checkPropTypes = __webpack_require__(10);
 var hyphenateStyleName = __webpack_require__(34);
@@ -20003,8 +20020,8 @@ exports.selfStretch = {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TypeStyle; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__formatting__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utilities__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_free_style__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utilities__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_free_style__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_free_style___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_free_style__);
 
 
@@ -20217,7 +20234,7 @@ var TypeStyle = (function () {
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = ensureStringObj;
 /* harmony export (immutable) */ __webpack_exports__["b"] = explodeKeyframes;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_free_style__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_free_style__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_free_style___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_free_style__);
 
 /**
@@ -20444,7 +20461,7 @@ exports.normalize = normalize;
 
 exports.__esModule = true;
 var typestyle_1 = __webpack_require__(1);
-var box_1 = __webpack_require__(20);
+var box_1 = __webpack_require__(21);
 /**
  * Recommended Page setup
  * - Sets up the body to be full size
@@ -39452,13 +39469,13 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
-var types = __webpack_require__(22);
+var types = __webpack_require__(23);
 var typestyle_1 = __webpack_require__(1);
 var csstips = __webpack_require__(7);
 var styles = __webpack_require__(4);
-var markdown_1 = __webpack_require__(21);
+var markdown_1 = __webpack_require__(22);
 var expandible_1 = __webpack_require__(229);
-var gls = __webpack_require__(23);
+var gls = __webpack_require__(12);
 var toggle_1 = __webpack_require__(230);
 var icons = __webpack_require__(239);
 var loader_1 = __webpack_require__(240);
@@ -41197,10 +41214,38 @@ var AnchorStyles;
             }
         }
     });
+    AnchorStyles.anchorLookingLikeButton = typestyle_1.style({
+        cursor: 'pointer',
+        height: 'auto',
+        padding: "12px 30px 11px",
+        border: "1px solid " + styles.colors.header,
+        borderRadius: '3px',
+        color: styles.colors.white,
+        backgroundColor: styles.colors.header,
+        fontSize: styles.fontSizes.buttonText,
+        textDecoration: "none",
+        lineHeight: "1em",
+        outline: 'none',
+        transition: 'color .2s, background-color .2s',
+        display: 'inline-block',
+        $nest: {
+            '&:hover': {
+                backgroundColor: styles.colors.headerHover,
+            },
+            '&:active': {
+                backgroundColor: styles.colors.headerHover,
+            },
+            '&:focus': {
+                outline: 'thin dotted',
+                outlineColor: styles.colors.header
+            }
+        }
+    });
 })(AnchorStyles || (AnchorStyles = {}));
 exports.Anchor = function (props) {
     return (React.createElement("a", { className: typestyle_1.classes(AnchorStyles.rootClassName, props.className), id: props.id, href: props.href, target: props.target, onClick: props.onClick }, props.children));
 };
+exports.AnchorButton = function (props) { return React.createElement("a", { className: AnchorStyles.anchorLookingLikeButton, href: props.href }, props.children); };
 
 
 /***/ })

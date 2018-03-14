@@ -10,3 +10,6 @@ export interface AnchorProps {
     className?: string;
 }
 export declare const Anchor: (props: AnchorProps) => JSX.Element;
+export declare const AnchorButton: React.SFC<{
+    href: string;
+}>;

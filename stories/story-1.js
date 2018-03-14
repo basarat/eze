@@ -39437,10 +39437,38 @@ var AnchorStyles;
             }
         }
     });
+    AnchorStyles.anchorLookingLikeButton = typestyle_1.style({
+        cursor: 'pointer',
+        height: 'auto',
+        padding: "12px 30px 11px",
+        border: "1px solid " + styles.colors.header,
+        borderRadius: '3px',
+        color: styles.colors.white,
+        backgroundColor: styles.colors.header,
+        fontSize: styles.fontSizes.buttonText,
+        textDecoration: "none",
+        lineHeight: "1em",
+        outline: 'none',
+        transition: 'color .2s, background-color .2s',
+        display: 'inline-block',
+        $nest: {
+            '&:hover': {
+                backgroundColor: styles.colors.headerHover,
+            },
+            '&:active': {
+                backgroundColor: styles.colors.headerHover,
+            },
+            '&:focus': {
+                outline: 'thin dotted',
+                outlineColor: styles.colors.header
+            }
+        }
+    });
 })(AnchorStyles || (AnchorStyles = {}));
 exports.Anchor = function (props) {
     return (React.createElement("a", { className: typestyle_1.classes(AnchorStyles.rootClassName, props.className), id: props.id, href: props.href, target: props.target, onClick: props.onClick }, props.children));
 };
+exports.AnchorButton = function (props) { return React.createElement("a", { className: AnchorStyles.anchorLookingLikeButton, href: props.href }, props.children); };
 
 
 /***/ })
