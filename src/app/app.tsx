@@ -28,7 +28,10 @@ declare const data: Data;
 
 /** Detect our pageSubDirName from the url */
 const pageSubDirName = (() => {
-  const portions = window.location.href.split('/')
+  const portions = window.location.href
+    /** The section after the hash is the current entry user is on */
+    .split('#')[0]
+    .split('/')
     // for trailing /
     .filter(x => !!x);
   const last = portions[portions.length - 1];
