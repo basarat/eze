@@ -1,7 +1,8 @@
 import { RenderConfig, Data, SupportedMode, PageConfig, Watch, PageTalkingToCollector } from '../types';
-export declare const storyAndAppIndexTemplate: ({ index, jsFileName }: {
+export declare const storyAndAppIndexTemplate: ({ index, jsFileName, isStory }: {
     index: number;
     jsFileName: string;
+    isStory: boolean;
 }) => string;
 /**
  * Collects a document
