@@ -40,11 +40,18 @@ const renderTocEntry = (t: types.TableOfContentEntry, pageSubDirName: string) =>
     TocStyles.tocAnchorClass,
     style(TocStyles.marginLeft(t.level)),
     pageSubDirName === t.pageSubDirName && TocStyles.currentPage
-  )} href={"#" + t.id} onClick={() => {
-    if (t.iframeId) {
-      navToChildInIframe(t.iframeId, t.id);
-    }
-  }}>
+  )}
+    href={(() => {
+      if (pageSubDirName === t.pageSubDirName)
+        return "#" + t.id;
+      else
+        return '../' + t.pageSubDirName + '/#' + t.id;
+    })()}
+    onClick={() => {
+      if (t.iframeId) {
+        navToChildInIframe(t.iframeId, t.id);
+      }
+    }}>
     {t.text}
   </a>
 ].concat(t.subItems.map((t) => renderTocEntry(t, pageSubDirName)));
