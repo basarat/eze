@@ -42,8 +42,10 @@ export declare type TableOfContentEntry = {
     iframeId: string;
 };
 export interface Data {
-    contents: ContentItem[];
+    /** The data used to render the table on contents */
     tableOfContents: TableOfContentEntry[];
+    /** The data used to render the stories */
+    contents: ContentItem[];
 }
 export declare type Heading = {
     level: 1 | 2 | 3 | 4 | 5 | 6;
