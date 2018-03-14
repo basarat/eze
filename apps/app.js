@@ -2348,7 +2348,12 @@ var TocStyles;
     });
 })(TocStyles || (TocStyles = {}));
 var renderTocEntry = function (t, pageSubDirName) { return [
-    React.createElement("a", { key: t.level + t.id, className: typestyle_1.classes(TocStyles.tocAnchorClass, typestyle_1.style(TocStyles.marginLeft(t.level)), pageSubDirName === t.pageSubDirName && TocStyles.currentPage), href: "#" + t.id, onClick: function () {
+    React.createElement("a", { key: t.level + t.id, className: typestyle_1.classes(TocStyles.tocAnchorClass, typestyle_1.style(TocStyles.marginLeft(t.level)), pageSubDirName === t.pageSubDirName && TocStyles.currentPage), href: (function () {
+            if (pageSubDirName === t.pageSubDirName)
+                return "#" + t.id;
+            else
+                return '../' + t.pageSubDirName + '/#' + t.id;
+        })(), onClick: function () {
             if (t.iframeId) {
                 navToChildInIframe(t.iframeId, t.id);
             }
