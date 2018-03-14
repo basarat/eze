@@ -355,13 +355,11 @@ export class Page {
      * e.g. the user might not have made any calls to `.app` | `.story`
      **/
     if (Object.keys(this._bundleCollector).length) {
-      console.log("EZE [START] webpack builds.");
       await bundle({
         entryMap: this._bundleCollector,
         outputDirName: this.config.outputDir + '/' + this.config.subDirName,
         ...(this.config.watch ? { watch: this.config.watch } : {})
       });
-      console.log("EZE [END] webpack builds.");
     }
   }
 }

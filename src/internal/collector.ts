@@ -79,6 +79,10 @@ export class Collector {
     fse.outputFileSync(`${this.config.outputDir}/data.js`, `var data = ${data}`);
 
     /** Bundle all the rest */
-    return Promise.all(this.pages.map(x => x._done()));
+    console.log("EZE [START] webpack builds.");
+    for (const page of this.pages) {
+      await page._done();
+    }
+    console.log("EZE [END] webpack builds.");
   }
 }
