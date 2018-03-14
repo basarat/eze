@@ -2343,8 +2343,11 @@ var TocStyles;
             marginLeft: (level * 10) + 'px'
         };
     };
+    TocStyles.currentPage = typestyle_1.style({
+        color: '#42b983 !important'
+    });
 })(TocStyles || (TocStyles = {}));
-var renderTocEntry = function (t, pageSubDirName) { return [React.createElement("a", { key: t.level + t.id, className: typestyle_1.classes(TocStyles.tocAnchorClass, typestyle_1.style(TocStyles.marginLeft(t.level))), href: "#" + t.id, onClick: function () {
+var renderTocEntry = function (t, pageSubDirName) { return [React.createElement("a", { key: t.level + t.id, className: typestyle_1.classes(TocStyles.tocAnchorClass, typestyle_1.style(TocStyles.marginLeft(t.level)), pageSubDirName === t.pageSubDirName && TocStyles.currentPage), href: "#" + t.id, onClick: function () {
             if (t.iframeId) {
                 navToChildInIframe(t.iframeId, t.id);
             }
