@@ -31,16 +31,11 @@ export declare class Page {
     }): this;
     /** Each demo and story gets its index. This drives the JS / HTML files names */
     private entryPointIndex;
-    /**
-     * If only is set on only `story | demo` only that `story | demo` gets rendered
-     **/
-    private onlyJsFileNameNoExt;
-    story({entryPointPath, only}: {
+    story({entryPointPath}: {
         entryPointPath: string;
-        only?: boolean;
     }): this;
     /** Adds a raw application demo */
-    app({entryPointPath, sourceUrl, height, only}: {
+    app({entryPointPath, sourceUrl, height}: {
         entryPointPath: string;
         sourceUrl?: string;
         /**
@@ -48,7 +43,6 @@ export declare class Page {
          * If not specified we default to the iframe content scroll height
          **/
         height?: string;
-        only?: boolean;
     }): this;
     /** The end */
     _done(): Promise<void>;
