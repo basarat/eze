@@ -4,6 +4,7 @@ import { TypedEvent } from "../../internal/utils";
 export declare const iframeRenderComplete: TypedEvent<{
     iframeId: string;
 }>;
-export declare const Toc: ({ toc }: {
+export declare const Toc: ({ toc, pageSubDirName }: {
     toc: types.TableOfContentEntry[];
+    pageSubDirName: string;
 }) => JSX.Element;

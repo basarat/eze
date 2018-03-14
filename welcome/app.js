@@ -2350,7 +2350,7 @@ var renderTocEntry = function (t) { return [React.createElement("a", { key: t.le
             }
         } }, t.text)].concat(t.subItems.map(renderTocEntry)); };
 exports.Toc = function (_a) {
-    var toc = _a.toc;
+    var toc = _a.toc, pageSubDirName = _a.pageSubDirName;
     return React.createElement(gls.ContentVerticalContentMargined, null,
         React.createElement(txt.H1, { id: 'toc' }, "Table of Contents"),
         React.createElement(gls.ContentVertical, null, toc.map(function (t) {
@@ -2442,7 +2442,7 @@ var pageSubDirName = (function () {
 })();
 ReactDOM.render(React.createElement("div", null,
     React.createElement("div", { className: typestyle.style(csstips.horizontallyCenterSelf, csstips.maxWidth(900), csstips.padding(20, 10), csstips.verticallySpaced(10)) },
-        React.createElement(toc_1.Toc, { toc: data.tableOfContents }),
+        React.createElement(toc_1.Toc, { toc: data.tableOfContents, pageSubDirName: pageSubDirName }),
         data.contents
             .filter(function (c) { return c.pageSubDirName === pageSubDirName; })
             .map(function (c, i) {
