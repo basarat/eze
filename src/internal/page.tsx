@@ -131,6 +131,7 @@ export class Page {
         id: heading.id,
         subItems: [],
         iframeId,
+        pageSubDirName: this.config.subDirName,
       };
 
       /** No current heading */
@@ -175,7 +176,8 @@ export class Page {
     this._data.contents.push({
       type: 'code',
       html: `<div class=${MarkDownStyles.rootClass}><pre><code>${highlightCodeWithMode({ mode, code: code.trim() })}</code></pre></div>`,
-      collapsed: !!collapsed
+      collapsed: !!collapsed,
+      pageSubDirName: this.config.subDirName
     });
 
     return this;
@@ -216,7 +218,8 @@ export class Page {
          * Otherwise `dedent` uses the `index` argument adding the number to output
          */
         (c) => dedent(c)
-      )
+      ),
+      pageSubDirName: this.config.subDirName
     };
     this._data.contents.push(content);
 
@@ -282,7 +285,8 @@ export class Page {
         }
       ],
       sourceUrl,
-      height: height
+      height: height,
+      pageSubDirName: this.config.subDirName
     };
 
     /** Write out the data */

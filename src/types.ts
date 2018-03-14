@@ -5,6 +5,7 @@ export type CodeContent = {
   type: 'code',
   html: string,
   collapsed: boolean,
+  pageSubDirName: string,
 }
 export type AppContent = {
   type: 'app',
@@ -14,6 +15,8 @@ export type AppContent = {
 
   sourceUrl?: string,
   height?: string,
+
+  pageSubDirName: string,
 }
 export type StoryContent = {
   type: 'story',
@@ -23,6 +26,8 @@ export type StoryContent = {
 
   /** Each demo call has its code collected here */
   demoCodes: string[];
+
+  pageSubDirName: string,
 }
 
 export type ContentItem =
@@ -36,6 +41,7 @@ export type ContentItem =
   | CodeContent
 
 export type TableOfContentEntry = {
+  pageSubDirName: string,
   text: string,
   id: string,
   level: 1 | 2 | 3 | 4 | 5 | 6,
