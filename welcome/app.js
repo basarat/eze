@@ -2344,17 +2344,17 @@ var TocStyles;
         };
     };
 })(TocStyles || (TocStyles = {}));
-var renderTocEntry = function (t) { return [React.createElement("a", { key: t.level + t.id, className: typestyle_1.classes(TocStyles.tocAnchorClass), style: TocStyles.marginLeft(t.level), href: "#" + t.id, onClick: function () {
+var renderTocEntry = function (t, pageSubDirName) { return [React.createElement("a", { key: t.level + t.id, className: typestyle_1.classes(TocStyles.tocAnchorClass, typestyle_1.style(TocStyles.marginLeft(t.level))), href: "#" + t.id, onClick: function () {
             if (t.iframeId) {
                 navToChildInIframe(t.iframeId, t.id);
             }
-        } }, t.text)].concat(t.subItems.map(renderTocEntry)); };
+        } }, t.text)].concat(t.subItems.map(function (t) { return renderTocEntry(t, pageSubDirName); })); };
 exports.Toc = function (_a) {
     var toc = _a.toc, pageSubDirName = _a.pageSubDirName;
     return React.createElement(gls.ContentVerticalContentMargined, null,
         React.createElement(txt.H1, { id: 'toc' }, "Table of Contents"),
         React.createElement(gls.ContentVertical, null, toc.map(function (t) {
-            return renderTocEntry(t);
+            return renderTocEntry(t, pageSubDirName);
         })));
 };
 /**
