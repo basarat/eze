@@ -47,7 +47,6 @@ render({
   /** Show stories */
   eze.page({ heading: 'Stories', subDirName: 'stories' })
     .md(`
-  # Stories
   Stories are lightweight applications designed to showcase simple components.
   
   You write them using \`import {story} from 'eze/lib/client'\`
@@ -68,7 +67,6 @@ render({
   /** Show some complete application demos */
   eze.page({ heading: 'Applications', subDirName: 'apps' })
     .md(`
-  # Embed applications
   You can easily show complete applications. This allows you to showcase application level layouts.
   `)
     .app({
