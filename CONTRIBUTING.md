@@ -6,15 +6,9 @@
 # Basic design overview 
 There is a nodejs `collector.ts`. Each call to `eze` (e.g. md, html) results in a `data.js` (and possibly html) files being put into the output dir. 
 
-Then the UI (`app.js`) uses this `data` (loaded automatically by frontend index.html) to render the whole thing into a react UI. 
+Then the UI (`app.js`) uses this `data` (loaded automatically by frontend index.html) to render the whole thing into a react UI.  Different content sections are rendered using `renderers.tsx`.
 
-# Notes 
-
-Some obscure portions are mentioned below: 
-
-* `collector.ts` Used in the node process to collect `eze` calls.
-* `renderers.tsx` Used to render stories in the main ui app.
-* `story.tsx` Used to render a story sections in a story ui app.
+`story.tsx` is used to render a story sections in a story ui app.
 
 ## Story
 Each story is rendered in iframe `iframe0` etc. Headings inside the iframe are rendered with `ifrmae0-some-heading`. This allows the table of contents to work `headingId.split('-')[0]` gives the frame id. 
