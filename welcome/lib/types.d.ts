@@ -1,16 +1,18 @@
 export declare type SupportedMode = 'ts' | 'js' | 'tsx' | 'jsx' | 'javascript' | 'typescript' | 'html' | 'css';
 export declare type HTMLContent = {
     type: 'html';
+    pageSubDirName: string;
     html: string;
 };
 export declare type CodeContent = {
     type: 'code';
+    pageSubDirName: string;
     html: string;
     collapsed: boolean;
-    pageSubDirName: string;
 };
 export declare type AppContent = {
     type: 'app';
+    pageSubDirName: string;
     index: number;
     htmlFileName: string;
     sources: {
@@ -19,16 +21,15 @@ export declare type AppContent = {
     }[];
     sourceUrl?: string;
     height?: string;
-    pageSubDirName: string;
 };
 export declare type StoryContent = {
     type: 'story';
+    pageSubDirName: string;
     index: number;
     htmlFileName: string;
     code: string;
     /** Each demo call has its code collected here */
     demoCodes: string[];
-    pageSubDirName: string;
 };
 export declare type ContentItem = HTMLContent | AppContent | StoryContent | CodeContent;
 export declare type TableOfContentEntry = {

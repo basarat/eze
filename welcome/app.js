@@ -2434,10 +2434,18 @@ var toc_1 = __webpack_require__(25);
 /** Normalize and page setup */
 csstips.normalize();
 csstips.setupPage('#eze-application-root');
+/** Detect our pageSubDirName from the url */
+var pageSubDirName = (function () {
+    var portions = window.location.href.split('/');
+    var last = portions[portions.length - 1];
+    return last;
+})();
 ReactDOM.render(React.createElement("div", null,
     React.createElement("div", { className: typestyle.style(csstips.horizontallyCenterSelf, csstips.maxWidth(900), csstips.padding(20, 10), csstips.verticallySpaced(10)) },
         React.createElement(toc_1.Toc, { toc: data.tableOfContents }),
-        data.contents.map(function (c, i) {
+        data.contents
+            .filter(function (c) { return c.pageSubDirName === pageSubDirName; })
+            .map(function (c, i) {
             if (c.type === 'html') {
                 return React.createElement(renderers.HtmlRenderer, __assign({ key: i }, c));
             }
