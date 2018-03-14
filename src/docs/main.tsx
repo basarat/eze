@@ -8,11 +8,7 @@ render({
   repoUrl: "http://github.com/basarat/eze",
   title: 'eze 🌹'
 }, eze => {
-  eze
-    .page({
-      heading: 'Welcome',
-      subDirName: 'welcome'
-    })
+  eze.page({ heading: 'Welcome', subDirName: 'welcome' })
 
     /** Write some markdown */
     .md(`
@@ -48,9 +44,10 @@ render({
     .md(`
   # Installation
   Checkout the [README](https://github.com/basarat/eze#install) ⚡
-  `)
+  `);
 
-    /** Show stories */
+  /** Show stories */
+  eze.page({ heading: 'Stories', subDirName: 'stories' })
     .md(`
   # Stories
   Stories are lightweight applications designed to showcase simple components.
@@ -68,9 +65,10 @@ render({
   `)
     .story({
       entryPointPath: __dirname + '/story-1.tsx',
-    })
+    });
 
-    /** Show some complete application demos */
+  /** Show some complete application demos */
+  eze.page({ heading: 'Applications', subDirName: 'apps' })
     .md(`
   # Embed applications
   You can easily show complete applications. This allows you to showcase application level layouts.
@@ -94,19 +92,19 @@ render({
     .code({
       mode: 'html',
       code: storyAndAppIndexTemplate({ index: 0, jsFileName: 'app-0.js' }),
-    })
+    });
 
-    /** Table of contents */
+  /** Table of contents */
+  eze.page({ heading: 'Table on contents generation', subDirName: 'toc' })
     .md(`
-  # Table of contents generation
-  Generated automatically based on the headings parsed from markdown.
+  TOC is generated automatically based on the headings parsed from markdown.
   ## Sample subheading
   Yup. You guessed it. ^ It should be visible in the TOC.
-  `)
+  `);
 
-    /** Development time */
+  /** Development time */
+  eze.page({ heading: 'DevTime convinience', subDirName: 'devtime' })
     .md(`
-  # Devtime
   When working on a styleguide you normally only work on one \`story\` or \`app\` at the time. So both of these take an optional \`only\` argument. E.g.
   `)
     .code({
