@@ -53,12 +53,13 @@ export class Page {
   } = {};
 
   html(html: string) {
-    this._data.contents.push({ type: 'html', html });
+    this._data.contents.push({ pageSubDirName: this.config.subDirName, type: 'html', html });
   }
 
   githubStars({ user, repo }: { user: string, repo: string }) {
     this._data.contents.push({
       type: 'html',
+      pageSubDirName: this.config.subDirName,
       html: `<iframe src="https://ghbtns.com/github-btn.html?user=${user}&repo=${repo}&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>`
     });
   }
@@ -68,7 +69,11 @@ export class Page {
     const { html, headings } = toHtml(dedent(markdown));
 
     /** Store the html */
-    this._data.contents.push({ type: 'html', html });
+    this._data.contents.push({
+      type: 'html',
+      pageSubDirName: this.config.subDirName,
+      html
+    });
 
     /** Ammend TOC */
     this.ammendTocWithHeadings(headings);

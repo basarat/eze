@@ -26,6 +26,13 @@ csstips.setupPage('#eze-application-root');
 /** Data has been loaded for us using index.html */
 declare const data: Data;
 
+/** Detect our pageSubDirName from the url */
+const pageSubDirName = (() => {
+  const portions = window.location.href.split('/');
+  const last = portions[portions.length - 1];
+  return last;
+})();
+
 ReactDOM.render(
   <div>
     <div className={typestyle.style(
@@ -35,25 +42,27 @@ ReactDOM.render(
       csstips.verticallySpaced(10)
     )}>
       {/** TOC */}
-      <Toc toc={data.tableOfContents}/>
+      <Toc toc={data.tableOfContents} />
       {/** Docs */}
-      {data.contents.map((c, i) => {
-        if (c.type === 'html') {
-          return <renderers.HtmlRenderer key={i} {...c} />
-        }
-        else if (c.type === 'app') {
-          return <renderers.AppRenderer key={i} {...c} />
-        }
-        else if (c.type === 'story') {
-          return <renderers.StoryRenderer key={i} {...c} />
-        }
-        else if (c.type === 'code') {
-          return <renderers.CodeRenderer key={i} {...c} />
-        }
-        else {
-          const _exhaustiveCheck: never = c;
-        }
-      })}
+      {data.contents
+        .filter(c => c.pageSubDirName === pageSubDirName)
+        .map((c, i) => {
+          if (c.type === 'html') {
+            return <renderers.HtmlRenderer key={i} {...c} />
+          }
+          else if (c.type === 'app') {
+            return <renderers.AppRenderer key={i} {...c} />
+          }
+          else if (c.type === 'story') {
+            return <renderers.StoryRenderer key={i} {...c} />
+          }
+          else if (c.type === 'code') {
+            return <renderers.CodeRenderer key={i} {...c} />
+          }
+          else {
+            const _exhaustiveCheck: never = c;
+          }
+        })}
       {/** Footer */}
       <div style={{ textAlign: 'center' }}>
         <Anchor href={'https://npmjs.org/package/eze'} className={typestyle.style({ fontSize: '15px' })} target="_blank">Built with eze ❤️</Anchor>

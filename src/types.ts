@@ -1,33 +1,39 @@
 export type SupportedMode = 'ts' | 'js' | 'tsx' | 'jsx' | 'javascript' | 'typescript' | 'html' | 'css';
 
-export type HTMLContent = { type: 'html', html: string }
+export type HTMLContent = {
+  type: 'html',
+  pageSubDirName: string,
+  
+  html: string,
+}
 export type CodeContent = {
   type: 'code',
+  pageSubDirName: string,
+
   html: string,
   collapsed: boolean,
-  pageSubDirName: string,
 }
 export type AppContent = {
   type: 'app',
+  pageSubDirName: string,
+  
   index: number,
   htmlFileName: string,
   sources: { mode: SupportedMode, code: string }[],
 
   sourceUrl?: string,
   height?: string,
-
-  pageSubDirName: string,
 }
 export type StoryContent = {
   type: 'story',
+  pageSubDirName: string,
+  
   index: number,
   htmlFileName: string,
   code: string,
 
   /** Each demo call has its code collected here */
   demoCodes: string[];
-
-  pageSubDirName: string,
 }
 
 export type ContentItem =
