@@ -32,7 +32,13 @@ export declare type StoryContent = {
     demoCodes: string[];
 };
 export declare type ContentItem = HTMLContent | AppContent | StoryContent | CodeContent;
-export declare type TableOfContentEntry = {
+export declare type TableOfContentPageRoot = {
+    type: 'pageRoot';
+    heading: string;
+    pageSubDirName: string;
+};
+export declare type TableOfContentPageSub = {
+    type: 'pageSub';
     pageSubDirName: string;
     text: string;
     id: string;
@@ -40,6 +46,7 @@ export declare type TableOfContentEntry = {
     /** If the heading is in an iframe */
     iframeId: string;
 };
+export declare type TableOfContentEntry = TableOfContentPageRoot | TableOfContentPageSub;
 export interface Data {
     /** The data used to render the table on contents */
     tableOfContents: TableOfContentEntry[];
