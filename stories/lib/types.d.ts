@@ -37,7 +37,6 @@ export declare type TableOfContentEntry = {
     text: string;
     id: string;
     level: 1 | 2 | 3 | 4 | 5 | 6;
-    subItems: TableOfContentEntry[];
     /** If the heading is in an iframe */
     iframeId: string;
 };
