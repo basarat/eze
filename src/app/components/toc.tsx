@@ -31,7 +31,7 @@ namespace TocStyles {
   }
 
   export const currentPage = style({
-    color: '#42b983 !important'
+    fontWeight: 'bold',
   })
 }
 
