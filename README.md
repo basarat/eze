@@ -22,16 +22,20 @@ import { render } from "eze";
 /** Render documentation */
 render({
   outputDir: __dirname + '/../../docs'
-}, async eze => {
+}, eze => {
+
+  /** Create a page */
+  eze.page({heading: 'Welcome', subDirName: 'welcome'})
 
   /** Write some markdown */
-  await eze.md(`
+  .md(`
   # Demo
   This is the demo for eze
-  `);
+  `)
 
   /** Show some complete application demos */
-  await eze.app({ entryPointPath: __dirname + '/app-1.tsx' });
+  .app({ entryPointPath: __dirname + '/app-1.tsx' });
+  
 });
 ```
 
