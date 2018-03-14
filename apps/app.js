@@ -39534,11 +39534,11 @@ var AppRendererStyles;
          * Without this we expand constantly slowly and slowly
          **/
         if (frame.style.height
-            === frame.contentWindow.document.body.scrollHeight + topBorderHeight + bottomBorderHeight + 'px') {
+            === frame.contentWindow.document.body.scrollHeight + 24 + 'px') {
             return;
         }
         /** Without the +borderHeight we still get scrollbars :-/ */
-        frame.style.height = frame.contentWindow.document.body.scrollHeight + topBorderHeight + bottomBorderHeight + 'px';
+        frame.style.height = frame.contentWindow.document.body.scrollHeight + 24 + 'px';
     }
     AppRendererStyles.resizeIframe = resizeIframe;
 })(AppRendererStyles || (AppRendererStyles = {}));
