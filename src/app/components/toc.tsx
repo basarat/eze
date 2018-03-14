@@ -31,28 +31,29 @@ namespace TocStyles {
   }
 }
 
-const renderTocEntry = (t: types.TableOfContentEntry) => [<a key={t.level + t.id} className={classes(
+const renderTocEntry = (t: types.TableOfContentEntry, pageSubDirName: string) => [<a key={t.level + t.id} className={classes(
   TocStyles.tocAnchorClass,
-)} style={TocStyles.marginLeft(t.level)} href={"#" + t.id} onClick={() => {
+  style(TocStyles.marginLeft(t.level)),
+)} href={"#" + t.id} onClick={() => {
   if (t.iframeId) {
     navToChildInIframe(t.iframeId, t.id);
   }
 }}>
   {t.text}
-</a>].concat(t.subItems.map(renderTocEntry));
+</a>].concat(t.subItems.map((t) => renderTocEntry(t, pageSubDirName)));
 
 export const Toc = ({
   toc,
   pageSubDirName
 }: {
-  toc: types.TableOfContentEntry[],
-  pageSubDirName: string,
-}) => <gls.ContentVerticalContentMargined>
+    toc: types.TableOfContentEntry[],
+    pageSubDirName: string,
+  }) => <gls.ContentVerticalContentMargined>
     <txt.H1 id={'toc'}>Table of Contents</txt.H1>
     <gls.ContentVertical>
       {
         toc.map((t) => {
-          return renderTocEntry(t)
+          return renderTocEntry(t, pageSubDirName)
         })
       }
     </gls.ContentVertical>
