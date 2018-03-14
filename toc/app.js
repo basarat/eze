@@ -2344,7 +2344,7 @@ var TocStyles;
         };
     };
     TocStyles.currentPage = typestyle_1.style({
-        color: '#42b983 !important'
+        fontWeight: 'bold',
     });
 })(TocStyles || (TocStyles = {}));
 var renderTocPageSub = function (t, isCurrent) { return (React.createElement("a", { key: t.level + t.id, className: typestyle_1.classes(TocStyles.tocAnchorClass, typestyle_1.style(TocStyles.marginLeft(t.level)), isCurrent && TocStyles.currentPage), href: (function () {
