@@ -10,9 +10,9 @@ export declare class CodeRenderer extends React.PureComponent<types.CodeContent,
     constructor(props: any);
     render(): JSX.Element;
 }
-export declare type AppMode = 'auto' | 'desktop' | 'tablet' | 'mobile';
+export declare type AppRensponsiveMode = 'auto' | 'desktop' | 'tablet' | 'mobile';
 export declare class AppRenderer extends React.PureComponent<types.AppContent, {
-    mode?: AppMode;
+    mode?: AppRensponsiveMode;
     viewDemo?: boolean;
     loading?: boolean;
 }> {
