@@ -148,10 +148,10 @@ cssRaw(`
 `);
 
 
-export const Toggle = (props: { label, value, onChange }) =>
+export const Toggle = (props: { label, value: boolean, onChange }) =>
   <label style={{ display: 'inline-block' }}>
     <ReactToggle
-      value={props.value.toString()}
+      checked={props.value}
       onChange={props.onChange} />
     <span className={style({
       color: styles.colors.text,
