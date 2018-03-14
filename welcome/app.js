@@ -2347,11 +2347,13 @@ var TocStyles;
         color: '#42b983 !important'
     });
 })(TocStyles || (TocStyles = {}));
-var renderTocEntry = function (t, pageSubDirName) { return [React.createElement("a", { key: t.level + t.id, className: typestyle_1.classes(TocStyles.tocAnchorClass, typestyle_1.style(TocStyles.marginLeft(t.level)), pageSubDirName === t.pageSubDirName && TocStyles.currentPage), href: "#" + t.id, onClick: function () {
+var renderTocEntry = function (t, pageSubDirName) { return [
+    React.createElement("a", { key: t.level + t.id, className: typestyle_1.classes(TocStyles.tocAnchorClass, typestyle_1.style(TocStyles.marginLeft(t.level)), pageSubDirName === t.pageSubDirName && TocStyles.currentPage), href: "#" + t.id, onClick: function () {
             if (t.iframeId) {
                 navToChildInIframe(t.iframeId, t.id);
             }
-        } }, t.text)].concat(t.subItems.map(function (t) { return renderTocEntry(t, pageSubDirName); })); };
+        } }, t.text)
+].concat(t.subItems.map(function (t) { return renderTocEntry(t, pageSubDirName); })); };
 exports.Toc = function (_a) {
     var toc = _a.toc, pageSubDirName = _a.pageSubDirName;
     return React.createElement(gls.ContentVerticalContentMargined, null,
