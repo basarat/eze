@@ -41,16 +41,22 @@ const renderTocEntry = (t: types.TableOfContentEntry) => [<a key={t.level + t.id
   {t.text}
 </a>].concat(t.subItems.map(renderTocEntry));
 
-export const Toc = ({ toc }: { toc: types.TableOfContentEntry[] }) => <gls.ContentVerticalContentMargined>
-  <txt.H1 id={'toc'}>Table of Contents</txt.H1>
-  <gls.ContentVertical>
-    {
-      toc.map((t) => {
-        return renderTocEntry(t)
-      })
-    }
-  </gls.ContentVertical>
-</gls.ContentVerticalContentMargined>;
+export const Toc = ({
+  toc,
+  pageSubDirName
+}: {
+  toc: types.TableOfContentEntry[],
+  pageSubDirName: string,
+}) => <gls.ContentVerticalContentMargined>
+    <txt.H1 id={'toc'}>Table of Contents</txt.H1>
+    <gls.ContentVertical>
+      {
+        toc.map((t) => {
+          return renderTocEntry(t)
+        })
+      }
+    </gls.ContentVertical>
+  </gls.ContentVerticalContentMargined>;
 
 
 /**
@@ -67,7 +73,7 @@ window.addEventListener('message', (e) => {
     window.location.hash = data.hash;
   }
   else if (data.type === 'IframeC2PRenderComplete') {
-    iframeRenderComplete.emit({iframeId: data.iframeId});
+    iframeRenderComplete.emit({ iframeId: data.iframeId });
   }
   else {
     const _ensure: never = data;

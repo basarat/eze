@@ -42,7 +42,7 @@ ReactDOM.render(
       csstips.verticallySpaced(10)
     )}>
       {/** TOC */}
-      <Toc toc={data.tableOfContents} />
+      <Toc toc={data.tableOfContents} pageSubDirName={pageSubDirName} />
       {/** Docs */}
       {data.contents
         .filter(c => c.pageSubDirName === pageSubDirName)
