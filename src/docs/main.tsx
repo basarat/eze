@@ -37,13 +37,12 @@ render({
 
     .md(`
   # Why?
-  Because its code. 
-
-  Reuse code variables + do fancy **code** stuff like a 👔 . 
-
-  e.g. the color of this text is ${colors.text} 🌹
-
-  Docs in JS/TS have so many of the same advantages as [TypeStyle / CSS in JS](http://typestyle.io/#/why).
+  Opinions (why chose eze over others): 
+  * Documenating components is more than just showing running components. Eze supports markdown. 
+  * TypeScript first. No need to install 10 npm packages to get a basic example working. Single npm install.
+  * You write demos in TypeScript with full TypeScript support (autocomplete / error checking etc).
+  * Eze is just a node application. You are free to use introspective code e.g. the color of this text is ${colors.text} 🌹
+  * Docs in JS/TS have so many of the same advantages as JSX and CSSinJS.
   `)
 
     .md(`
