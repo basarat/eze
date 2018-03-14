@@ -39549,8 +39549,8 @@ var AppRenderer = /** @class */ (function (_super) {
         _this.ctrls = {};
         _this.state = {
             mode: 'auto',
-            viewDemo: false,
-            loading: false,
+            viewCode: false,
+            loading: true,
         };
         return _this;
     }
@@ -39568,31 +39568,30 @@ var AppRenderer = /** @class */ (function (_super) {
         var props = this.props;
         return React.createElement(gls.VerticalMargined, null,
             React.createElement(gls.ContentHorizontalMargined, null,
-                React.createElement(toggle_1.Toggle, { label: "Show Demo", value: this.state.viewDemo, onChange: function () { return _this.setState({ viewDemo: !_this.state.viewDemo, loading: !_this.state.viewDemo }); } }),
                 this.state.loading && React.createElement(loader_1.Loader, null),
                 React.createElement(gls.Flex, null),
                 React.createElement("a", { target: "_blank", href: "./" + props.htmlFileName, title: "Open demo in a new window" },
                     React.createElement(icons.OpenExternal, null))),
-            React.createElement(expandible_1.Expandible, { open: this.state.viewDemo },
-                React.createElement(gls.VerticalMargined, null,
-                    this.state.viewDemo && React.createElement("iframe", { ref: function (frame) { return _this.ctrls.frame = frame; }, className: typestyle_1.classes(AppRendererStyles.iframe, AppRendererStyles[this.state.mode], !!props.height && typestyle_1.style({ height: props.height })), src: "./" + props.htmlFileName, onLoad: function (e) {
+            React.createElement("iframe", { ref: function (frame) { return _this.ctrls.frame = frame; }, className: typestyle_1.classes(AppRendererStyles.iframe, AppRendererStyles[this.state.mode], !!props.height && typestyle_1.style({ height: props.height })), src: "./" + props.htmlFileName, onLoad: function (e) {
+                    if (!props.height)
+                        AppRendererStyles.resizeIframe(_this.ctrls.frame);
+                    _this.setState({ loading: false });
+                } }),
+            React.createElement(gls.ResponsiveGridParent, { breakpoint: 650 },
+                React.createElement(BreakpointButtons, { mode: this.state.mode, onModeChange: function (mode) {
+                        _this.setState({ mode: mode });
+                        setTimeout(function () {
                             if (!props.height)
                                 AppRendererStyles.resizeIframe(_this.ctrls.frame);
-                            _this.setState({ loading: false });
-                        } }),
-                    React.createElement(gls.ResponsiveGridParent, { breakpoint: 650 },
-                        React.createElement(BreakpointButtons, { mode: this.state.mode, onModeChange: function (mode) {
-                                _this.setState({ mode: mode });
-                                setTimeout(function () {
-                                    if (!props.height)
-                                        AppRendererStyles.resizeIframe(_this.ctrls.frame);
-                                }, 500);
-                            } }),
-                        React.createElement(gls.ContentHorizontalMargined, { className: typestyle_1.style(typestyle_1.media({ minWidth: 650 }, csstips.endJustified)) }, !!props.sourceUrl && React.createElement("a", { target: "_blank", href: props.sourceUrl, title: "View Source" },
-                            React.createElement(icons.File, null)))),
-                    React.createElement("div", { className: markdown_1.MarkDownStyles.rootClass },
-                        React.createElement("pre", { className: typestyle_1.style({ margin: '0px' }) },
-                            React.createElement("code", { dangerouslySetInnerHTML: { __html: markdown_1.highlightCodeWithMode(props.sources[0]) } }))))));
+                        }, 500);
+                    } }),
+                React.createElement(gls.ContentHorizontalMargined, { className: typestyle_1.style(typestyle_1.media({ minWidth: 650 }, csstips.endJustified)) }, !!props.sourceUrl && React.createElement("a", { target: "_blank", href: props.sourceUrl, title: "View Source" },
+                    React.createElement(icons.File, null)))),
+            React.createElement(toggle_1.Toggle, { label: "Show Code", value: this.state.viewCode, onChange: function () { return _this.setState({ viewCode: !_this.state.viewCode, loading: !_this.state.viewCode }); } }),
+            React.createElement(expandible_1.Expandible, { open: this.state.viewCode },
+                React.createElement("div", { className: markdown_1.MarkDownStyles.rootClass },
+                    React.createElement("pre", { className: typestyle_1.style({ margin: '0px' }) },
+                        React.createElement("code", { dangerouslySetInnerHTML: { __html: markdown_1.highlightCodeWithMode(props.sources[0]) } })))));
     };
     return AppRenderer;
 }(React.PureComponent));

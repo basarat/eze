@@ -13,7 +13,7 @@ export declare class CodeRenderer extends React.PureComponent<types.CodeContent,
 export declare type AppRensponsiveMode = 'auto' | 'desktop' | 'tablet' | 'mobile';
 export declare class AppRenderer extends React.PureComponent<types.AppContent, {
     mode?: AppRensponsiveMode;
-    viewDemo?: boolean;
+    viewCode?: boolean;
     loading?: boolean;
 }> {
     constructor(props: any);
