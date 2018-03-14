@@ -7,8 +7,8 @@ import * as types from '../types';
 import { mainIndex } from "../app/mainIndex";
 
 export const storyAndAppIndexTemplate = (
-  { index, jsFileName, isStory }
-    : { index: number, jsFileName: string, isStory: boolean }
+  { index, jsFileName }
+    : { index: number, jsFileName: string }
 ) => `
 <!DOCTYPE html>
 <html>
@@ -19,7 +19,7 @@ export const storyAndAppIndexTemplate = (
     <meta name="viewport" content="width=device-width">
 
     <title>Demo: ${index}</title>
-    ${isStory ? `<script src="./data-${index}.js"></script>` : ''}
+    <script src="./data-${index}.js"></script>
 </head>
 <body>
   <div id="root"></div>
@@ -173,7 +173,7 @@ export class Page {
     /** Write the html */
     fse.outputFileSync(
       `${this.config.outputDir}/${this.config.subDirName}/${htmlFileName}`,
-      storyAndAppIndexTemplate({ index, jsFileName, isStory: true })
+      storyAndAppIndexTemplate({ index, jsFileName })
     );
 
     /** Bundle */
@@ -220,7 +220,7 @@ export class Page {
 
     /** Write out the data */
     const data = JSON.stringify(content);
-    fse.outputFileSync(`${this.config.outputDir}/data-${this.entryPointIndex}.js`, `var data = ${JSON.stringify(content)}`);
+    fse.outputFileSync(`${this.config.outputDir}/${this.config.subDirName}/data-${this.entryPointIndex}.js`, `var data = ${JSON.stringify(content)}`);
 
     /** Collect */
     this._data.contents.push(content);
@@ -228,7 +228,7 @@ export class Page {
     /** Write the html */
     fse.outputFileSync(
       `${this.config.outputDir}/${this.config.subDirName}/${htmlFileName}`,
-      storyAndAppIndexTemplate({ index, jsFileName, isStory: false })
+      storyAndAppIndexTemplate({ index, jsFileName })
     );
 
     /** Bundle */
