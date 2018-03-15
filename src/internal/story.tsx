@@ -79,7 +79,7 @@ export class Story {
           csstips.verticallySpaced(10),
           /** Make sure stories don't clip - 6 */
           csstips.maxWidth(900 - 6),
-          csstips.padding(0, 6),
+          csstips.padding(6),
         )}>
           {
             this.stories.map((s, i) => {
