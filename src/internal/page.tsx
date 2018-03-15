@@ -156,9 +156,11 @@ export class Page {
          * Don't remove this lambda.
          * Otherwise `dedent` uses the `index` argument adding the number to output
          */
-        (c) => dedent(c)
+        (c, _mustNotBePassedThrough) => dedent(c)
       ),
-      pageSubDirName: this.config.subDirName
+      pageSubDirName: this.config.subDirName,
+
+      entryPointPath,
     };
     this._data.contents.push(content);
 
@@ -167,7 +169,6 @@ export class Page {
     this.ammendTocWithHeadings(headings, types.makeIframeId(this.entryPointIndex));
 
     /** Write out the data */
-    const data = JSON.stringify(content);
     fse.outputFileSync(`${this.config.outputDir}/${this.config.subDirName}/data-${this.entryPointIndex}.js`, `var data = ${JSON.stringify(content)}`);
 
     /** Write the html */
@@ -265,7 +266,30 @@ export class Page {
       await bundle({
         entryMap: this._bundleCollector,
         outputDirName: this.config.outputDir + '/' + this.config.subDirName,
-        ...(this.config.watch ? { watch: this.config.watch } : {})
+        ...(this.config.watch ? {
+          watch: () => {
+            // re-collect and write the `data` files for all stories
+            // to ensure they get the latest code
+            this._data.contents.forEach(d => {
+              if (d.type !== 'story') return;
+
+              const code = fse.readFileSync(d.entryPointPath).toString();
+              d.demoCodes = getDemoCodes(code).map(
+                /** 
+                 * Don't remove this lambda.
+                 * Otherwise `dedent` uses the `index` argument adding the number to output
+                 */
+                (c, _mustNotBePassedThrough) => dedent(c)
+              );
+
+              /** Write out the data */
+              fse.outputFileSync(`${this.config.outputDir}/${this.config.subDirName}/data-${this.entryPointIndex}.js`, `var data = ${JSON.stringify(d)}`);
+            });
+
+            // also call the parent
+            this.config.watch();
+          }
+        } : {})
       });
     }
   }
