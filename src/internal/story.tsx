@@ -49,7 +49,10 @@ export class Story {
   private stories: StoryEntry[] = [];
 
   private demoIndex = 0;
-  demo(demo: JSX.Element) {
+  demo(demo: JSX.Element | React.ComponentClass<any>) {
+    if (typeof demo === 'function') {
+      demo = React.createElement(demo);
+    }
     const storyData = data as types.StoryContent;
     this.stories.push({ type: 'demo', demo, code: storyData.demoCodes[this.demoIndex++] });
     return this;

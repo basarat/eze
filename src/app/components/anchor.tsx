@@ -3,7 +3,7 @@ import { style, classes } from 'typestyle';
 import * as typestyle from 'typestyle';
 import * as styles from '../../internal/styles';
 
-namespace AnchorStyles {
+export namespace AnchorStyles {
   /** Since we support non HREF anchors we do this as well explicitly */
   const nonHrefAnchor = {
     cursor: 'pointer',
