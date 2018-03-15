@@ -76,8 +76,10 @@ export class Story {
       <div>
         <div className={typestyle.style(
           csstips.horizontallyCenterSelf,
-          csstips.maxWidth(900),
-          csstips.verticallySpaced(10)
+          csstips.verticallySpaced(10),
+          /** Make sure stories don't clip - 6 */
+          csstips.maxWidth(900 - 6),
+          csstips.padding(0, 6),
         )}>
           {
             this.stories.map((s, i) => {
