@@ -19169,6 +19169,9 @@ var Story = /** @class */ (function () {
         csstips.setupPage('#root');
     }
     Story.prototype.demo = function (demo) {
+        if (typeof demo === 'function') {
+            demo = React.createElement(demo);
+        }
         var storyData = data;
         this.stories.push({ type: 'demo', demo: demo, code: storyData.demoCodes[this.demoIndex++] });
         return this;

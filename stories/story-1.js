@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 20);
+/******/ 	return __webpack_require__(__webpack_require__.s = 21);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -80,9 +80,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "style", function() { return style; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stylesheet", function() { return stylesheet; });
 /* harmony export (immutable) */ __webpack_exports__["createTypeStyle"] = createTypeStyle;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__internal_typestyle__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__internal_typestyle__ = __webpack_require__(39);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "TypeStyle", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_typestyle__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__types__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__types__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__types__);
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "types", function() { return __WEBPACK_IMPORTED_MODULE_1__types__; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_utilities__ = __webpack_require__(18);
@@ -362,9 +362,9 @@ process.umask = function() { return 0; };
 /* WEBPACK VAR INJECTION */(function(process) {
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports = __webpack_require__(23);
-} else {
   module.exports = __webpack_require__(24);
+} else {
+  module.exports = __webpack_require__(25);
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
@@ -702,14 +702,14 @@ exports.__esModule = true;
 /**
  * TODO: move out to csstips
  */
-__export(__webpack_require__(41));
 __export(__webpack_require__(42));
 __export(__webpack_require__(43));
-__export(__webpack_require__(19));
 __export(__webpack_require__(44));
+__export(__webpack_require__(19));
 __export(__webpack_require__(45));
 __export(__webpack_require__(46));
 __export(__webpack_require__(47));
+__export(__webpack_require__(48));
 
 
 /***/ }),
@@ -729,7 +729,7 @@ __export(__webpack_require__(47));
 if (process.env.NODE_ENV !== 'production') {
   var invariant = __webpack_require__(7);
   var warning = __webpack_require__(8);
-  var ReactPropTypesSecret = __webpack_require__(25);
+  var ReactPropTypesSecret = __webpack_require__(26);
   var loggedTypeFailures = {};
 }
 
@@ -1028,7 +1028,7 @@ module.exports = shallowEqual;
  * 
  */
 
-var isTextNode = __webpack_require__(28);
+var isTextNode = __webpack_require__(29);
 
 /*eslint-disable no-bitwise */
 
@@ -1791,13 +1791,64 @@ exports.width = function (value) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var client_1 = __webpack_require__(21);
 var React = __webpack_require__(2);
-var anchor_1 = __webpack_require__(229);
-client_1.story()
-    .demo(React.createElement(anchor_1.Anchor, { href: "https://twitter.com/basarat", target: "_blank" }, "As an example click here to open twitter"))
-    .demo(React.createElement(anchor_1.Anchor, { href: "https://github.com/basarat/eze", target: "_blank" }, "Or click here to open github"))
-    .render();
+var typestyle_1 = __webpack_require__(0);
+var typestyle = __webpack_require__(0);
+var styles = __webpack_require__(6);
+var AnchorStyles;
+(function (AnchorStyles) {
+    /** Since we support non HREF anchors we do this as well explicitly */
+    var nonHrefAnchor = {
+        cursor: 'pointer',
+        textDecoration: 'underline',
+        background: 'transparent',
+        border: 'none',
+        padding: '0px',
+    };
+    AnchorStyles.rootClassName = typestyle.style(nonHrefAnchor, {
+        color: styles.colors.text,
+        $nest: {
+            '&:hover': {
+                color: styles.colors.headerHover,
+            },
+            '&:focus': {
+                outline: 'thin dotted',
+                outlineColor: styles.colors.text
+            }
+        }
+    });
+    AnchorStyles.anchorLookingLikeButton = typestyle_1.style({
+        cursor: 'pointer',
+        height: 'auto',
+        padding: "12px 30px 11px",
+        border: "1px solid " + styles.colors.header,
+        borderRadius: '3px',
+        color: styles.colors.white,
+        backgroundColor: styles.colors.header,
+        fontSize: styles.fontSizes.buttonText,
+        textDecoration: "none",
+        lineHeight: "1em",
+        outline: 'none',
+        transition: 'color .2s, background-color .2s',
+        display: 'inline-block',
+        $nest: {
+            '&:hover': {
+                backgroundColor: styles.colors.headerHover,
+            },
+            '&:active': {
+                backgroundColor: styles.colors.headerHover,
+            },
+            '&:focus': {
+                outline: 'thin dotted',
+                outlineColor: styles.colors.header
+            }
+        }
+    });
+})(AnchorStyles = exports.AnchorStyles || (exports.AnchorStyles = {}));
+exports.Anchor = function (props) {
+    return (React.createElement("a", { className: typestyle_1.classes(AnchorStyles.rootClassName, props.className), id: props.id, href: props.href, target: props.target, onClick: props.onClick }, props.children));
+};
+exports.AnchorButton = function (props) { return React.createElement("a", { className: AnchorStyles.anchorLookingLikeButton, href: props.href }, props.children); };
 
 
 /***/ }),
@@ -1806,11 +1857,55 @@ client_1.story()
 
 "use strict";
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var client_1 = __webpack_require__(22);
+var React = __webpack_require__(2);
+var anchor_1 = __webpack_require__(20);
+var buttons_1 = __webpack_require__(230);
+client_1.story()
+    .demo(React.createElement(anchor_1.Anchor, { href: "https://twitter.com/basarat", target: "_blank" }, "As an example click here to open twitter"))
+    .demo(React.createElement(anchor_1.Anchor, { href: "https://github.com/basarat/eze", target: "_blank" }, "Or click here to open github"))
+    .demo(/** @class */ (function (_super) {
+    __extends(App, _super);
+    function App() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.state = {
+            count: 0
+        };
+        _this.increment = function () {
+            _this.setState({ count: _this.state.count + 1 });
+        };
+        return _this;
+    }
+    App.prototype.render = function () {
+        return React.createElement(buttons_1.Button, { text: 'Click count: ' + this.state.count, onClick: this.increment });
+    };
+    return App;
+}(React.Component)))
+    .render();
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * @module used by applications to add stories to the documentation
  */
-var story_1 = __webpack_require__(22);
+var story_1 = __webpack_require__(23);
 /** Create a story */
 exports.story = function () { return new story_1.Story(); };
 /** Request a frame resize */
@@ -1818,7 +1913,7 @@ exports.resize = story_1.sendResizeRequest;
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1828,14 +1923,14 @@ exports.resize = story_1.sendResizeRequest;
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(2);
-var ReactDOM = __webpack_require__(26);
-var markdown_1 = __webpack_require__(35);
-var gls = __webpack_require__(226);
+var ReactDOM = __webpack_require__(27);
+var markdown_1 = __webpack_require__(36);
+var gls = __webpack_require__(227);
 var typestyle = __webpack_require__(0);
 var csstips = __webpack_require__(9);
 var styles = __webpack_require__(6);
-var txt = __webpack_require__(227);
-var types = __webpack_require__(228);
+var txt = __webpack_require__(228);
+var types = __webpack_require__(229);
 var typestyle_1 = __webpack_require__(0);
 var createdOnce = false;
 var Story = /** @class */ (function () {
@@ -1855,6 +1950,9 @@ var Story = /** @class */ (function () {
         csstips.setupPage('#root');
     }
     Story.prototype.demo = function (demo) {
+        if (typeof demo === 'function') {
+            demo = React.createElement(demo);
+        }
         var storyData = data;
         this.stories.push({ type: 'demo', demo: demo, code: storyData.demoCodes[this.demoIndex++] });
         return this;
@@ -1930,7 +2028,7 @@ window.addEventListener("hashchange", function () {
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1958,7 +2056,7 @@ isValidElement:K,version:"16.2.0",__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_F
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3323,7 +3421,7 @@ module.exports = react;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3342,7 +3440,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3380,15 +3478,15 @@ if (process.env.NODE_ENV === 'production') {
   // DCE check should happen before ReactDOM bundle executes so that
   // DevTools can report bad minification during injection.
   checkDCE();
-  module.exports = __webpack_require__(27);
+  module.exports = __webpack_require__(28);
 } else {
-  module.exports = __webpack_require__(30);
+  module.exports = __webpack_require__(31);
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3624,7 +3722,7 @@ Z.injectIntoDevTools({findFiberByHostInstance:pb,bundleType:0,version:"16.2.0",r
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3639,7 +3737,7 @@ Z.injectIntoDevTools({findFiberByHostInstance:pb,bundleType:0,version:"16.2.0",r
  * @typechecks
  */
 
-var isNode = __webpack_require__(29);
+var isNode = __webpack_require__(30);
 
 /**
  * @param {*} object The object to check.
@@ -3652,7 +3750,7 @@ function isTextNode(object) {
 module.exports = isTextNode;
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3680,7 +3778,7 @@ function isNode(object) {
 module.exports = isNode;
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3714,8 +3812,8 @@ var containsNode = __webpack_require__(15);
 var focusNode = __webpack_require__(16);
 var emptyObject = __webpack_require__(5);
 var checkPropTypes = __webpack_require__(10);
-var hyphenateStyleName = __webpack_require__(31);
-var camelizeStyleName = __webpack_require__(33);
+var hyphenateStyleName = __webpack_require__(32);
+var camelizeStyleName = __webpack_require__(34);
 
 /**
  * WARNING: DO NOT manually require this module.
@@ -19082,7 +19180,7 @@ module.exports = reactDom;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19097,7 +19195,7 @@ module.exports = reactDom;
 
 
 
-var hyphenate = __webpack_require__(32);
+var hyphenate = __webpack_require__(33);
 
 var msPattern = /^ms-/;
 
@@ -19124,7 +19222,7 @@ function hyphenateStyleName(string) {
 module.exports = hyphenateStyleName;
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19160,7 +19258,7 @@ function hyphenate(string) {
 module.exports = hyphenate;
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19175,7 +19273,7 @@ module.exports = hyphenate;
 
 
 
-var camelize = __webpack_require__(34);
+var camelize = __webpack_require__(35);
 
 var msPattern = /^-ms-/;
 
@@ -19203,7 +19301,7 @@ function camelizeStyleName(string) {
 module.exports = camelizeStyleName;
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19238,7 +19336,7 @@ function camelize(string) {
 module.exports = camelize;
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19255,11 +19353,11 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(2);
-var marked = __webpack_require__(36);
+var marked = __webpack_require__(37);
 var typestyle_1 = __webpack_require__(0);
 var csstips = __webpack_require__(9);
 var styles_1 = __webpack_require__(6);
-var hljs = __webpack_require__(48);
+var hljs = __webpack_require__(49);
 /** Highlight code */
 typestyle_1.cssRaw("\n/**\n * Copied from \"node_modules/hightlight.js/styles/default.css\" \n */\n/*\n\nOriginal highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>\n\n*/\n\n.hljs {\n  display: block;\n  overflow-x: auto;\n  padding: 0.5em;\n  background: #F0F0F0;\n}\n\n\n/* Base color: saturation 0; */\n\n.hljs,\n.hljs-subst {\n  color: #444;\n}\n\n.hljs-comment {\n  color: #888888;\n}\n\n.hljs-keyword,\n.hljs-attribute,\n.hljs-selector-tag,\n.hljs-meta-keyword,\n.hljs-doctag,\n.hljs-name {\n  font-weight: bold;\n}\n\n\n/* User color: hue: 0 */\n\n.hljs-type,\n.hljs-string,\n.hljs-number,\n.hljs-selector-id,\n.hljs-selector-class,\n.hljs-quote,\n.hljs-template-tag,\n.hljs-deletion {\n  color: #880000;\n}\n\n.hljs-title,\n.hljs-section {\n  color: #880000;\n  font-weight: bold;\n}\n\n.hljs-regexp,\n.hljs-symbol,\n.hljs-variable,\n.hljs-template-variable,\n.hljs-link,\n.hljs-selector-attr,\n.hljs-selector-pseudo {\n  color: #BC6060;\n}\n\n\n/* Language color: hue: 90; */\n\n.hljs-literal {\n  color: #78A960;\n}\n\n.hljs-built_in,\n.hljs-bullet,\n.hljs-code,\n.hljs-addition {\n  color: #397300;\n}\n\n\n/* Meta color: hue: 200 */\n\n.hljs-meta {\n  color: #1f7199;\n}\n\n.hljs-meta-string {\n  color: #4d99bf;\n}\n\n\n/* Misc effects */\n\n.hljs-emphasis {\n  font-style: italic;\n}\n\n.hljs-strong {\n  font-weight: bold;\n}\n");
 function highlightCodeWithMode(args) {
@@ -19405,7 +19503,7 @@ exports.MarkDown = MarkDown;
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -20792,10 +20890,10 @@ if (true) {
 }
 })(this || (typeof window !== 'undefined' ? window : global));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(37)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(38)))
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports) {
 
 var g;
@@ -20822,12 +20920,12 @@ module.exports = g;
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TypeStyle; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__formatting__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__formatting__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utilities__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_free_style__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_free_style___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_free_style__);
@@ -21036,7 +21134,7 @@ var TypeStyle = (function () {
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21095,13 +21193,13 @@ function explodeKeyframes(frames) {
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports) {
 
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21113,7 +21211,7 @@ exports.fontWeightBold = { fontWeight: 'bold' };
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21323,7 +21421,7 @@ exports.selfStretch = {
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21405,7 +21503,7 @@ exports.pageLeft = typestyle_1.extend(fixed, {
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21433,7 +21531,7 @@ exports.someChildWillScroll = {
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21454,7 +21552,7 @@ exports.invisible = {
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21484,7 +21582,7 @@ exports.normalize = normalize;
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21521,192 +21619,192 @@ exports.setupPage = setupPage;
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var hljs = __webpack_require__(49);
+var hljs = __webpack_require__(50);
 
-hljs.registerLanguage('1c', __webpack_require__(50));
-hljs.registerLanguage('abnf', __webpack_require__(51));
-hljs.registerLanguage('accesslog', __webpack_require__(52));
-hljs.registerLanguage('actionscript', __webpack_require__(53));
-hljs.registerLanguage('ada', __webpack_require__(54));
-hljs.registerLanguage('apache', __webpack_require__(55));
-hljs.registerLanguage('applescript', __webpack_require__(56));
-hljs.registerLanguage('cpp', __webpack_require__(57));
-hljs.registerLanguage('arduino', __webpack_require__(58));
-hljs.registerLanguage('armasm', __webpack_require__(59));
-hljs.registerLanguage('xml', __webpack_require__(60));
-hljs.registerLanguage('asciidoc', __webpack_require__(61));
-hljs.registerLanguage('aspectj', __webpack_require__(62));
-hljs.registerLanguage('autohotkey', __webpack_require__(63));
-hljs.registerLanguage('autoit', __webpack_require__(64));
-hljs.registerLanguage('avrasm', __webpack_require__(65));
-hljs.registerLanguage('awk', __webpack_require__(66));
-hljs.registerLanguage('axapta', __webpack_require__(67));
-hljs.registerLanguage('bash', __webpack_require__(68));
-hljs.registerLanguage('basic', __webpack_require__(69));
-hljs.registerLanguage('bnf', __webpack_require__(70));
-hljs.registerLanguage('brainfuck', __webpack_require__(71));
-hljs.registerLanguage('cal', __webpack_require__(72));
-hljs.registerLanguage('capnproto', __webpack_require__(73));
-hljs.registerLanguage('ceylon', __webpack_require__(74));
-hljs.registerLanguage('clean', __webpack_require__(75));
-hljs.registerLanguage('clojure', __webpack_require__(76));
-hljs.registerLanguage('clojure-repl', __webpack_require__(77));
-hljs.registerLanguage('cmake', __webpack_require__(78));
-hljs.registerLanguage('coffeescript', __webpack_require__(79));
-hljs.registerLanguage('coq', __webpack_require__(80));
-hljs.registerLanguage('cos', __webpack_require__(81));
-hljs.registerLanguage('crmsh', __webpack_require__(82));
-hljs.registerLanguage('crystal', __webpack_require__(83));
-hljs.registerLanguage('cs', __webpack_require__(84));
-hljs.registerLanguage('csp', __webpack_require__(85));
-hljs.registerLanguage('css', __webpack_require__(86));
-hljs.registerLanguage('d', __webpack_require__(87));
-hljs.registerLanguage('markdown', __webpack_require__(88));
-hljs.registerLanguage('dart', __webpack_require__(89));
-hljs.registerLanguage('delphi', __webpack_require__(90));
-hljs.registerLanguage('diff', __webpack_require__(91));
-hljs.registerLanguage('django', __webpack_require__(92));
-hljs.registerLanguage('dns', __webpack_require__(93));
-hljs.registerLanguage('dockerfile', __webpack_require__(94));
-hljs.registerLanguage('dos', __webpack_require__(95));
-hljs.registerLanguage('dsconfig', __webpack_require__(96));
-hljs.registerLanguage('dts', __webpack_require__(97));
-hljs.registerLanguage('dust', __webpack_require__(98));
-hljs.registerLanguage('ebnf', __webpack_require__(99));
-hljs.registerLanguage('elixir', __webpack_require__(100));
-hljs.registerLanguage('elm', __webpack_require__(101));
-hljs.registerLanguage('ruby', __webpack_require__(102));
-hljs.registerLanguage('erb', __webpack_require__(103));
-hljs.registerLanguage('erlang-repl', __webpack_require__(104));
-hljs.registerLanguage('erlang', __webpack_require__(105));
-hljs.registerLanguage('excel', __webpack_require__(106));
-hljs.registerLanguage('fix', __webpack_require__(107));
-hljs.registerLanguage('flix', __webpack_require__(108));
-hljs.registerLanguage('fortran', __webpack_require__(109));
-hljs.registerLanguage('fsharp', __webpack_require__(110));
-hljs.registerLanguage('gams', __webpack_require__(111));
-hljs.registerLanguage('gauss', __webpack_require__(112));
-hljs.registerLanguage('gcode', __webpack_require__(113));
-hljs.registerLanguage('gherkin', __webpack_require__(114));
-hljs.registerLanguage('glsl', __webpack_require__(115));
-hljs.registerLanguage('go', __webpack_require__(116));
-hljs.registerLanguage('golo', __webpack_require__(117));
-hljs.registerLanguage('gradle', __webpack_require__(118));
-hljs.registerLanguage('groovy', __webpack_require__(119));
-hljs.registerLanguage('haml', __webpack_require__(120));
-hljs.registerLanguage('handlebars', __webpack_require__(121));
-hljs.registerLanguage('haskell', __webpack_require__(122));
-hljs.registerLanguage('haxe', __webpack_require__(123));
-hljs.registerLanguage('hsp', __webpack_require__(124));
-hljs.registerLanguage('htmlbars', __webpack_require__(125));
-hljs.registerLanguage('http', __webpack_require__(126));
-hljs.registerLanguage('hy', __webpack_require__(127));
-hljs.registerLanguage('inform7', __webpack_require__(128));
-hljs.registerLanguage('ini', __webpack_require__(129));
-hljs.registerLanguage('irpf90', __webpack_require__(130));
-hljs.registerLanguage('java', __webpack_require__(131));
-hljs.registerLanguage('javascript', __webpack_require__(132));
-hljs.registerLanguage('jboss-cli', __webpack_require__(133));
-hljs.registerLanguage('json', __webpack_require__(134));
-hljs.registerLanguage('julia', __webpack_require__(135));
-hljs.registerLanguage('julia-repl', __webpack_require__(136));
-hljs.registerLanguage('kotlin', __webpack_require__(137));
-hljs.registerLanguage('lasso', __webpack_require__(138));
-hljs.registerLanguage('ldif', __webpack_require__(139));
-hljs.registerLanguage('leaf', __webpack_require__(140));
-hljs.registerLanguage('less', __webpack_require__(141));
-hljs.registerLanguage('lisp', __webpack_require__(142));
-hljs.registerLanguage('livecodeserver', __webpack_require__(143));
-hljs.registerLanguage('livescript', __webpack_require__(144));
-hljs.registerLanguage('llvm', __webpack_require__(145));
-hljs.registerLanguage('lsl', __webpack_require__(146));
-hljs.registerLanguage('lua', __webpack_require__(147));
-hljs.registerLanguage('makefile', __webpack_require__(148));
-hljs.registerLanguage('mathematica', __webpack_require__(149));
-hljs.registerLanguage('matlab', __webpack_require__(150));
-hljs.registerLanguage('maxima', __webpack_require__(151));
-hljs.registerLanguage('mel', __webpack_require__(152));
-hljs.registerLanguage('mercury', __webpack_require__(153));
-hljs.registerLanguage('mipsasm', __webpack_require__(154));
-hljs.registerLanguage('mizar', __webpack_require__(155));
-hljs.registerLanguage('perl', __webpack_require__(156));
-hljs.registerLanguage('mojolicious', __webpack_require__(157));
-hljs.registerLanguage('monkey', __webpack_require__(158));
-hljs.registerLanguage('moonscript', __webpack_require__(159));
-hljs.registerLanguage('n1ql', __webpack_require__(160));
-hljs.registerLanguage('nginx', __webpack_require__(161));
-hljs.registerLanguage('nimrod', __webpack_require__(162));
-hljs.registerLanguage('nix', __webpack_require__(163));
-hljs.registerLanguage('nsis', __webpack_require__(164));
-hljs.registerLanguage('objectivec', __webpack_require__(165));
-hljs.registerLanguage('ocaml', __webpack_require__(166));
-hljs.registerLanguage('openscad', __webpack_require__(167));
-hljs.registerLanguage('oxygene', __webpack_require__(168));
-hljs.registerLanguage('parser3', __webpack_require__(169));
-hljs.registerLanguage('pf', __webpack_require__(170));
-hljs.registerLanguage('php', __webpack_require__(171));
-hljs.registerLanguage('pony', __webpack_require__(172));
-hljs.registerLanguage('powershell', __webpack_require__(173));
-hljs.registerLanguage('processing', __webpack_require__(174));
-hljs.registerLanguage('profile', __webpack_require__(175));
-hljs.registerLanguage('prolog', __webpack_require__(176));
-hljs.registerLanguage('protobuf', __webpack_require__(177));
-hljs.registerLanguage('puppet', __webpack_require__(178));
-hljs.registerLanguage('purebasic', __webpack_require__(179));
-hljs.registerLanguage('python', __webpack_require__(180));
-hljs.registerLanguage('q', __webpack_require__(181));
-hljs.registerLanguage('qml', __webpack_require__(182));
-hljs.registerLanguage('r', __webpack_require__(183));
-hljs.registerLanguage('rib', __webpack_require__(184));
-hljs.registerLanguage('roboconf', __webpack_require__(185));
-hljs.registerLanguage('routeros', __webpack_require__(186));
-hljs.registerLanguage('rsl', __webpack_require__(187));
-hljs.registerLanguage('ruleslanguage', __webpack_require__(188));
-hljs.registerLanguage('rust', __webpack_require__(189));
-hljs.registerLanguage('scala', __webpack_require__(190));
-hljs.registerLanguage('scheme', __webpack_require__(191));
-hljs.registerLanguage('scilab', __webpack_require__(192));
-hljs.registerLanguage('scss', __webpack_require__(193));
-hljs.registerLanguage('shell', __webpack_require__(194));
-hljs.registerLanguage('smali', __webpack_require__(195));
-hljs.registerLanguage('smalltalk', __webpack_require__(196));
-hljs.registerLanguage('sml', __webpack_require__(197));
-hljs.registerLanguage('sqf', __webpack_require__(198));
-hljs.registerLanguage('sql', __webpack_require__(199));
-hljs.registerLanguage('stan', __webpack_require__(200));
-hljs.registerLanguage('stata', __webpack_require__(201));
-hljs.registerLanguage('step21', __webpack_require__(202));
-hljs.registerLanguage('stylus', __webpack_require__(203));
-hljs.registerLanguage('subunit', __webpack_require__(204));
-hljs.registerLanguage('swift', __webpack_require__(205));
-hljs.registerLanguage('taggerscript', __webpack_require__(206));
-hljs.registerLanguage('yaml', __webpack_require__(207));
-hljs.registerLanguage('tap', __webpack_require__(208));
-hljs.registerLanguage('tcl', __webpack_require__(209));
-hljs.registerLanguage('tex', __webpack_require__(210));
-hljs.registerLanguage('thrift', __webpack_require__(211));
-hljs.registerLanguage('tp', __webpack_require__(212));
-hljs.registerLanguage('twig', __webpack_require__(213));
-hljs.registerLanguage('typescript', __webpack_require__(214));
-hljs.registerLanguage('vala', __webpack_require__(215));
-hljs.registerLanguage('vbnet', __webpack_require__(216));
-hljs.registerLanguage('vbscript', __webpack_require__(217));
-hljs.registerLanguage('vbscript-html', __webpack_require__(218));
-hljs.registerLanguage('verilog', __webpack_require__(219));
-hljs.registerLanguage('vhdl', __webpack_require__(220));
-hljs.registerLanguage('vim', __webpack_require__(221));
-hljs.registerLanguage('x86asm', __webpack_require__(222));
-hljs.registerLanguage('xl', __webpack_require__(223));
-hljs.registerLanguage('xquery', __webpack_require__(224));
-hljs.registerLanguage('zephir', __webpack_require__(225));
+hljs.registerLanguage('1c', __webpack_require__(51));
+hljs.registerLanguage('abnf', __webpack_require__(52));
+hljs.registerLanguage('accesslog', __webpack_require__(53));
+hljs.registerLanguage('actionscript', __webpack_require__(54));
+hljs.registerLanguage('ada', __webpack_require__(55));
+hljs.registerLanguage('apache', __webpack_require__(56));
+hljs.registerLanguage('applescript', __webpack_require__(57));
+hljs.registerLanguage('cpp', __webpack_require__(58));
+hljs.registerLanguage('arduino', __webpack_require__(59));
+hljs.registerLanguage('armasm', __webpack_require__(60));
+hljs.registerLanguage('xml', __webpack_require__(61));
+hljs.registerLanguage('asciidoc', __webpack_require__(62));
+hljs.registerLanguage('aspectj', __webpack_require__(63));
+hljs.registerLanguage('autohotkey', __webpack_require__(64));
+hljs.registerLanguage('autoit', __webpack_require__(65));
+hljs.registerLanguage('avrasm', __webpack_require__(66));
+hljs.registerLanguage('awk', __webpack_require__(67));
+hljs.registerLanguage('axapta', __webpack_require__(68));
+hljs.registerLanguage('bash', __webpack_require__(69));
+hljs.registerLanguage('basic', __webpack_require__(70));
+hljs.registerLanguage('bnf', __webpack_require__(71));
+hljs.registerLanguage('brainfuck', __webpack_require__(72));
+hljs.registerLanguage('cal', __webpack_require__(73));
+hljs.registerLanguage('capnproto', __webpack_require__(74));
+hljs.registerLanguage('ceylon', __webpack_require__(75));
+hljs.registerLanguage('clean', __webpack_require__(76));
+hljs.registerLanguage('clojure', __webpack_require__(77));
+hljs.registerLanguage('clojure-repl', __webpack_require__(78));
+hljs.registerLanguage('cmake', __webpack_require__(79));
+hljs.registerLanguage('coffeescript', __webpack_require__(80));
+hljs.registerLanguage('coq', __webpack_require__(81));
+hljs.registerLanguage('cos', __webpack_require__(82));
+hljs.registerLanguage('crmsh', __webpack_require__(83));
+hljs.registerLanguage('crystal', __webpack_require__(84));
+hljs.registerLanguage('cs', __webpack_require__(85));
+hljs.registerLanguage('csp', __webpack_require__(86));
+hljs.registerLanguage('css', __webpack_require__(87));
+hljs.registerLanguage('d', __webpack_require__(88));
+hljs.registerLanguage('markdown', __webpack_require__(89));
+hljs.registerLanguage('dart', __webpack_require__(90));
+hljs.registerLanguage('delphi', __webpack_require__(91));
+hljs.registerLanguage('diff', __webpack_require__(92));
+hljs.registerLanguage('django', __webpack_require__(93));
+hljs.registerLanguage('dns', __webpack_require__(94));
+hljs.registerLanguage('dockerfile', __webpack_require__(95));
+hljs.registerLanguage('dos', __webpack_require__(96));
+hljs.registerLanguage('dsconfig', __webpack_require__(97));
+hljs.registerLanguage('dts', __webpack_require__(98));
+hljs.registerLanguage('dust', __webpack_require__(99));
+hljs.registerLanguage('ebnf', __webpack_require__(100));
+hljs.registerLanguage('elixir', __webpack_require__(101));
+hljs.registerLanguage('elm', __webpack_require__(102));
+hljs.registerLanguage('ruby', __webpack_require__(103));
+hljs.registerLanguage('erb', __webpack_require__(104));
+hljs.registerLanguage('erlang-repl', __webpack_require__(105));
+hljs.registerLanguage('erlang', __webpack_require__(106));
+hljs.registerLanguage('excel', __webpack_require__(107));
+hljs.registerLanguage('fix', __webpack_require__(108));
+hljs.registerLanguage('flix', __webpack_require__(109));
+hljs.registerLanguage('fortran', __webpack_require__(110));
+hljs.registerLanguage('fsharp', __webpack_require__(111));
+hljs.registerLanguage('gams', __webpack_require__(112));
+hljs.registerLanguage('gauss', __webpack_require__(113));
+hljs.registerLanguage('gcode', __webpack_require__(114));
+hljs.registerLanguage('gherkin', __webpack_require__(115));
+hljs.registerLanguage('glsl', __webpack_require__(116));
+hljs.registerLanguage('go', __webpack_require__(117));
+hljs.registerLanguage('golo', __webpack_require__(118));
+hljs.registerLanguage('gradle', __webpack_require__(119));
+hljs.registerLanguage('groovy', __webpack_require__(120));
+hljs.registerLanguage('haml', __webpack_require__(121));
+hljs.registerLanguage('handlebars', __webpack_require__(122));
+hljs.registerLanguage('haskell', __webpack_require__(123));
+hljs.registerLanguage('haxe', __webpack_require__(124));
+hljs.registerLanguage('hsp', __webpack_require__(125));
+hljs.registerLanguage('htmlbars', __webpack_require__(126));
+hljs.registerLanguage('http', __webpack_require__(127));
+hljs.registerLanguage('hy', __webpack_require__(128));
+hljs.registerLanguage('inform7', __webpack_require__(129));
+hljs.registerLanguage('ini', __webpack_require__(130));
+hljs.registerLanguage('irpf90', __webpack_require__(131));
+hljs.registerLanguage('java', __webpack_require__(132));
+hljs.registerLanguage('javascript', __webpack_require__(133));
+hljs.registerLanguage('jboss-cli', __webpack_require__(134));
+hljs.registerLanguage('json', __webpack_require__(135));
+hljs.registerLanguage('julia', __webpack_require__(136));
+hljs.registerLanguage('julia-repl', __webpack_require__(137));
+hljs.registerLanguage('kotlin', __webpack_require__(138));
+hljs.registerLanguage('lasso', __webpack_require__(139));
+hljs.registerLanguage('ldif', __webpack_require__(140));
+hljs.registerLanguage('leaf', __webpack_require__(141));
+hljs.registerLanguage('less', __webpack_require__(142));
+hljs.registerLanguage('lisp', __webpack_require__(143));
+hljs.registerLanguage('livecodeserver', __webpack_require__(144));
+hljs.registerLanguage('livescript', __webpack_require__(145));
+hljs.registerLanguage('llvm', __webpack_require__(146));
+hljs.registerLanguage('lsl', __webpack_require__(147));
+hljs.registerLanguage('lua', __webpack_require__(148));
+hljs.registerLanguage('makefile', __webpack_require__(149));
+hljs.registerLanguage('mathematica', __webpack_require__(150));
+hljs.registerLanguage('matlab', __webpack_require__(151));
+hljs.registerLanguage('maxima', __webpack_require__(152));
+hljs.registerLanguage('mel', __webpack_require__(153));
+hljs.registerLanguage('mercury', __webpack_require__(154));
+hljs.registerLanguage('mipsasm', __webpack_require__(155));
+hljs.registerLanguage('mizar', __webpack_require__(156));
+hljs.registerLanguage('perl', __webpack_require__(157));
+hljs.registerLanguage('mojolicious', __webpack_require__(158));
+hljs.registerLanguage('monkey', __webpack_require__(159));
+hljs.registerLanguage('moonscript', __webpack_require__(160));
+hljs.registerLanguage('n1ql', __webpack_require__(161));
+hljs.registerLanguage('nginx', __webpack_require__(162));
+hljs.registerLanguage('nimrod', __webpack_require__(163));
+hljs.registerLanguage('nix', __webpack_require__(164));
+hljs.registerLanguage('nsis', __webpack_require__(165));
+hljs.registerLanguage('objectivec', __webpack_require__(166));
+hljs.registerLanguage('ocaml', __webpack_require__(167));
+hljs.registerLanguage('openscad', __webpack_require__(168));
+hljs.registerLanguage('oxygene', __webpack_require__(169));
+hljs.registerLanguage('parser3', __webpack_require__(170));
+hljs.registerLanguage('pf', __webpack_require__(171));
+hljs.registerLanguage('php', __webpack_require__(172));
+hljs.registerLanguage('pony', __webpack_require__(173));
+hljs.registerLanguage('powershell', __webpack_require__(174));
+hljs.registerLanguage('processing', __webpack_require__(175));
+hljs.registerLanguage('profile', __webpack_require__(176));
+hljs.registerLanguage('prolog', __webpack_require__(177));
+hljs.registerLanguage('protobuf', __webpack_require__(178));
+hljs.registerLanguage('puppet', __webpack_require__(179));
+hljs.registerLanguage('purebasic', __webpack_require__(180));
+hljs.registerLanguage('python', __webpack_require__(181));
+hljs.registerLanguage('q', __webpack_require__(182));
+hljs.registerLanguage('qml', __webpack_require__(183));
+hljs.registerLanguage('r', __webpack_require__(184));
+hljs.registerLanguage('rib', __webpack_require__(185));
+hljs.registerLanguage('roboconf', __webpack_require__(186));
+hljs.registerLanguage('routeros', __webpack_require__(187));
+hljs.registerLanguage('rsl', __webpack_require__(188));
+hljs.registerLanguage('ruleslanguage', __webpack_require__(189));
+hljs.registerLanguage('rust', __webpack_require__(190));
+hljs.registerLanguage('scala', __webpack_require__(191));
+hljs.registerLanguage('scheme', __webpack_require__(192));
+hljs.registerLanguage('scilab', __webpack_require__(193));
+hljs.registerLanguage('scss', __webpack_require__(194));
+hljs.registerLanguage('shell', __webpack_require__(195));
+hljs.registerLanguage('smali', __webpack_require__(196));
+hljs.registerLanguage('smalltalk', __webpack_require__(197));
+hljs.registerLanguage('sml', __webpack_require__(198));
+hljs.registerLanguage('sqf', __webpack_require__(199));
+hljs.registerLanguage('sql', __webpack_require__(200));
+hljs.registerLanguage('stan', __webpack_require__(201));
+hljs.registerLanguage('stata', __webpack_require__(202));
+hljs.registerLanguage('step21', __webpack_require__(203));
+hljs.registerLanguage('stylus', __webpack_require__(204));
+hljs.registerLanguage('subunit', __webpack_require__(205));
+hljs.registerLanguage('swift', __webpack_require__(206));
+hljs.registerLanguage('taggerscript', __webpack_require__(207));
+hljs.registerLanguage('yaml', __webpack_require__(208));
+hljs.registerLanguage('tap', __webpack_require__(209));
+hljs.registerLanguage('tcl', __webpack_require__(210));
+hljs.registerLanguage('tex', __webpack_require__(211));
+hljs.registerLanguage('thrift', __webpack_require__(212));
+hljs.registerLanguage('tp', __webpack_require__(213));
+hljs.registerLanguage('twig', __webpack_require__(214));
+hljs.registerLanguage('typescript', __webpack_require__(215));
+hljs.registerLanguage('vala', __webpack_require__(216));
+hljs.registerLanguage('vbnet', __webpack_require__(217));
+hljs.registerLanguage('vbscript', __webpack_require__(218));
+hljs.registerLanguage('vbscript-html', __webpack_require__(219));
+hljs.registerLanguage('verilog', __webpack_require__(220));
+hljs.registerLanguage('vhdl', __webpack_require__(221));
+hljs.registerLanguage('vim', __webpack_require__(222));
+hljs.registerLanguage('x86asm', __webpack_require__(223));
+hljs.registerLanguage('xl', __webpack_require__(224));
+hljs.registerLanguage('xquery', __webpack_require__(225));
+hljs.registerLanguage('zephir', __webpack_require__(226));
 
 module.exports = hljs;
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -22528,7 +22626,7 @@ https://highlightjs.org/
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs){
@@ -23042,7 +23140,7 @@ module.exports = function(hljs){
 };
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -23117,7 +23215,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -23159,7 +23257,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -23237,7 +23335,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports) {
 
 module.exports = // We try to support full Ada2012
@@ -23414,7 +23512,7 @@ function(hljs) {
 };
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -23464,7 +23562,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -23554,7 +23652,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -23733,7 +23831,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -23837,7 +23935,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -23933,7 +24031,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -24040,7 +24138,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -24232,7 +24330,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports) {
 
 module.exports = function (hljs) {
@@ -24381,7 +24479,7 @@ module.exports = function (hljs) {
 };
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -24444,7 +24542,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -24584,7 +24682,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -24650,7 +24748,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -24707,7 +24805,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -24742,7 +24840,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -24821,7 +24919,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -24876,7 +24974,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs){
@@ -24909,7 +25007,7 @@ module.exports = function(hljs){
 };
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs){
@@ -24950,7 +25048,7 @@ module.exports = function(hljs){
 };
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -25034,7 +25132,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -25087,7 +25185,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -25158,7 +25256,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -25187,7 +25285,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -25287,7 +25385,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -25306,7 +25404,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -25348,7 +25446,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -25498,7 +25596,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -25569,7 +25667,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports) {
 
 module.exports = function cos (hljs) {
@@ -25697,7 +25795,7 @@ module.exports = function cos (hljs) {
 };
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -25795,7 +25893,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -25993,7 +26091,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -26174,7 +26272,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -26200,7 +26298,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -26309,7 +26407,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(module, exports) {
 
 module.exports = /**
@@ -26571,7 +26669,7 @@ function(hljs) {
 };
 
 /***/ }),
-/* 88 */
+/* 89 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -26683,7 +26781,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 89 */
+/* 90 */
 /***/ (function(module, exports) {
 
 module.exports = function (hljs) {
@@ -26788,7 +26886,7 @@ module.exports = function (hljs) {
 };
 
 /***/ }),
-/* 90 */
+/* 91 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -26861,7 +26959,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 91 */
+/* 92 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -26905,7 +27003,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 92 */
+/* 93 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -26973,7 +27071,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 93 */
+/* 94 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -27006,7 +27104,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 94 */
+/* 95 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -27032,7 +27130,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 95 */
+/* 96 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -27088,7 +27186,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 96 */
+/* 97 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -27139,7 +27237,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 97 */
+/* 98 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -27267,7 +27365,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 98 */
+/* 99 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -27303,7 +27401,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 99 */
+/* 100 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -27340,7 +27438,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 100 */
+/* 101 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -27441,7 +27539,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 101 */
+/* 102 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -27529,7 +27627,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 102 */
+/* 103 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -27710,7 +27808,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 103 */
+/* 104 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -27729,7 +27827,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 104 */
+/* 105 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -27779,7 +27877,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 105 */
+/* 106 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -27929,7 +28027,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 106 */
+/* 107 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -27981,7 +28079,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 107 */
+/* 108 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -28014,7 +28112,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 108 */
+/* 109 */
 /***/ (function(module, exports) {
 
 module.exports = function (hljs) {
@@ -28063,7 +28161,7 @@ module.exports = function (hljs) {
 };
 
 /***/ }),
-/* 109 */
+/* 110 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -28138,7 +28236,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 110 */
+/* 111 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -28201,7 +28299,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 111 */
+/* 112 */
 /***/ (function(module, exports) {
 
 module.exports = function (hljs) {
@@ -28359,7 +28457,7 @@ module.exports = function (hljs) {
 };
 
 /***/ }),
-/* 112 */
+/* 113 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -28587,7 +28685,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -28658,7 +28756,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 114 */
+/* 115 */
 /***/ (function(module, exports) {
 
 module.exports = function (hljs) {
@@ -28699,7 +28797,7 @@ module.exports = function (hljs) {
 };
 
 /***/ }),
-/* 115 */
+/* 116 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -28820,7 +28918,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 116 */
+/* 117 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -28878,7 +28976,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -28905,7 +29003,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 118 */
+/* 119 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -28944,7 +29042,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -29042,7 +29140,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, exports) {
 
 module.exports = // TODO support filter tags like :javascript, support inline HTML
@@ -29153,7 +29251,7 @@ function(hljs) {
 };
 
 /***/ }),
-/* 121 */
+/* 122 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -29191,7 +29289,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -29317,7 +29415,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -29433,7 +29531,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -29483,7 +29581,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -29558,7 +29656,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -29603,7 +29701,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -29709,7 +29807,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -29770,7 +29868,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -29840,7 +29938,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -29920,7 +30018,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -30032,7 +30130,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 132 */
+/* 133 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -30207,7 +30305,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 133 */
+/* 134 */
 /***/ (function(module, exports) {
 
 module.exports = function (hljs) {
@@ -30258,7 +30356,7 @@ module.exports = function (hljs) {
 };
 
 /***/ }),
-/* 134 */
+/* 135 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -30299,7 +30397,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 135 */
+/* 136 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -30465,7 +30563,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 136 */
+/* 137 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -30493,7 +30591,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 137 */
+/* 138 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -30671,7 +30769,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 138 */
+/* 139 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -30838,7 +30936,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 139 */
+/* 140 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -30865,7 +30963,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 140 */
+/* 141 */
 /***/ (function(module, exports) {
 
 module.exports = function (hljs) {
@@ -30909,7 +31007,7 @@ module.exports = function (hljs) {
 };
 
 /***/ }),
-/* 141 */
+/* 142 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -31053,7 +31151,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 142 */
+/* 143 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -31160,7 +31258,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 143 */
+/* 144 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -31321,7 +31419,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 144 */
+/* 145 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -31474,7 +31572,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 145 */
+/* 146 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -31567,7 +31665,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 146 */
+/* 147 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -31654,7 +31752,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 147 */
+/* 148 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -31724,7 +31822,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 148 */
+/* 149 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -31809,7 +31907,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 149 */
+/* 150 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -31871,7 +31969,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 150 */
+/* 151 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -31963,7 +32061,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 151 */
+/* 152 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -32373,7 +32471,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 152 */
+/* 153 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -32602,7 +32700,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 153 */
+/* 154 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -32688,7 +32786,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 154 */
+/* 155 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -32778,7 +32876,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 155 */
+/* 156 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -32801,7 +32899,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 156 */
+/* 157 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -32962,7 +33060,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 157 */
+/* 158 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -32991,7 +33089,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 158 */
+/* 159 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -33070,7 +33168,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 159 */
+/* 160 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -33186,7 +33284,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 160 */
+/* 161 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -33259,7 +33357,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 161 */
+/* 162 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -33356,7 +33454,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 162 */
+/* 163 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -33415,7 +33513,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 163 */
+/* 164 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -33468,7 +33566,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 164 */
+/* 165 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -33578,7 +33676,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 165 */
+/* 166 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -33673,7 +33771,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 166 */
+/* 167 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -33748,7 +33846,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 167 */
+/* 168 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -33809,7 +33907,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 168 */
+/* 169 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -33883,7 +33981,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 169 */
+/* 170 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -33935,7 +34033,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 170 */
+/* 171 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -33991,7 +34089,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 171 */
+/* 172 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -34122,7 +34220,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 172 */
+/* 173 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -34217,7 +34315,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 173 */
+/* 174 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -34302,7 +34400,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 174 */
+/* 175 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -34354,7 +34452,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 175 */
+/* 176 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -34388,7 +34486,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 176 */
+/* 177 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -34480,7 +34578,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 177 */
+/* 178 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -34520,7 +34618,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 178 */
+/* 179 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -34639,7 +34737,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 179 */
+/* 180 */
 /***/ (function(module, exports) {
 
 module.exports = // Base deafult colors in PB IDE: background: #FFFFDF; foreground: #000000;
@@ -34701,7 +34799,7 @@ function(hljs) {
 };
 
 /***/ }),
-/* 180 */
+/* 181 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -34821,7 +34919,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 181 */
+/* 182 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -34848,7 +34946,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 182 */
+/* 183 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -35021,7 +35119,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 183 */
+/* 184 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -35095,7 +35193,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 184 */
+/* 185 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -35126,7 +35224,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 185 */
+/* 186 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -35197,7 +35295,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 186 */
+/* 187 */
 /***/ (function(module, exports) {
 
 module.exports = // Colors from RouterOS terminal:
@@ -35360,7 +35458,7 @@ function(hljs) {
 };
 
 /***/ }),
-/* 187 */
+/* 188 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -35400,7 +35498,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 188 */
+/* 189 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -35465,7 +35563,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 189 */
+/* 190 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -35577,7 +35675,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 190 */
+/* 191 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -35696,7 +35794,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 191 */
+/* 192 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -35844,7 +35942,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 192 */
+/* 193 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -35902,7 +36000,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 193 */
+/* 194 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -36004,7 +36102,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 194 */
+/* 195 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -36023,7 +36121,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 195 */
+/* 196 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -36083,7 +36181,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 196 */
+/* 197 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -36137,7 +36235,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 197 */
+/* 198 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -36207,7 +36305,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 198 */
+/* 199 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -36582,7 +36680,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 199 */
+/* 200 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -36746,7 +36844,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 200 */
+/* 201 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -36833,7 +36931,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 201 */
+/* 202 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -36875,7 +36973,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 202 */
+/* 203 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -36926,7 +37024,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 203 */
+/* 204 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -37384,7 +37482,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 204 */
+/* 205 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -37422,7 +37520,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 205 */
+/* 206 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -37543,7 +37641,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 206 */
+/* 207 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -37591,7 +37689,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 207 */
+/* 208 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -37683,7 +37781,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 208 */
+/* 209 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -37723,7 +37821,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 209 */
+/* 210 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -37788,7 +37886,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 210 */
+/* 211 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -37854,7 +37952,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 211 */
+/* 212 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -37893,7 +37991,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 212 */
+/* 213 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -37981,7 +38079,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 213 */
+/* 214 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -38051,7 +38149,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 214 */
+/* 215 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -38211,7 +38309,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 215 */
+/* 216 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -38265,7 +38363,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 216 */
+/* 217 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -38325,7 +38423,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 217 */
+/* 218 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -38368,7 +38466,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 218 */
+/* 219 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -38384,7 +38482,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 219 */
+/* 220 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -38487,7 +38585,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 220 */
+/* 221 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -38552,7 +38650,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 221 */
+/* 222 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -38662,7 +38760,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 222 */
+/* 223 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -38802,7 +38900,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 223 */
+/* 224 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -38879,7 +38977,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 224 */
+/* 225 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -38954,7 +39052,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 225 */
+/* 226 */
 /***/ (function(module, exports) {
 
 module.exports = function(hljs) {
@@ -39065,7 +39163,7 @@ module.exports = function(hljs) {
 };
 
 /***/ }),
-/* 226 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39355,7 +39453,7 @@ exports.VerticalMargined.displayName = "VerticalMargined";
 
 
 /***/ }),
-/* 227 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39391,7 +39489,7 @@ exports.H1 = function (_a) {
 
 
 /***/ }),
-/* 228 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39405,70 +39503,17 @@ exports.makeIframeId = makeIframeId;
 
 
 /***/ }),
-/* 229 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(2);
-var typestyle_1 = __webpack_require__(0);
-var typestyle = __webpack_require__(0);
-var styles = __webpack_require__(6);
-var AnchorStyles;
-(function (AnchorStyles) {
-    /** Since we support non HREF anchors we do this as well explicitly */
-    var nonHrefAnchor = {
-        cursor: 'pointer',
-        textDecoration: 'underline',
-        background: 'transparent',
-        border: 'none',
-        padding: '0px',
-    };
-    AnchorStyles.rootClassName = typestyle.style(nonHrefAnchor, {
-        color: styles.colors.text,
-        $nest: {
-            '&:hover': {
-                color: styles.colors.headerHover,
-            },
-            '&:focus': {
-                outline: 'thin dotted',
-                outlineColor: styles.colors.text
-            }
-        }
-    });
-    AnchorStyles.anchorLookingLikeButton = typestyle_1.style({
-        cursor: 'pointer',
-        height: 'auto',
-        padding: "12px 30px 11px",
-        border: "1px solid " + styles.colors.header,
-        borderRadius: '3px',
-        color: styles.colors.white,
-        backgroundColor: styles.colors.header,
-        fontSize: styles.fontSizes.buttonText,
-        textDecoration: "none",
-        lineHeight: "1em",
-        outline: 'none',
-        transition: 'color .2s, background-color .2s',
-        display: 'inline-block',
-        $nest: {
-            '&:hover': {
-                backgroundColor: styles.colors.headerHover,
-            },
-            '&:active': {
-                backgroundColor: styles.colors.headerHover,
-            },
-            '&:focus': {
-                outline: 'thin dotted',
-                outlineColor: styles.colors.header
-            }
-        }
-    });
-})(AnchorStyles || (AnchorStyles = {}));
-exports.Anchor = function (props) {
-    return (React.createElement("a", { className: typestyle_1.classes(AnchorStyles.rootClassName, props.className), id: props.id, href: props.href, target: props.target, onClick: props.onClick }, props.children));
+var anchor_1 = __webpack_require__(20);
+exports.Button = function (props) {
+    return (React.createElement("button", { className: anchor_1.AnchorStyles.anchorLookingLikeButton, onClick: props.onClick }, props.text));
 };
-exports.AnchorButton = function (props) { return React.createElement("a", { className: AnchorStyles.anchorLookingLikeButton, href: props.href }, props.children); };
 
 
 /***/ })

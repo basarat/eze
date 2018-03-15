@@ -41241,7 +41241,7 @@ var AnchorStyles;
             }
         }
     });
-})(AnchorStyles || (AnchorStyles = {}));
+})(AnchorStyles = exports.AnchorStyles || (exports.AnchorStyles = {}));
 exports.Anchor = function (props) {
     return (React.createElement("a", { className: typestyle_1.classes(AnchorStyles.rootClassName, props.className), id: props.id, href: props.href, target: props.target, onClick: props.onClick }, props.children));
 };

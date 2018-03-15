@@ -1,5 +1,9 @@
 /// <reference types="react" />
 import * as React from 'react';
+export declare namespace AnchorStyles {
+    const rootClassName: string;
+    const anchorLookingLikeButton: string;
+}
 export interface AnchorProps {
     id?: string;
     href?: string;
