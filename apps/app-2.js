@@ -19190,7 +19190,9 @@ var Story = /** @class */ (function () {
             return highlighted;
         };
         ReactDOM.render(React.createElement("div", null,
-            React.createElement("div", { className: typestyle.style(csstips.horizontallyCenterSelf, csstips.maxWidth(900), csstips.verticallySpaced(10)) }, this.stories.map(function (s, i) {
+            React.createElement("div", { className: typestyle.style(csstips.horizontallyCenterSelf, csstips.verticallySpaced(10), 
+                /** Make sure stories don't clip - 6 */
+                csstips.maxWidth(900 - 6), csstips.padding(0, 6)) }, this.stories.map(function (s, i) {
                 return s.type === 'demo'
                     ? React.createElement("div", { key: i, className: typestyle_1.style(csstips.verticallySpaced(10)) },
                         React.createElement("div", null, s.demo),
