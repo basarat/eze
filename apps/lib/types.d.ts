@@ -30,6 +30,10 @@ export declare type StoryContent = {
     code: string;
     /** Each demo call has its code collected here */
     demoCodes: string[];
+    /**
+     * Helps us reload the demoCodes for a story in live reload scenario
+     */
+    entryPointPath: string;
 };
 export declare type ContentItem = HTMLContent | AppContent | StoryContent | CodeContent;
 export declare type TableOfContentPageRoot = {
