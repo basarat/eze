@@ -24,3 +24,8 @@ The following dependencies are used by the live reload workflow:
 * `serve-static` (and types) 
 * `connect-injector` (no types)
 * `onchange`
+
+# Webpack 
+
+* webpack (and type)
+* `@types/tapable` (needed for webpack types to work)
