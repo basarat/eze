@@ -1,6 +1,6 @@
 import { RenderConfig, Data, SupportedMode, TableOfContentEntry, PageConfig, Watch, PageTalkingToCollector } from '../types';
 import { toHtml, dedent, highlightCodeWithMode, MarkDownStyles } from './markdown';
-import { bundle } from './bundler/master';
+import { bundle } from './bundler/bundler';
 import * as fse from 'fs-extra';
 import { getDemoCodes, getMds } from './tsMagic/argumentCollector';
 import * as types from '../types';

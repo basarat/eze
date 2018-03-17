@@ -45,7 +45,10 @@ export function bundleWebpack(args: {
                     "es6",
                     "dom"
                   ]
-                }
+                },
+
+                /** Fastest compile possible */
+                transpileOnly: true
               }
             }
           ]
@@ -62,16 +65,6 @@ export function bundleWebpack(args: {
       };
 
       const compiler = webpack(config);
-      compiler.run(function(err, stats) {
-        if (err) {
-          console.error("BUNDLING FAILED:", args);
-          console.error(err);
-          rej(err);
-        }
-        else {
-          res();
-        }
-      });
 
       /** Built in watch support  */
       if (args.watch) {
@@ -79,9 +72,22 @@ export function bundleWebpack(args: {
         compiler.watch({}, () => {
           if (firstWatchCall) {
             firstWatchCall = false;
+            res();
           }
           else {
             args.watch();
+          }
+        });
+      }
+      else {
+        compiler.run(function(err, stats) {
+          if (err) {
+            console.error("BUNDLING FAILED:", args);
+            console.error(err);
+            rej(err);
+          }
+          else {
+            res();
           }
         });
       }
@@ -108,5 +114,12 @@ export function bundle(args: {
     console.error(error, args.entryMap);
     return Promise.reject(new Error(error));
   }
+
+  /** Make sure all paths are resolved before passing to webpack */
+  Object.keys(args.entryMap).forEach(key => {
+    args.entryMap[key] = path.resolve(args.entryMap[key]);
+  })
+  args.outputDirName = path.resolve(args.outputDirName);
+
   return bundleWebpack(args);
 }
