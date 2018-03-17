@@ -23,4 +23,4 @@ The following dependencies are used by the live reload workflow:
 * `connect` (and types) 
 * `serve-static` (and types) 
 * `connect-injector` (no types)
-* `chokidar` (and types)
+* `onchange`

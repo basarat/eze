@@ -22,7 +22,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "chokidar": "2.0.2",
     "connect": "3.6.6",
     "connect-injector": "0.4.4",
     "fs-extra": "5.0.0",
@@ -38,7 +37,6 @@
     "ws": "5.0.0"
   },
   "devDependencies": {
-    "@types/chokidar": "1.7.5",
     "@types/connect": "3.4.31",
     "@types/escape-html": "0.0.19",
     "@types/fs-extra": "5.0.1",
