@@ -17,7 +17,8 @@ export function bundleWebpack(args: {
   return new Promise((res, rej) => {
     try {
       const config: webpack.Configuration = {
-        devtool: 'source-map',
+        mode: "development",
+        devtool: "inline-source-map",
         entry: args.entryMap,
         output: {
           path: args.outputDirName,
@@ -52,16 +53,7 @@ export function bundleWebpack(args: {
               }
             }
           ]
-        },
-        /** Decrease noise */
-        stats: {
-          hash: false, version: false, timings: false, assets: false,
-          chunks: false, modules: false, reasons: false, children: false,
-          source: false, publicPath: false, warnings: true,
-          /** Errors only */
-          errors: true,
-          errorDetails: true,
-        },
+        }
       };
 
       const compiler = webpack(config);
