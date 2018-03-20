@@ -221,6 +221,13 @@ export class StoryRenderer extends React.PureComponent<types.StoryContent, { loa
     return <gls.VerticalMargined>
 
       <gls.ContentHorizontal>
+        {this.state.loading && <gls.ContentHorizontalMarginedCentered>
+          <Loader />
+          <P>
+            Story rendering
+          </P>
+        </gls.ContentHorizontalMarginedCentered>}
+
         <gls.Flex />
 
         <a target="_blank"
@@ -229,13 +236,6 @@ export class StoryRenderer extends React.PureComponent<types.StoryContent, { loa
           <icons.OpenExternal />
         </a>
       </gls.ContentHorizontal>
-
-      {this.state.loading && <gls.ContentHorizontalMarginedCentered>
-        <Loader />
-        <P>
-          Waiting for story render to complete
-        </P>
-      </gls.ContentHorizontalMarginedCentered>}
 
       {/** iframe the html */}
       <iframe
