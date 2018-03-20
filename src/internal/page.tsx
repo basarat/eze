@@ -74,6 +74,7 @@ export class Page {
 
   html(html: string) {
     this._data.contents.push({ pageSubDirName: this.config.subDirName, type: 'html', html });
+    return this;
   }
 
   githubStars({ user, repo }: { user: string, repo: string }) {
@@ -82,6 +83,7 @@ export class Page {
       pageSubDirName: this.config.subDirName,
       html: `<iframe src="https://ghbtns.com/github-btn.html?user=${user}&repo=${repo}&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>`
     });
+    return this;
   }
 
   md(markdown: string) {
