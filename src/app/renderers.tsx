@@ -107,9 +107,9 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
     }
   }
   componentDidMount() {
-    IframeC2PResize.on(({ iframeId }) => {
+    IframeC2PResize.on(({ iframeId, height }) => {
       if (iframeId === types.makeIframeId(this.props.index)) {
-        AppRendererStyles.resizeIframe(this.ctrls.frame);
+        this.ctrls.frame.style.height = height + 'px';
       }
     });
   }
@@ -183,11 +183,6 @@ export namespace StoryRendererStyles {
     transition: 'height .2s',
     height: '10px',
   });
-
-  /** Autosize the iframe to remove scroll bars http://stackoverflow.com/a/9976309/390330 */
-  export function resizeIframe(frame: HTMLIFrameElement, height: number) {
-    frame.style.height = height + 'px';
-  }
 }
 
 export class StoryRenderer extends React.PureComponent<types.StoryContent, { loading: boolean }> {
@@ -201,7 +196,7 @@ export class StoryRenderer extends React.PureComponent<types.StoryContent, { loa
     IframeC2PResize.on(({ iframeId, height }) => {
       if (iframeId === types.makeIframeId(this.props.index)) {
         this.setState({ loading: false });
-        StoryRendererStyles.resizeIframe(this.ctrls.frame, height);
+        this.ctrls.frame.style.height = height + 'px';
       }
     });
   }
