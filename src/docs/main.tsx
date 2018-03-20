@@ -50,7 +50,9 @@ render({
   Stories are lightweight applications designed to showcase simple components.
   
   You write them using \`import {story} from 'eze/lib/client'\`
-
+    `)
+    .md(`
+  ## Simple Stories
   As an example the following code:
   `)
     .code({
@@ -62,6 +64,20 @@ render({
   `)
     .story({
       entryPointPath: __dirname + '/story-1.tsx',
+    })
+    .md(`
+  ## Application Stories
+  Stories can even be complete component classes with their own state. e.g. the following code:
+  `)
+    .code({
+      mode: 'ts',
+      code: require('fs').readFileSync(__dirname + '/story-2.tsx').toString()
+    })
+    .md(`
+  Produces the following story:
+  `)
+    .story({
+      entryPointPath: __dirname + '/story-2.tsx',
     });
 
   /** Show some complete application demos */
