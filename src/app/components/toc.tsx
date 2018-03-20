@@ -7,7 +7,7 @@ import * as csstips from 'csstips';
 import { colors } from '../../internal/styles';
 import { TypedEvent } from "../../internal/utils";
 
-export const iframeRenderComplete = new TypedEvent<{ iframeId: string }>();
+export const IframeC2PResize = new TypedEvent<types.IframeC2PResize>();
 
 namespace TocStyles {
   export const tocAnchorClass = style(
@@ -103,8 +103,8 @@ window.addEventListener('message', (e) => {
   else if (data.type === 'IframeC2PSetHash') {
     window.location.hash = data.hash;
   }
-  else if (data.type === 'IframeC2PRenderComplete') {
-    iframeRenderComplete.emit({ iframeId: data.iframeId });
+  else if (data.type === 'IframeC2PResize') {
+    IframeC2PResize.emit(data);
   }
   else {
     const _ensure: never = data;

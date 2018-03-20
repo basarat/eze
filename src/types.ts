@@ -108,14 +108,15 @@ export type IframeC2PSetHash = {
   type: 'IframeC2PSetHash',
   hash: string,
 }
-export type IframeC2PRenderComplete = {
-  type: 'IframeC2PRenderComplete',
+export type IframeC2PResize = {
+  type: 'IframeC2PResize',
   iframeId: string,
+  height: number,
 }
 export type IframeC2PMessage =
   | IframeC2PScrollMore
   | IframeC2PSetHash
-  | IframeC2PRenderComplete
+  | IframeC2PResize
 
 /**
  * Watch mode configuration

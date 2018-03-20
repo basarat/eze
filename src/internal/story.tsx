@@ -112,9 +112,10 @@ export class Story {
 
 export function sendResizeRequest() {
   /** Tell the parent we are done */
-  const message: types.IframeC2PRenderComplete = {
-    type: 'IframeC2PRenderComplete',
-    iframeId: types.makeIframeId(data.index)
+  const message: types.IframeC2PResize = {
+    type: 'IframeC2PResize',
+    iframeId: types.makeIframeId(data.index),
+    height: document.getElementById('root').firstElementChild.scrollHeight,
   };
   window.parent.postMessage(message, '*');
 }
