@@ -12,6 +12,16 @@ import { Loader } from "./components/loader";
 import { P } from "./components/txt";
 import { IframeC2PResize } from './components/toc';
 
+
+const heightStore = new class {
+  get(iframeId: string) {
+    return parseInt(localStorage.getItem('heightStore' + iframeId) || '1');
+  }
+  set(iframeId: string, height: number) {
+    localStorage.setItem('heightStore' + iframeId, height.toString());
+  }
+}
+
 export class HtmlRenderer extends React.PureComponent<types.HTMLContent, {}> {
   render() {
     const { props } = this;
@@ -193,10 +203,13 @@ export class StoryRenderer extends React.PureComponent<types.StoryContent, { loa
     }
   }
   componentDidMount() {
+    const selfFrameId = types.makeIframeId(this.props.index);
+    this.ctrls.frame.style.height = heightStore.get(selfFrameId) + 'px';
     IframeC2PResize.on(({ iframeId, height }) => {
-      if (iframeId === types.makeIframeId(this.props.index)) {
+      if (iframeId === selfFrameId) {
         this.setState({ loading: false });
         this.ctrls.frame.style.height = height + 'px';
+        heightStore.set(selfFrameId, height);
       }
     });
   }
