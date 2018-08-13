@@ -23,6 +23,7 @@ export type AppContent = {
 
   sourceUrl?: string,
   height?: string,
+  width?: string,
 }
 export type StoryContent = {
   type: 'story',

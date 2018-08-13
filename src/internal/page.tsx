@@ -189,6 +189,7 @@ export class Page {
     entryPointPath,
     sourceUrl,
     height,
+    width,
   }: {
       entryPointPath: string,
       sourceUrl?: string,
@@ -198,6 +199,12 @@ export class Page {
        * If not specified we default to the iframe content scroll height
        **/
       height?: string
+      /** 
+       * If specified
+       * - becomes the width of the demo
+       * - disables responsive controls on the demo
+       */
+      width?: string
     }) {
     this.entryPointIndex++;
 
@@ -218,6 +225,7 @@ export class Page {
       ],
       sourceUrl,
       height: height,
+      width: width,
       pageSubDirName: this.config.subDirName
     };
 

@@ -143,6 +143,7 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
           AppRendererStyles.iframe,
           AppRendererStyles[this.state.mode],
           !!props.height && style({ height: props.height }),
+          !!props.width && style({ width: props.width })
         )}
         src={`./${props.htmlFileName}`}
         onLoad={e => {
@@ -152,12 +153,12 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
 
       { /** Controls */}
       <gls.ResponsiveGridParent breakpoint={650}>
-        <BreakpointButtons mode={this.state.mode} onModeChange={mode => {
+        {!this.props.width && <BreakpointButtons mode={this.state.mode} onModeChange={mode => {
           this.setState({ mode });
           setTimeout(() => {
             if (!props.height) AppRendererStyles.resizeIframe(this.ctrls.frame);
           }, 500);
-        }} />
+        }} />}
         <gls.ContentHorizontalMargined className={style(media({ minWidth: 650 }, csstips.endJustified))}>
           {!!props.sourceUrl && <a target="_blank" href={props.sourceUrl} title="View Source"><icons.File /></a>}
         </gls.ContentHorizontalMargined>
