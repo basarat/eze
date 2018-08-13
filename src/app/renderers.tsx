@@ -58,7 +58,7 @@ namespace AppRendererStyles {
   const bottomBorderHeight = 2;
 
   /** Keep centered with fixed widths */
-  const centerWidth = {
+  export const centerWidth = {
     position: 'relative' as 'relative',
     left: '50%',
     transform: 'translateX(-50%)'
@@ -143,7 +143,11 @@ export class AppRenderer extends React.PureComponent<types.AppContent, { mode?: 
           AppRendererStyles.iframe,
           AppRendererStyles[this.state.mode],
           !!props.height && style({ height: props.height }),
-          !!props.width && style({ width: props.width })
+          !!props.width && style(
+            AppRendererStyles.centerWidth,
+            {
+              width: props.width,
+            })
         )}
         src={`./${props.htmlFileName}`}
         onLoad={e => {
