@@ -10,13 +10,13 @@ export const getPort = (startPort: number): Promise<number> => {
         server.on('error', (err) => {
             tryGetPort(cb);
         });
-        server.listen(port, '0.0.0.0', (err) => {
+        server.listen(port, '0.0.0.0' as any, ((err) => {
             // Found one!
             server.once('close', () => {
                 cb(port);
             });
             server.close();
-        });
+        }) as any);
     }
 
     let resolve: (num: number) => void;
