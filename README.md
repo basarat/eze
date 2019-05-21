@@ -6,8 +6,6 @@
 [![NPM version][npm-image]][npm-url]
 [![Donate][paypal-image]][paypal-url]
 
-> [Powered by your github ⭐s](https://github.com/basarat/eze/stargazers)
-
 ## Install
 
 ```bash
