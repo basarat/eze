@@ -1,6 +1,6 @@
 {
   "name": "eze",
-  "version": "0.10.10",
+  "version": "0.11.0",
   "description": "Eze demos / docs for Component / Styleguide authors",
   "main": "lib/index.js",
   "types": "lib/index",
