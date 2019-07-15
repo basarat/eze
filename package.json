@@ -15,9 +15,9 @@
     "start": "npm run docs:live",
     "publishdocs": "ts-node ./scripts/publishdocs.ts",
     "buildtsc": "tsc -p .",
-    "preversion": "npm run buildtsc",
-    "postversion": "git push --follow-tags && npm publish",
-    "test": "npm run buildtsc && npm run docs"
+    "test": "npm run buildtsc && npm run docs",
+    "preversion": "npm run test",
+    "postversion": "git push --follow-tags && npm publish"
   },
   "author": "",
   "license": "MIT",
