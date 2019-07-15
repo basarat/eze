@@ -33,7 +33,7 @@
     "ts-loader": "4.1.0",
     "ts-node": "5.0.1",
     "typescript": "2.7.2",
-    "webpack": "4.1.1",
+    "webpack": "4.35.3",
     "ws": "5.0.0"
   },
   "devDependencies": {
@@ -46,7 +46,7 @@
     "@types/react-dom": "16.0.4",
     "@types/serve-static": "1.13.1",
     "@types/tapable": "1.0.0",
-    "@types/webpack": "4.1.1",
+    "@types/webpack": "4.4.35",
     "@types/ws": "4.0.1",
     "csstips": "0.2.2",
     "escape-html": "1.0.3",
