@@ -17,8 +17,7 @@ export function bundleWebpack(args: {
   return new Promise((res, rej) => {
     try {
       const config: webpack.Configuration = {
-        mode: "development",
-        devtool: "inline-source-map",
+        mode: 'production',
         entry: args.entryMap,
         output: {
           path: args.outputDirName,
@@ -72,7 +71,7 @@ export function bundleWebpack(args: {
         });
       }
       else {
-        compiler.run(function(err, stats) {
+        compiler.run(function (err, stats) {
           if (err) {
             console.error("BUNDLING FAILED:", args);
             console.error(err);
