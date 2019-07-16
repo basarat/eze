@@ -1,5 +1,7 @@
 # EZE
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/basarat/eze.svg)](https://greenkeeper.io/)
+
 > Making creating meaninful demos / styleguides easy ❤️
 
 [![Build Status][travis-image]][travis-url]
