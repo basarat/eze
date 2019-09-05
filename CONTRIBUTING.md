@@ -29,3 +29,6 @@ The following dependencies are used by the live reload workflow:
 
 * webpack (and type)
 * `@types/tapable` (needed for webpack types to work)
+
+# Release 
+`npm version major|minor|patch`
