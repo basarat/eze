@@ -10,6 +10,7 @@ if (process.argv.indexOf('--serve') !== -1) {
     [require.resolve('ts-node/dist/bin.js'), rootToExec, '--serve'],
     {
       initial: true,
+      // verbose: true, // DEBUG
       kill: true,
       poll: 1000
     }
