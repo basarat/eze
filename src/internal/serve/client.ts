@@ -57,10 +57,20 @@ function refreshCSS() {
   }
 }
 socket()
+var _waitingForReconnect = false;
 setInterval(function () {
   if (ws) {
-    if (ws.readyState !== 1) {
-      socket()
+    console.log(ws.readyState);
+    // Socket opened
+    if (ws.readyState === 1 && _waitingForReconnect) {
+      location.reload();
+    }
+
+    // Socket closed
+    if (ws.readyState === 3) {
+      _waitingForReconnect = true;
+      // Create a new one till one finally connects
+      socket();
     }
   } else {
     socket()
