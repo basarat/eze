@@ -60,7 +60,6 @@ socket()
 var _waitingForReconnect = false;
 setInterval(function () {
   if (ws) {
-    console.log(ws.readyState);
     // Socket opened
     if (ws.readyState === 1 && _waitingForReconnect) {
       location.reload();
